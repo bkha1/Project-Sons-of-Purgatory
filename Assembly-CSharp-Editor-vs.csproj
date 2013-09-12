@@ -75,6 +75,7 @@
      <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\glyph.xml" />
      <None Include="Assets\AstarPathfindingProject\ExampleScenes\Materials\Projector Light.shader" />
      <None Include="Assets\SpriteAtlases\level1.xml" />
+     <None Include="Assets\SpriteAtlases\bullets.xml" />
      <None Include="Assets\AstarPathfindingProject\Readme.txt" />
      <None Include="Assets\iTween\ReadMe!\ReadMe!.txt" />
      <None Include="Assets\SpriteAtlases\level.xml" />

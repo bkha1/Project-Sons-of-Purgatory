@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
 	private RaycastHit hit;
 	
 	// layer masks	
-	private int groundMask = 1 << 8; // layer = Ground
+	private int groundMask = 1 << 8; // layer = Ground/wall
 	private int shootMask = 1 << 8 | 1 << 9; // layers = Ground, Ladder
 		
 	private bool dropFromRope = false;
@@ -53,17 +53,41 @@ public class Player : MonoBehaviour {
 	
 	public void Update ()
 	{		
-		//UpdateRaycasts();
+		UpdateRaycasts();
 		
 		moveDirX = 0;
 		moveDirY = 0;
 		
+		if(xa.isLeft && !xa.blockedLeft)
+		{
+			moveDirX = -1;
+		}
+		
+		if(xa.isRight && !xa.blockedRight)
+		{
+			moveDirX = 1;
+		}
+		
+		if(xa.isUp && !xa.blockedUp)
+		{
+			moveDirY = 1;
+		}
+		
+		if(xa.isDown && !xa.blockedDown)
+		{
+			moveDirY = -1;
+		}
+		
+		/*
 		// move left
 		if(xa.isLeft && !xa.blockedLeft && !xa.shooting) 
 		{
 			moveDirX = -1;
 			xa.facingDir = 7;
 		}
+		
+		
+		
 		
 		// move right
 		if(xa.isRight && !xa.blockedRight && !xa.shooting) 
@@ -85,7 +109,7 @@ public class Player : MonoBehaviour {
 			moveDirY = -1;
 			xa.facingDir = 5;
 		}
-		
+		*/
 		/*
 		// drop from rope
 		if(xa.isDown && xa.onRope) 
@@ -106,13 +130,20 @@ public class Player : MonoBehaviour {
 	
 	void UpdateMovement() 
 	{
+		movement = new Vector3(moveDirX, moveDirY,0f);
+		movement *= Time.deltaTime*moveSpeed;
+		GetComponent<OTSprite>().position+=(Vector2)movement;
+		
+		/*
 		// player is not falling so move normally
 		//if(!xa.falling || xa.onLadder) 
 		//{
 			movement = new Vector3(moveDirX, moveDirY,0f);
 			movement *= Time.deltaTime*moveSpeed;
-			thisTransform.Translate(movement.x,movement.y, 0f);
-		//}
+			//thisTransform.Translate(movement.x,movement.y, 0f); //doesnt work
+		GetComponent<OTSprite>().position+=(Vector2)movement;
+		
+		//}*/
 		/*
 		// player is falling so apply gravity
 		else 
@@ -131,12 +162,15 @@ public class Player : MonoBehaviour {
 		// set these to false unless a condition below is met
 		xa.blockedRight = false;
 		xa.blockedLeft = false;
+		xa.blockedUp = false;
+		xa.blockedDown = false;
+		
 		shotBlockedLeft = false;
 		shotBlockedRight = false;
 		
 		// is the player is standing on the ground?
 		// cast 2 rays, one on each side of the character
-		if (Physics.Raycast(new Vector3(thisTransform.position.x-0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.7f, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.7f, groundMask))
+		/*if (Physics.Raycast(new Vector3(thisTransform.position.x-0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.7f, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.7f, groundMask))
 		{	
 			xa.falling = false;
 			
@@ -153,7 +187,7 @@ public class Player : MonoBehaviour {
 			if(!xa.onRope && !xa.falling && !xa.onLadder) {
 				xa.falling = true;
 			}
-		}
+		}*/
 		
 		// player is blocked by something on the right
 		// cast out 2 rays, one from the head and one from the feet
@@ -169,6 +203,19 @@ public class Player : MonoBehaviour {
 			xa.blockedLeft = true;
 		}
 		
+		//player is blocked by something on top
+		//casts out 2 rays, one from the left side and one from the right side
+		if(Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), Vector3.up, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x-0.4f, thisTransform.position.y,thisTransform.position.z+1f), Vector3.up, rayBlockedDistX, groundMask))
+		{
+			xa.blockedUp = true;
+		}
+		
+		if(Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x-0.4f, thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, rayBlockedDistX, groundMask))
+		{
+			xa.blockedDown = true;
+		}
+		
+		/*
 		// is there something blocking our shot to the right?
 		if (Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y,thisTransform.position.z+1f), Vector3.right, 1f, shootMask))
 		{
@@ -181,29 +228,30 @@ public class Player : MonoBehaviour {
 			shotBlockedLeft = true;
 		}
 		
+		*/
 		// did the shot hit a brick tile to the left?
-		if (Physics.Raycast(new Vector3(thisTransform.position.x-1f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.6f, groundMask))
-		{
-			if(!shotBlockedLeft && xa.isShoot && xa.facingDir == 1) {
+		//if (Physics.Raycast(new Vector3(thisTransform.position.x-1f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.6f, groundMask))
+		//{
+		//	if(!shotBlockedLeft && xa.isShoot && xa.facingDir == 1) {
 				// breaking bricks will be added in an upcomming tutorial
 				/*if (hit.transform.GetComponent<Brick>())
 				{
 					StartCoroutine(hit.transform.GetComponent<Brick>().PlayBreakAnim());
 				}*/
-			}
-		}
+		//	}
+		//}
 		
 		// did the shot hit a brick tile to the right?
-		if(Physics.Raycast(new Vector3(thisTransform.position.x+1f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.6f, groundMask))
-		{
-			if(!shotBlockedRight && xa.isShoot && xa.facingDir == 2) {
+		//if(Physics.Raycast(new Vector3(thisTransform.position.x+1f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.6f, groundMask))
+		//{
+		//	if(!shotBlockedRight && xa.isShoot && xa.facingDir == 2) {
 				// breaking bricks will be added in an upcomming tutorial
 				/*if (hit.transform.GetComponent<Brick>())
 				{
 					StartCoroutine(hit.transform.GetComponent<Brick>().PlayBreakAnim());
 				}*/
-			}
-		}
+		//	}
+		//}
 		
 		// is the player on the far right edge of the screen?
 		if (thisTransform.position.x + xa.playerHitboxX > (Camera.mainCamera.transform.position.x + xa.orthSizeX)) 
@@ -272,6 +320,13 @@ public class Player : MonoBehaviour {
 	
 	void OnTriggerStay(Collider other)
 	{
+		/*
+		if(other.gameObject.CompareTag ("Wall"))
+		{
+			Debug.Log("found a wall!");
+		}//end wall
+		*/
+		
 		// has the player been crushed by a block?
 		// this will be added in an upcomming tutorial
 		/*if (other.gameObject.CompareTag("Crusher"))
@@ -284,6 +339,7 @@ public class Player : MonoBehaviour {
 			}
 		}*/
 		
+		/*
 		// is the player overlapping a ladder?
 		if(other.gameObject.CompareTag("Ladder"))
 		{
@@ -338,10 +394,12 @@ public class Player : MonoBehaviour {
                 }
 			}
 		}
+		*/
 	}
 	
 	void OnTriggerExit(Collider other)
 	{
+		/*
 		// did the player exit a rope trigger?
 		if (other.gameObject.CompareTag("Rope"))
 		{
@@ -354,5 +412,6 @@ public class Player : MonoBehaviour {
 		{
 			xa.onLadder = false;
 		}
+		*/
 	}
 }

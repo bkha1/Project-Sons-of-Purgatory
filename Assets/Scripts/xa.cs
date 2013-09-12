@@ -81,7 +81,8 @@ public class xa : MonoBehaviour {
 		{ isShoot = true; }
 		*/
 		
-		//TODO:Make sure that the user cant hold down more than 2 directional keys
+		
+		
 		//new keyboard inputs
 		if(Input.GetKeyDown(KeyCode.A))
 		{ isLeft = true;}
@@ -120,5 +121,14 @@ public class xa : MonoBehaviour {
 		else
 		{ isDownRight = false; }
 		
+		/*
+		//TODO:Make sure that the user cant hold down more than 2 directional keys
+		if(isRight && isLeft)
+		{ isRight= true; isLeft = false; Debug.Log ("Right and Left pressed at the same time!");}
+		if(isUp && isDown)
+		{ isUp = true; isDown =false; Debug.Log("Up and Down pressed at the same time!");}
+		*/
+		
+		//Debug.Log("test");
 	}
 }
