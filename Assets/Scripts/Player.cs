@@ -10,6 +10,9 @@ public class Player : MonoBehaviour {
 	private Transform shootParent;
 	private Renderer shootRenderer;
 	private OTAnimatingSprite shootSprite;
+	
+	//testing stuff
+	public GameObject bullet;
 
 	// movement
 	private float moveSpeed = 5;
@@ -42,6 +45,8 @@ public class Player : MonoBehaviour {
     {
 		xa.alive = true;
 		spawnPoint = thisTransform.position; // player will respawn at initial starting point
+		
+		//xa.shooting = false;
 		
 		// connect external objects
 		//shootParent = transform.Find("shoot parent");
@@ -124,6 +129,13 @@ public class Player : MonoBehaviour {
 			StartCoroutine(Shoot());
 		}
 		*/
+		
+		//shooting
+		if(xa.isShoot)
+		{
+			Debug.Log ("SHOOTING");
+			StartCoroutine (Shoot ());
+		}
 
 		UpdateMovement();
 	}
@@ -272,6 +284,21 @@ public class Player : MonoBehaviour {
 	{
 		xa.shooting = true;
 		
+		Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+		
+		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
+		Destroy (newbullet,3);//destroys the newly created object in 3 seconds
+		
+		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
+		
+		//newbullet.transform.Translate(thisTransform.position);
+		//newbullet.transform.position = thisTransform.position;
+		//newbullet.transform.TransformPoint(10,10,-1);
+		//newbullet.transform.TransformDirection(100,100,-1);
+		//newbullet.transform.position = new Vector3(100,100,0);
+		Debug.Log("" + newbullet.transform.position.x + " " + newbullet.transform.position.y);
+		
+		/*
 		// show the shoot sprite and play the animation
 		shootRenderer.enabled = true;
 		shootSprite.Play("shoot");
@@ -285,11 +312,13 @@ public class Player : MonoBehaviour {
 		{
 			shootParent.localScale = new Vector3(-1,1,1); // right side
 		}
-		
+		*/
 		yield return new WaitForSeconds(0.4f);
 		
+		
 		// hide the sprite
-		shootRenderer.enabled = false;
+		//shootRenderer.enabled = false;
+		
 		xa.shooting = false;
 	}
 	

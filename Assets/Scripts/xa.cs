@@ -121,6 +121,12 @@ public class xa : MonoBehaviour {
 		else
 		{ isDownRight = false; }
 		
+		//Input for mouse
+		if(Input.GetMouseButtonDown(0))
+		{ Debug.Log("Left mouse button clicked!"); isShoot = true;}
+		if(Input.GetMouseButtonUp(0))
+		{ Debug.Log("Left mouse button up!"); isShoot = false;}
+		
 		/*
 		//TODO:Make sure that the user cant hold down more than 2 directional keys
 		if(isRight && isLeft)
