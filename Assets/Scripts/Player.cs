@@ -131,7 +131,7 @@ public class Player : MonoBehaviour {
 		*/
 		
 		//shooting
-		if(xa.isShoot)
+		if(xa.isShoot && !xa.shooting)
 		{
 			Debug.Log ("SHOOTING");
 			StartCoroutine (Shoot ());
@@ -291,12 +291,50 @@ public class Player : MonoBehaviour {
 		
 		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
 		
-		//newbullet.transform.Translate(thisTransform.position);
-		//newbullet.transform.position = thisTransform.position;
-		//newbullet.transform.TransformPoint(10,10,-1);
-		//newbullet.transform.TransformDirection(100,100,-1);
-		//newbullet.transform.position = new Vector3(100,100,0);
-		Debug.Log("" + newbullet.transform.position.x + " " + newbullet.transform.position.y);
+		Debug.Log("player:" + bulletpos.x + " " + bulletpos.y);
+		
+		//Vector2 mousepos = Input.mousePosition;
+		//Debug.Log(mousepos.x + " " + mousepos.y);
+		
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
+		Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
+		
+		
+		
+		
+		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		
+		Debug.Log("Degree:" + deg);
+		
+		//checking where player is clicking and adjusting it for 8way using the deg variable
+		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		{
+			Debug.Log("QUADRANT 1");
+		}
+		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		{
+			Debug.Log("QUADRANT 2");
+		}
+		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		{
+			Debug.Log("QUADRANT 3");
+		}
+		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		{
+			Debug.Log("QUADRANT 4");
+		}
+		else
+		{
+			Debug.Log("LACK OF QUADRANT?");
+		}
+		
+		
+		/*
+		movement = new Vector3(moveDirX, moveDirY,0f);
+		movement *= Time.deltaTime*moveSpeed;
+		GetComponent<OTSprite>().position+=(Vector2)movement;*/
 		
 		/*
 		// show the shoot sprite and play the animation
@@ -313,7 +351,7 @@ public class Player : MonoBehaviour {
 			shootParent.localScale = new Vector3(-1,1,1); // right side
 		}
 		*/
-		yield return new WaitForSeconds(0.4f);
+		yield return new WaitForSeconds(0.05f);
 		
 		
 		// hide the sprite
