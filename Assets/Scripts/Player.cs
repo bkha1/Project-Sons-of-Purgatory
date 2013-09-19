@@ -308,25 +308,104 @@ public class Player : MonoBehaviour {
 		
 		Debug.Log("Degree:" + deg);
 		
+		int quadr = 0;//records which quadrant was clicked
+		
 		//checking where player is clicking and adjusting it for 8way using the deg variable
 		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
 		{
-			Debug.Log("QUADRANT 1");
+			quadr = 1;
+			//Debug.Log("QUADRANT 1");
+			if(deg < 22.5)//target right
+			{
+				Debug.Log("TARGET RIGHT");
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else if(deg > 67.5) //target up
+			{
+				Debug.Log("TARGET UP");
+				newbullet.GetComponent<Bullet>().moveDirX=0;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
+			else //target upright
+			{
+				Debug.Log("TARGET UPRIGHT");
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
 		}
 		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
 		{
-			Debug.Log("QUADRANT 2");
+			quadr = 2;
+			//Debug.Log("QUADRANT 2");
+			if(deg < -67.5) //target up
+			{
+				Debug.Log("TARGET UP");
+				newbullet.GetComponent<Bullet>().moveDirX=0;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
+			else if(deg > -22.5)//target left
+			{
+				Debug.Log("TARGET LEFT");
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else //target upleft
+			{
+				Debug.Log("TARGET UPLEFT");
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
 		}
 		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
 		{
-			Debug.Log("QUADRANT 3");
+			quadr = 3;
+			//Debug.Log("QUADRANT 3");
+			if(deg < 22.5)//target left
+			{
+				Debug.Log("TARGET LEFT");
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else if(deg > 67.5)//target down
+			{
+				Debug.Log("TARGET DOWN");
+				newbullet.GetComponent<Bullet>().moveDirX=0;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			else//target downleft
+			{
+				Debug.Log("TARGET DOWNLEFT");
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
 		}
 		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
 		{
-			Debug.Log("QUADRANT 4");
+			quadr = 4;
+			//Debug.Log("QUADRANT 4");
+			if(deg < -67.5)//target down
+			{
+				Debug.Log("TARGET DOWN");
+				newbullet.GetComponent<Bullet>().moveDirX=0;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			else if(deg > -22.5)//target right
+			{
+				Debug.Log("TARGET RIGHT");
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else//target downright
+			{
+				Debug.Log("TARGET DOWNRIGHT");
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
 		}
 		else
 		{
+			quadr = 0;
 			Debug.Log("LACK OF QUADRANT?");
 		}
 		
