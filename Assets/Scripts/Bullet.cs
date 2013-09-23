@@ -7,9 +7,13 @@ public class Bullet : MonoBehaviour {
 	public int moveDirY = 1;
 	private Vector3 movement;
 	public int moveSpeed = 15;
+	
+	private GameObject thisGameObject;
 
 	// Use this for initialization
 	void Start () {
+		
+		thisGameObject = gameObject;
 	
 	}
 	
@@ -20,5 +24,10 @@ public class Bullet : MonoBehaviour {
 		movement *= Time.deltaTime*moveSpeed;
 		GetComponent<OTSprite>().position+=(Vector2)movement;
 	
+	}
+	
+	public void destroyMe()
+	{
+		Destroy(thisGameObject);
 	}
 }

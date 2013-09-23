@@ -203,26 +203,26 @@ public class Player : MonoBehaviour {
 		
 		// player is blocked by something on the right
 		// cast out 2 rays, one from the head and one from the feet
-		if (Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y+0.3f,thisTransform.position.z+1f), Vector3.right, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y-0.4f,thisTransform.position.z+1f), Vector3.right, rayBlockedDistX, groundMask))
+		if (Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y+0.3f,thisTransform.position.z+2f), Vector3.right, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y-0.4f,thisTransform.position.z+2f), Vector3.right, rayBlockedDistX, groundMask))
 		{
 			xa.blockedRight = true;
 		}
 		
 		// player is blocked by something on the left
 		// cast out 2 rays, one from the head and one from the feet
-		if (Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y+0.3f,thisTransform.position.z+1f), -Vector3.right, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y-0.4f,thisTransform.position.z+1f), -Vector3.right, rayBlockedDistX, groundMask))
+		if (Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y+0.3f,thisTransform.position.z+2f), -Vector3.right, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x,thisTransform.position.y-0.4f,thisTransform.position.z+2f), -Vector3.right, rayBlockedDistX, groundMask))
 		{
 			xa.blockedLeft = true;
 		}
 		
 		//player is blocked by something on top
 		//casts out 2 rays, one from the left side and one from the right side
-		if(Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), Vector3.up, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x-0.4f, thisTransform.position.y,thisTransform.position.z+1f), Vector3.up, rayBlockedDistX, groundMask))
+		if(Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+2f), Vector3.up, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x-0.4f, thisTransform.position.y,thisTransform.position.z+2f), Vector3.up, rayBlockedDistX, groundMask))
 		{
 			xa.blockedUp = true;
 		}
 		
-		if(Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x-0.4f, thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, rayBlockedDistX, groundMask))
+		if(Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+2f), -Vector3.up, rayBlockedDistX, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x-0.4f, thisTransform.position.y,thisTransform.position.z+2f), -Vector3.up, rayBlockedDistX, groundMask))
 		{
 			xa.blockedDown = true;
 		}

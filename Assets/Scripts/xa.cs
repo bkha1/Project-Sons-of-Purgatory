@@ -26,7 +26,6 @@ public class xa : MonoBehaviour {
 	public static bool isRight;
 	public static bool isUp;
 	public static bool isDown;
-	//TODO: add diagonal directions
 	public static bool isUpLeft;
 	public static bool isUpRight;
 	public static bool isDownLeft;
@@ -39,6 +38,9 @@ public class xa : MonoBehaviour {
 	public static bool onRope;
 	public static bool falling;
 	public static bool shooting;
+	
+	public static Vector3 playerPosition;
+	private GameObject[] players;
 
 	public static int facingDir = 1;//1 = up, 2 = upright, 3 = right, 4 = downright, 5 = down, 6 = downleft, 7 = left, 8 = upleft
 	
@@ -48,6 +50,7 @@ public class xa : MonoBehaviour {
 
 	public void Start()
 	{
+		players = GameObject.FindGameObjectsWithTag("Player");
 		//sc = (Scoring)(this.gameObject.GetComponent("Scoring")); // scoring will be added in an upcomming tutorial
 
 		// gather information from the camera to find the screen size
@@ -58,6 +61,8 @@ public class xa : MonoBehaviour {
 
 	public void Update() 
 	{
+		//find player's position
+		playerPosition = players[0].transform.position;
 		// these are false unless one of keys is pressed
 		/*isLeft = false;
 		isRight = false;
