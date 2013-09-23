@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 	
-	private bool isDead;
-	public float moveSpeed = 4;
+	private bool dead;
+	public float moveSpeed = 3;
 	private Vector3 movement;
 	private int moveDirX;
 	private int moveDirY;
@@ -12,14 +12,14 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		isDead = false;
+		dead = false;
 		moveDirX = 0;
 		moveDirY = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(!isDead)
+		if(!dead)
 		{
 			UpdateMovement();
 		}
@@ -97,18 +97,18 @@ public class Enemy : MonoBehaviour {
 				xa.sc.Pickup();
 			}
 		}*/
-		if(!isDead)
+		if(!dead)
 		{
 			if(other.gameObject.CompareTag("Bullet"))
 			{
-				if(other.GetComponent<Bullet>())
-				{
+				//if(other.GetComponent<Bullet>())
+				//{
 					Debug.Log("Bullet touched enemy!");
 					other.GetComponent<Bullet>().destroyMe();
 					//DestroyObject(other);
 					
 					killEnemy();
-				}
+				//}
 			}
 		}
 	}
@@ -119,6 +119,11 @@ public class Enemy : MonoBehaviour {
 		//gameObject.GetComponent<OTAnimatingSprite>().looping = false;
 		gameObject.GetComponent<OTAnimatingSprite>().depth = -1;
 		gameObject.GetComponent<OTAnimatingSprite>().Pauze();
-		isDead = true;
+		dead = true;
+	}
+	
+	public bool isDead()
+	{
+		return dead;
 	}
 }

@@ -36,6 +36,8 @@ public class Player : MonoBehaviour {
 	private Vector3 spawnPoint;
 	private Vector3 ladderHitbox;
 	
+	private bool isDead;
+	
 	void Awake() 
 	{
 		thisTransform = transform;
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour {
     {
 		xa.alive = true;
 		spawnPoint = thisTransform.position; // player will respawn at initial starting point
-		
+		isDead = false;
 		//xa.shooting = false;
 		
 		// connect external objects
@@ -462,6 +464,19 @@ public class Player : MonoBehaviour {
 				xa.sc.Pickup();
 			}
 		}*/
+		
+		if(!isDead)
+		{
+			if(other.gameObject.CompareTag("Enemy"))
+			{
+				if(!other.GetComponent<Enemy>().isDead())
+				{
+					isDead = true;
+					gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
+				}
+			}
+		}
+		
 	}
 	
 	void OnTriggerStay(Collider other)
