@@ -8,6 +8,7 @@ using System.Collections;
 public class xa : MonoBehaviour {
 
 	//public static Scoring sc; // scoring will be added in an upcomming tutorial
+	public static KillCount sc;
 
 	public static float orthSize;
 	public static float orthSizeX;
@@ -41,6 +42,7 @@ public class xa : MonoBehaviour {
 	
 	public static Vector3 playerPosition;
 	private GameObject[] players;
+	public static bool playerdead = false;
 
 	public static int facingDir = 1;//1 = up, 2 = upright, 3 = right, 4 = downright, 5 = down, 6 = downleft, 7 = left, 8 = upleft
 	
@@ -52,6 +54,7 @@ public class xa : MonoBehaviour {
 	{
 		players = GameObject.FindGameObjectsWithTag("Player");
 		//sc = (Scoring)(this.gameObject.GetComponent("Scoring")); // scoring will be added in an upcomming tutorial
+		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
 
 		// gather information from the camera to find the screen size
 		xa.camRatio = 1.333f; // 4:3 is 1.333f (800x600) 
@@ -63,6 +66,7 @@ public class xa : MonoBehaviour {
 	{
 		//find player's position
 		playerPosition = players[0].transform.position;
+		playerdead = players[0].GetComponent<Player>().isDead();
 		// these are false unless one of keys is pressed
 		/*isLeft = false;
 		isRight = false;

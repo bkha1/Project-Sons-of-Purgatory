@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour {
 	private bool isSpawning = false;
 	public GameObject enemyToSpawn;
 	private Vector2 spawnlocation = new Vector2(0,0);
+	
+	private double spawnrate = 1.5;
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +16,25 @@ public class EnemySpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//Debug.Log(xa.sc.getKillValue());
+		
+		if(xa.sc.getKillValue() > 200)
+		{
+			spawnrate = .6;
+			Debug.Log ("spawnrate .6");
+		}
+		else if(xa.sc.getKillValue() > 150)
+		{
+			spawnrate = .8;
+		}
+		else if(xa.sc.getKillValue() > 100)
+		{
+			spawnrate = 1;
+		}
+		else if(xa.sc.getKillValue() > 50)
+		{
+			spawnrate = 1.2;
+		}
 		
 		if(!isSpawning)
 		{
@@ -49,7 +70,7 @@ public class EnemySpawner : MonoBehaviour {
 		
 		newEnemy.GetComponent<OTAnimatingSprite>().position = spawnlocation;
 			
-		yield return new WaitForSeconds(1.2f);
+		yield return new WaitForSeconds((float)spawnrate);
 		
 		isSpawning = false;
 	}
