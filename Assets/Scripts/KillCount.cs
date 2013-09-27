@@ -22,10 +22,10 @@ public class KillCount : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!xa.playerdead)
-		{
+		//if(!xa.playerdead)
+		//{
 			timeIncrease();
-		}
+		//}
 	
 	}
 	

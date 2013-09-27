@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour {
 			{
 				//if(other.GetComponent<Bullet>())
 				//{
-					Debug.Log("Bullet touched enemy!");
+					//Debug.Log("Bullet touched enemy!");
 					other.GetComponent<Bullet>().destroyMe();
 					//DestroyObject(other);
 					

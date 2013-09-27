@@ -135,7 +135,7 @@ public class Player : MonoBehaviour {
 		//shooting
 		if(xa.isShoot && !xa.shooting)
 		{
-			Debug.Log ("SHOOTING");
+			//Debug.Log ("SHOOTING");
 			StartCoroutine (Shoot ());
 		}
 
@@ -294,14 +294,12 @@ public class Player : MonoBehaviour {
 		
 		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
 		
-		Debug.Log("player:" + bulletpos.x + " " + bulletpos.y);
+		//Debug.Log("player:" + bulletpos.x + " " + bulletpos.y);
 		
-		//Vector2 mousepos = Input.mousePosition;
-		//Debug.Log(mousepos.x + " " + mousepos.y);
 		
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
-		Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
+		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
 		
 		
 		
@@ -309,7 +307,7 @@ public class Player : MonoBehaviour {
 		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
 		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
 		
-		Debug.Log("Degree:" + deg);
+		//Debug.Log("Degree:" + deg);
 		
 		int quadr = 0;//records which quadrant was clicked
 		
@@ -320,19 +318,19 @@ public class Player : MonoBehaviour {
 			//Debug.Log("QUADRANT 1");
 			if(deg < 22.5)//target right
 			{
-				Debug.Log("TARGET RIGHT");
+				//Debug.Log("TARGET RIGHT");
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
 			}
 			else if(deg > 67.5) //target up
 			{
-				Debug.Log("TARGET UP");
+				//Debug.Log("TARGET UP");
 				newbullet.GetComponent<Bullet>().moveDirX=0;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
 			else //target upright
 			{
-				Debug.Log("TARGET UPRIGHT");
+				//Debug.Log("TARGET UPRIGHT");
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
@@ -343,19 +341,19 @@ public class Player : MonoBehaviour {
 			//Debug.Log("QUADRANT 2");
 			if(deg < -67.5) //target up
 			{
-				Debug.Log("TARGET UP");
+				//Debug.Log("TARGET UP");
 				newbullet.GetComponent<Bullet>().moveDirX=0;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
 			else if(deg > -22.5)//target left
 			{
-				Debug.Log("TARGET LEFT");
+				//Debug.Log("TARGET LEFT");
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
 			}
 			else //target upleft
 			{
-				Debug.Log("TARGET UPLEFT");
+				//Debug.Log("TARGET UPLEFT");
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
@@ -366,19 +364,19 @@ public class Player : MonoBehaviour {
 			//Debug.Log("QUADRANT 3");
 			if(deg < 22.5)//target left
 			{
-				Debug.Log("TARGET LEFT");
+				//Debug.Log("TARGET LEFT");
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
 			}
 			else if(deg > 67.5)//target down
 			{
-				Debug.Log("TARGET DOWN");
+				//Debug.Log("TARGET DOWN");
 				newbullet.GetComponent<Bullet>().moveDirX=0;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
 			}
 			else//target downleft
 			{
-				Debug.Log("TARGET DOWNLEFT");
+				//Debug.Log("TARGET DOWNLEFT");
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
 			}
@@ -389,19 +387,19 @@ public class Player : MonoBehaviour {
 			//Debug.Log("QUADRANT 4");
 			if(deg < -67.5)//target down
 			{
-				Debug.Log("TARGET DOWN");
+				//Debug.Log("TARGET DOWN");
 				newbullet.GetComponent<Bullet>().moveDirX=0;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
 			}
 			else if(deg > -22.5)//target right
 			{
-				Debug.Log("TARGET RIGHT");
+				//Debug.Log("TARGET RIGHT");
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
 			}
 			else//target downright
 			{
-				Debug.Log("TARGET DOWNRIGHT");
+				//Debug.Log("TARGET DOWNRIGHT");
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
 			}
@@ -409,7 +407,7 @@ public class Player : MonoBehaviour {
 		else
 		{
 			quadr = 0;
-			Debug.Log("LACK OF QUADRANT?");
+			//Debug.Log("LACK OF QUADRANT?");
 		}
 		
 		
