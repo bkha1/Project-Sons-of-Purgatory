@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	
-	public int moveDirX = 1;
-	public int moveDirY = 1;
+	public float moveDirX = 1;
+	public float moveDirY = 1;
 	private Vector3 movement;
 	public int moveSpeed = 15;
 	

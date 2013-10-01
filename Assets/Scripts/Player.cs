@@ -316,7 +316,7 @@ public class Player : MonoBehaviour {
 		{
 			quadr = 1;
 			//Debug.Log("QUADRANT 1");
-			if(deg < 22.5)//target right
+			/*if(deg < 22.5)//target right
 			{
 				//Debug.Log("TARGET RIGHT");
 				newbullet.GetComponent<Bullet>().moveDirX=1;
@@ -333,12 +333,44 @@ public class Player : MonoBehaviour {
 				//Debug.Log("TARGET UPRIGHT");
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}*/
+			
+			if(deg <= 11.25)//target right
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
+			{
+				newbullet.GetComponent<Bullet>().moveDirX = 1;
+				newbullet.GetComponent<Bullet>().moveDirY= .5f;
+			}
+			else if(deg <=56.25 && deg > 33.75)//target upright
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
+			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
+			{
+				newbullet.GetComponent<Bullet>().moveDirX = .5f;
+				newbullet.GetComponent<Bullet>().moveDirY= 1;
+			}
+			else if(deg > 78.75)//target up
+			{
+				newbullet.GetComponent<Bullet>().moveDirX = 0;
+				newbullet.GetComponent<Bullet>().moveDirY= 1;
+			}
+			else
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
 		}
 		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
 		{
 			quadr = 2;
 			//Debug.Log("QUADRANT 2");
+			/*
 			if(deg < -67.5) //target up
 			{
 				//Debug.Log("TARGET UP");
@@ -357,11 +389,44 @@ public class Player : MonoBehaviour {
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
+			*/
+			
+			if(deg <= -78.75)//up
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=0;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
+			else if(deg <= -56.25 && deg > -78.75)//11
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-.5f;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
+			else if(deg <= -33.75 && deg > -56.25)//upleft
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
+			else if(deg <= -11.25 && deg > -33.75)//10
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=.5f;
+			}
+			else if(deg > -11.25)//left
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=1;
+			}
 		}
 		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
 		{
 			quadr = 3;
 			//Debug.Log("QUADRANT 3");
+			/*
 			if(deg < 22.5)//target left
 			{
 				//Debug.Log("TARGET LEFT");
@@ -379,12 +444,45 @@ public class Player : MonoBehaviour {
 				//Debug.Log("TARGET DOWNLEFT");
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}*/
+			
+			if(deg <= 11.25)//target left
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
 			}
+			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
+			{
+				newbullet.GetComponent<Bullet>().moveDirX = -1;
+				newbullet.GetComponent<Bullet>().moveDirY= -.5f;
+			}
+			else if(deg <=56.25 && deg > 33.75)//target downleft
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
+			{
+				newbullet.GetComponent<Bullet>().moveDirX = -.5f;
+				newbullet.GetComponent<Bullet>().moveDirY= -1;
+			}
+			else if(deg > 78.75)//target down
+			{
+				newbullet.GetComponent<Bullet>().moveDirX = 0;
+				newbullet.GetComponent<Bullet>().moveDirY= -1;
+			}
+			else
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=-1;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			
 		}
 		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
 		{
 			quadr = 4;
 			//Debug.Log("QUADRANT 4");
+			/*
 			if(deg < -67.5)//target down
 			{
 				//Debug.Log("TARGET DOWN");
@@ -400,6 +498,37 @@ public class Player : MonoBehaviour {
 			else//target downright
 			{
 				//Debug.Log("TARGET DOWNRIGHT");
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}*/
+			
+			if(deg <= -78.75)//down
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=0;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			else if(deg <= -56.25 && deg > -78.75)//5
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=.5f;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			else if(deg <= -33.75 && deg > -56.25)//downright
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=-1;
+			}
+			else if(deg <= -11.25 && deg > -33.75)//4
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=-.5f;
+			}
+			else if(deg > -11.25)//right
+			{
+				newbullet.GetComponent<Bullet>().moveDirX=1;
+				newbullet.GetComponent<Bullet>().moveDirY=0;
+			}
+			else
+			{
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
 			}
@@ -439,7 +568,7 @@ public class Player : MonoBehaviour {
 		//shootRenderer.enabled = false;
 		
 		xa.shooting = false;
-	}
+	}//end shoot()
 	
 	/* ============================== DEATH AND RESPAWN ====================================================================== */
 	
@@ -476,7 +605,6 @@ public class Player : MonoBehaviour {
 				}
 			}
 		}
-		
 	}
 	
 	void OnTriggerStay(Collider other)
