@@ -7,9 +7,9 @@ public class KillCount : MonoBehaviour {
 	public TextMesh bulletValueText;
 	public TextMesh timeValueText;
 	
-	private int killValue = 0;
-	private int bulletValue = 0;
-	private float timeValue = 0;
+	private static int killValue = 0;
+	private static int bulletValue = 0;
+	private static float timeValue = 0;
 
 	// Use this for initialization
 	void Start () {
