@@ -9,9 +9,32 @@ public class DungeonGenerator : MonoBehaviour {
 	private int numofblocks;
 	
 	private int orientation;
+	
+	private int topmosti;
+	private int topmostj;
+	
+	private int rightmosti;
+	private int rightmostj;
+	
+	private int leftmosti;
+	private int leftmostj;
+	
+	private int bottommosti;
+	private int bottommostj;
 
 	// Use this for initialization
 	void Start () {
+		topmosti = 16;
+		topmostj = 16;
+		
+		rightmosti = 16;
+		rightmostj = 16;
+		
+		leftmosti = 16;
+		leftmostj = 16;
+		
+		bottommosti = 16;
+		bottommostj = 16;
 		
 		numofblocks = 0;
 		//count = 0;
@@ -31,11 +54,20 @@ public class DungeonGenerator : MonoBehaviour {
 		//createLine ();
 		//createSquare();
 		//createL();
-		//createT();
+		createT();
 		//createS();
 		//createZ();
 		//createJ();
-		//Debug.Log ("placed block " + numofblocks);
+		
+		findTopmost();
+		Debug.Log ("topmost " + topmosti + " " + topmostj);
+		findRightmost();
+		Debug.Log ("rightmost " + rightmosti + " " + rightmostj);
+		findLeftmost();
+		Debug.Log ("leftmost " + leftmosti + " " + leftmostj);
+		findBottommost();
+		Debug.Log ("bottommost " + bottommosti + " " + bottommostj);
+		Debug.Log("isWider " + isWider());
 		
 		for (int i = 0; i < 16; i++)
 		{
@@ -74,6 +106,16 @@ public class DungeonGenerator : MonoBehaviour {
 				floor[15,2] = 1;
 				floor[15,3] = 1;
 			}	
+		}
+		else
+		{
+			if(orientation == 0)//upright
+			{
+				
+			}
+			else//side
+			{
+			}
 		}
 		numofblocks++;
 		Debug.Log ("placed Line " + numofblocks);
@@ -257,9 +299,132 @@ public class DungeonGenerator : MonoBehaviour {
 	
 	void findTopmost()
 	{
+		topmosti = 16;
+		topmostj = 16;
+		
+		for(int i = 0; i < 16; i++)
+		{
+			for(int j = 0; j < 16; j++)
+			{
+				
+				if(floor[i,j] == 1)
+				{	
+					topmosti = i;
+					topmostj = j;
+					break;
+				}
+			}
+			
+			if(topmosti != 16 && topmostj != 16)
+			{
+				break;
+			}
+		}
 	}//end findTopmost
 	
 	void findRightmost()
 	{
+		rightmosti = 16;
+		rightmostj = 16;
+		
+		for(int j = 15; j > -1; j--)
+		{
+			for(int i = 0; i < 16; i++)
+			{
+				if(floor[i,j] == 1)
+				{
+					rightmosti = i;
+					rightmostj = j;
+					break;
+				}
+			}
+			
+			if(rightmosti != 16 && rightmostj != 16)
+			{
+				break;
+			}
+		}
 	}//end findRightmost
+	
+	void findLeftmost()
+	{
+		leftmosti = 16;
+		leftmostj = 16;
+		
+		for(int j = 0; j < 16; j++)
+		{
+			for(int i = 15; i > -1; i--)
+			{
+				if(floor[i,j] == 1)
+				{
+					leftmosti = i;
+					leftmostj = j;
+					break;
+				}
+			}
+			
+			if(leftmosti != 16 && leftmostj != 16)
+			{
+				break;
+			}
+		}
+	}//end findLeftmost
+	
+	void findBottommost()
+	{
+		bottommosti = 16;
+		bottommostj = 16;
+		
+		for(int i = 15; i > -1; i--)
+		{
+			for(int j = 15; j > -1; j--)
+			{
+				if(floor[i,j] == 1)
+				{
+					bottommosti = i;
+					bottommostj = j;
+					break;
+				}
+			}
+			
+			if(bottommosti != 16 && bottommostj != 16)
+			{
+				break;
+			}
+		}
+	}//end findBottommost
+	
+	bool checkTraversable()
+	{
+		if(numofblocks != 0)
+		{
+		}
+		return false;
+	}//end checkTraversable
+	
+	bool isWider()
+	{
+		findRightmost();
+		findTopmost();
+		
+		if(rightmostj > (15 - topmosti))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	void decideSurface()//goes over available surfaces and randomly chooses one (includes an empty surface on the right hand side if there is one available)
+	{
+	}//end decideSurface
+	
+	void selectStart()
+	{
+		
+	}//selectStart
+	
+	void selectEnd()
+	{
+	}//end selectEnd
 }
