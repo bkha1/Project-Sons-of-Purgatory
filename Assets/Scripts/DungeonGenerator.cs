@@ -21,6 +21,9 @@ public class DungeonGenerator : MonoBehaviour {
 	
 	private int bottommosti;
 	private int bottommostj;
+	
+	private int decidesurfacei;
+	private int decidesurfacej;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +38,9 @@ public class DungeonGenerator : MonoBehaviour {
 		
 		bottommosti = 16;
 		bottommostj = 16;
+		
+		decidesurfacei = 16;
+		decidesurfacej = 16;
 		
 		numofblocks = 0;
 		//count = 0;
@@ -58,6 +64,7 @@ public class DungeonGenerator : MonoBehaviour {
 		//createS();
 		//createZ();
 		//createJ();
+		createLine ();
 		
 		findTopmost();
 		Debug.Log ("topmost " + topmosti + " " + topmostj);
@@ -68,6 +75,8 @@ public class DungeonGenerator : MonoBehaviour {
 		findBottommost();
 		Debug.Log ("bottommost " + bottommosti + " " + bottommostj);
 		Debug.Log("isWider " + isWider());
+		//decideSurface();
+		//Debug.Log("decideSurface " + decidesurfacei + " " + decidesurfacej);
 		
 		for (int i = 0; i < 16; i++)
 		{
@@ -109,12 +118,68 @@ public class DungeonGenerator : MonoBehaviour {
 		}
 		else
 		{
+			int i = 1;
 			if(orientation == 0)//upright
 			{
-				
+				while(i == 1)
+				{
+					decideSurface();
+					if(decidesurfacei != 15)
+					{
+						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-3,decidesurfacej]==0 && floor[decidesurfacei-4,decidesurfacej]==0)
+						{
+							floor[decidesurfacei-1,decidesurfacej] = 1;
+							floor[decidesurfacei-2,decidesurfacej] = 1;
+							floor[decidesurfacei-3,decidesurfacej] = 1;
+							floor[decidesurfacei-4,decidesurfacej] = 1;
+							i = 0;
+							break;
+						}
+					}
+					else
+					{
+						if(floor[decidesurfacei,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-3,decidesurfacej]==0)
+						{
+							floor[decidesurfacei,decidesurfacej] = 1;
+							floor[decidesurfacei-1,decidesurfacej] = 1;
+							floor[decidesurfacei-2,decidesurfacej] = 1;
+							floor[decidesurfacei-3,decidesurfacej] = 1;
+							i = 0;
+							break;
+						}
+					}
+				}
 			}
 			else//side
 			{
+				while(i == 1)
+				{
+					decideSurface();
+					if(decidesurfacei != 15)
+					{
+						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+2]==0 && floor[decidesurfacei-1,decidesurfacej+3]==0)
+						{
+							floor[decidesurfacei-1,decidesurfacej]=1;
+							floor[decidesurfacei-1,decidesurfacej+1]=1;
+							floor[decidesurfacei-1,decidesurfacej+2]=1;
+							floor[decidesurfacei-1,decidesurfacej+3]=1;
+							i = 0;
+							break;
+						}
+					}
+					else
+					{
+						if(floor[decidesurfacei,decidesurfacej]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei,decidesurfacej+2]==0 && floor[decidesurfacei,decidesurfacej+3]==0)
+						{
+							floor[decidesurfacei,decidesurfacej]=1;
+							floor[decidesurfacei,decidesurfacej+1]=1;
+							floor[decidesurfacei,decidesurfacej+2]=1;
+							floor[decidesurfacei,decidesurfacej+3]=1;
+							i = 0;
+							break;
+						}
+					}
+				}
 			}
 		}
 		numofblocks++;
@@ -394,13 +459,13 @@ public class DungeonGenerator : MonoBehaviour {
 		}
 	}//end findBottommost
 	
-	bool checkTraversable()
+	/*bool checkTraversable()
 	{
 		if(numofblocks != 0)
 		{
 		}
 		return false;
-	}//end checkTraversable
+	}//end checkTraversable*/
 	
 	bool isWider()
 	{
@@ -417,14 +482,28 @@ public class DungeonGenerator : MonoBehaviour {
 	
 	void decideSurface()//goes over available surfaces and randomly chooses one (includes an empty surface on the right hand side if there is one available)
 	{
+		decidesurfacei = 16;
+		decidesurfacej = 16;
+		findRightmost ();
+		int j = Random.Range(0,rightmostj + 2);
+		
+		decidesurfacej = j;
+		for(int i = 0; i < 16; i++)
+		{
+			decidesurfacei = i;
+			if(floor[i,j] == 1)
+			{		
+				break;
+			}
+		}
 	}//end decideSurface
 	
-	void selectStart()
+	void selectStartpoint()
 	{
 		
 	}//selectStart
 	
-	void selectEnd()
+	void selectEndpoint()
 	{
 	}//end selectEnd
 }
