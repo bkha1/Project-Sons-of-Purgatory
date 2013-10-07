@@ -56,16 +56,9 @@ public class DungeonGenerator : MonoBehaviour {
 			}//end for
 		}//end for
 		
-		
-		//createLine ();
-		//createSquare();
-		//createL();
-		createT();
-		//createS();
-		//createZ();
-		//createJ();
 		createLine ();
 		createSquare ();
+		createL();
 		
 		findTopmost();
 		Debug.Log ("topmost " + topmosti + " " + topmostj);
@@ -125,7 +118,7 @@ public class DungeonGenerator : MonoBehaviour {
 				while(i == 1)
 				{
 					decideSurface();
-					if(decidesurfacei != 15)
+					if(decidesurfacei != -1)
 					{
 						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-3,decidesurfacej]==0 && floor[decidesurfacei-4,decidesurfacej]==0)
 						{
@@ -139,12 +132,12 @@ public class DungeonGenerator : MonoBehaviour {
 					}
 					else
 					{
-						if(floor[decidesurfacei,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-3,decidesurfacej]==0)
+						if((floor[15,decidesurfacej-1] != 0 || floor[14,decidesurfacej-1] !=0 || floor[13,decidesurfacej-1] !=0 || floor[12,decidesurfacej-1] !=0) && floor[15,decidesurfacej]==0 && floor[14,decidesurfacej]==0 && floor[13,decidesurfacej]==0 && floor[12,decidesurfacej]==0)
 						{
-							floor[decidesurfacei,decidesurfacej] = numofblocks+1;
-							floor[decidesurfacei-1,decidesurfacej] = numofblocks+1;
-							floor[decidesurfacei-2,decidesurfacej] = numofblocks+1;
-							floor[decidesurfacei-3,decidesurfacej] = numofblocks+1;
+							floor[15,decidesurfacej] = numofblocks+1;
+							floor[14,decidesurfacej] = numofblocks+1;
+							floor[13,decidesurfacej] = numofblocks+1;
+							floor[12,decidesurfacej] = numofblocks+1;
 							i = 0;
 							break;
 						}
@@ -156,7 +149,7 @@ public class DungeonGenerator : MonoBehaviour {
 				while(i == 1)
 				{
 					decideSurface();
-					if(decidesurfacei != 15)
+					if(decidesurfacei != -1)
 					{
 						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+2]==0 && floor[decidesurfacei-1,decidesurfacej+3]==0)
 						{
@@ -170,12 +163,12 @@ public class DungeonGenerator : MonoBehaviour {
 					}
 					else
 					{
-						if(floor[decidesurfacei,decidesurfacej]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei,decidesurfacej+2]==0 && floor[decidesurfacei,decidesurfacej+3]==0)
+						if(floor[15,decidesurfacej-1] != 0 && floor[15,decidesurfacej]==0 && floor[15,decidesurfacej+1]==0 && floor[15,decidesurfacej+2]==0 && floor[15,decidesurfacej+3]==0)
 						{
-							floor[decidesurfacei,decidesurfacej]=numofblocks+1;
-							floor[decidesurfacei,decidesurfacej+1]=numofblocks+1;
-							floor[decidesurfacei,decidesurfacej+2]=numofblocks+1;
-							floor[decidesurfacei,decidesurfacej+3]=numofblocks+1;
+							floor[15,decidesurfacej]=numofblocks+1;
+							floor[15,decidesurfacej+1]=numofblocks+1;
+							floor[15,decidesurfacej+2]=numofblocks+1;
+							floor[15,decidesurfacej+3]=numofblocks+1;
 							i = 0;
 							break;
 						}
@@ -203,7 +196,7 @@ public class DungeonGenerator : MonoBehaviour {
 			while(i == 1)
 			{
 				decideSurface();
-				if(decidesurfacei != 15)
+				if(decidesurfacei != -1)
 				{
 					if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0)
 					{
@@ -217,12 +210,12 @@ public class DungeonGenerator : MonoBehaviour {
 				}
 				else
 				{
-					if(floor[decidesurfacei, decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0)
+					if((floor[15,decidesurfacej-1] != 0 || floor[14,decidesurfacej-1] !=0) && floor[15, decidesurfacej]==0 && floor[14,decidesurfacej]==0 && floor[15,decidesurfacej+1]==0 && floor[14,decidesurfacej+1]==0)
 					{
-						floor[decidesurfacei, decidesurfacej]=numofblocks+1;
-						floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
-						floor[decidesurfacei,decidesurfacej+1]=numofblocks+1;
-						floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+						floor[15, decidesurfacej]=numofblocks+1;
+						floor[14,decidesurfacej]=numofblocks+1;
+						floor[15,decidesurfacej+1]=numofblocks+1;
+						floor[14,decidesurfacej+1]=numofblocks+1;
 						i=0;
 						break;
 					}
@@ -275,7 +268,7 @@ public class DungeonGenerator : MonoBehaviour {
 				while(i==1)
 				{
 					decideSurface();
-					if(decidesurfacei != 15)
+					if(decidesurfacei != -1)
 					{
 						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-3,decidesurfacej]==0)
 						{
@@ -289,12 +282,12 @@ public class DungeonGenerator : MonoBehaviour {
 					}
 					else
 					{
-						if(floor[decidesurfacei,decidesurfacej]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0)
+						if((floor[15,decidesurfacej-1] != 0 || floor[14,decidesurfacej-1] !=0 || floor[13,decidesurfacej-1] !=0) && floor[15,decidesurfacej]==0 && floor[15,decidesurfacej+1]==0 && floor[14,decidesurfacej]==0 && floor[13,decidesurfacej]==0)
 						{
-							floor[decidesurfacei,decidesurfacej]=numofblocks+1;
-							floor[decidesurfacei,decidesurfacej+1]=numofblocks+1;
-							floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
-							floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
+							floor[15,decidesurfacej]=numofblocks+1;
+							floor[15,decidesurfacej+1]=numofblocks+1;
+							floor[14,decidesurfacej]=numofblocks+1;
+							floor[13,decidesurfacej]=numofblocks+1;
 							
 							i=0;
 							break;
@@ -308,7 +301,7 @@ public class DungeonGenerator : MonoBehaviour {
 				while(i==1)
 				{
 					decideSurface();
-					if(decidesurfacei != 15)
+					if(decidesurfacei != -1)
 					{
 						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej+2]==0)
 						{
@@ -323,12 +316,12 @@ public class DungeonGenerator : MonoBehaviour {
 					}
 					else
 					{
-						if(floor[decidesurfacei,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+2]==0)
+						if((floor[15,decidesurfacej-1] != 0 || floor[14,decidesurfacej-1] !=0) && floor[15,decidesurfacej]==0 && floor[14,decidesurfacej]==0 && floor[14,decidesurfacej+1]==0 && floor[14,decidesurfacej+2]==0)
 						{
-							floor[decidesurfacei,decidesurfacej]=numofblocks+1;
-							floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
-							floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
-							floor[decidesurfacei-1,decidesurfacej+2]=numofblocks+1;
+							floor[15,decidesurfacej]=numofblocks+1;
+							floor[14,decidesurfacej]=numofblocks+1;
+							floor[14,decidesurfacej+1]=numofblocks+1;
+							floor[14,decidesurfacej+2]=numofblocks+1;
 							i=0;
 							break;
 						}
@@ -340,18 +333,81 @@ public class DungeonGenerator : MonoBehaviour {
 				while(i==1)
 				{
 					decideSurface();
-					if(decidesurfacei != 15)//needs to check if the bottommost block has a foothold, else let it cling to the leftmostblock
+					if(decidesurfacei != -1)//needs to check if the bottommost block has a foothold, else let it cling to the leftmostblock
 					{
-						if(floor[decidesurfacei-1,decidesurfacej]==0)
+						if(floor[decidesurfacei,decidesurfacej+1] !=0)//there is a foothold
+						{
+							if(floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0 && floor[decidesurfacei-3,decidesurfacej]==0 && floor[decidesurfacei-3,decidesurfacej+1]==0)
+							{
+								floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-3,decidesurfacej]=numofblocks+1;
+								floor[decidesurfacei-3,decidesurfacej+1]=numofblocks+1;
+								i=0;
+								break;
+							}
+						}
+						else//no foothold, let block fall until it catches
+						{
+							//int tempi = getSurface(decidesurfacej+1);
+							
+							if(decidesurfacei != 15)//there is space below that is not oob
+							{
+								if(floor[decidesurfacei+1,decidesurfacej+1] != 0)//there is a foothold
+								{
+									if(floor[decidesurfacei,decidesurfacej+1] == 0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0)
+									{
+										floor[decidesurfacei,decidesurfacej+1] =numofblocks+1;
+										floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+										floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
+										floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+										i=0;
+										break;
+										
+									}
+								}
+								else//the block hooks from the left hand side
+								{
+									if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei+1,decidesurfacej+1]==0)
+									{
+										floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
+										floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+										floor[decidesurfacei,decidesurfacej+1]=numofblocks+1;
+										floor[decidesurfacei+1,decidesurfacej+1]=numofblocks+1;
+										i=0;
+										break;
+									}
+								}
+							}
+							else if(decidesurfacei == 15)//the foothold is out of bounds
+							{
+								if(floor[decidesurfacei,decidesurfacej+1] == 0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0)
+								{
+									floor[decidesurfacei,decidesurfacej+1] =numofblocks+1;
+									floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+									floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
+									floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+									i=0;
+									break;
+										
+								}
+							}
+						}
+						
+						/*if(floor[decidesurfacei-1,decidesurfacej]==0)
 						{
 							i=0;
 							break;
-						}
+						}*/
 					}
 					else
 					{
-						if(floor[decidesurfacei,decidesurfacej]==0)
+						if(floor[13,decidesurfacej-1] != 0 && floor[13,decidesurfacej]==0 && floor[13,decidesurfacej+1]==0 && floor[14,decidesurfacej+1]==0 && floor[15,decidesurfacej+1]==0)
 						{
+							floor[13,decidesurfacej]=numofblocks+1;
+							floor[13,decidesurfacej+1]=numofblocks+1;
+							floor[14,decidesurfacej+1]=numofblocks+1;
+							floor[15,decidesurfacej+1]=numofblocks+1;
 							i=0;
 							break;
 						}
@@ -360,10 +416,39 @@ public class DungeonGenerator : MonoBehaviour {
 			}
 			else//leftside
 			{
+				while(i==1)
+				{
+					decideSurface();
+					if(decidesurfacei != -1)
+					{
+						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+2]==0 && floor[decidesurfacei-2,decidesurfacej+2]==0)
+						{
+							floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
+							floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+							floor[decidesurfacei-1,decidesurfacej+2]=numofblocks+1;
+							floor[decidesurfacei-2,decidesurfacej+2]=numofblocks+1;
+							i=0;
+							break;
+						}
+					}
+					else
+					{
+						if(floor[15,decidesurfacej-1] != 0 && floor[15,decidesurfacej]==0 && floor[15,decidesurfacej+1]==0 && floor[15,decidesurfacej+2]==0 && floor[14,decidesurfacej+2]==0)
+						{
+							floor[15,decidesurfacej]=numofblocks+1;
+							floor[15,decidesurfacej+1]=numofblocks+1;
+							floor[15,decidesurfacej+2]=numofblocks+1;
+							floor[14,decidesurfacej+2]=numofblocks+1;
+							i=0;
+							break;
+						}
+					}
+				}
+				
 				/*while(i==1)
 				{
 					decideSurface();
-					if(decidesurfacei != 15)
+					if(decidesurfacei != -1)
 					{
 						if(floor[decidesurfacei-1,decidesurfacej]==0)
 						{
@@ -373,7 +458,7 @@ public class DungeonGenerator : MonoBehaviour {
 					}
 					else
 					{
-						if(floor[decidesurfacei,decidesurfacej]==0)
+						if(floor[15,decidesurfacej]==0)
 						{
 							i=0;
 							break;
@@ -635,15 +720,34 @@ public class DungeonGenerator : MonoBehaviour {
 		findRightmost ();
 		int j = Random.Range(0,rightmostj + 2);
 		
+		if(rightmostj > 11)//quick fix so that out of bound errors on the right hand side wont occur
+		{
+			j = Random.Range (0,13);
+		}
+		//TODO: make right hand sides occur more
+		
 		decidesurfacej = j;
-		for(int i = 0; i < 16; i++)
+		/*for(int i = 0; i < 16; i++)
 		{
 			decidesurfacei = i;
 			if(floor[i,j] != 0)
 			{		
 				break;
 			}
+			decidesurfacei = -1;//assign i to -1 if there is no surface found on the column
+		}*/
+		
+		decidesurfacei = getSurface(j);
+		
+		//TODO: fix out of bound errors for north end of the graph too
+		if(decidesurfacei < 4 && decidesurfacei != -1)
+		{
+			decideSurface();
 		}
+		/*if(decidesurfacei != -1)//testing, enabling this will ensure that the blocks spawn at the edge all the time
+		{
+			decideSurface();
+		}*/
 	}//end decideSurface
 	
 	int getSurface(int j)
