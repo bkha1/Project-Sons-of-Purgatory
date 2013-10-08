@@ -505,6 +505,90 @@ public class DungeonGenerator : MonoBehaviour {
 				floor[13,1] = numofblocks+1;
 			}
 		}
+		else
+		{
+			int i = 1;
+			if(orientation==0)//upright
+			{
+				while(i==1)
+				{
+					decideSurface();
+					if(decidesurfacei != -1)
+					{
+						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+2]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0)
+						{
+							floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
+							floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+							floor[decidesurfacei-1,decidesurfacej+2]=numofblocks+1;
+							floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+							
+							i=0;
+							break;
+						}
+					}
+					else
+					{
+						if(floor[15,decidesurfacej-1] != 0 && floor[15,decidesurfacej]==0 && floor[15,decidesurfacej+1]==0 && floor[15,decidesurfacej+2]==0 && floor[14,decidesurfacej+1]==0)
+						{
+							floor[15,decidesurfacej]=numofblocks+1;
+							floor[15,decidesurfacej+1]=numofblocks+1;
+							floor[15,decidesurfacej+2]=numofblocks+1;
+							floor[14,decidesurfacej+1]=numofblocks+1;
+							
+							i=0;
+							break;
+						}
+					}
+				}
+			}
+			else if(orientation==1)//rightside
+			{
+				while(i==1)
+				{
+					decideSurface();
+					if(decidesurfacei != -1)
+					{
+						if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0 && floor[decidesurfacei-3,decidesurfacej]==0)
+						{
+							floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
+							floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
+							floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+							floor[decidesurfacei-3,decidesurfacej]=numofblocks+1;
+							
+							i=0;
+							break;
+						}
+					}
+					else
+					{
+						if((floor[15,decidesurfacej-1] != 0 || floor[14,decidesurfacej-1] !=0 || floor[13,decidesurfacej-1] !=0) && floor[15,decidesurfacej] == 0 && floor[14,decidesurfacej]==0 && floor[14,decidesurfacej+1]==0 && floor[13,decidesurfacej]==0)
+						{
+							floor[15,decidesurfacej] =numofblocks+1;
+							floor[14,decidesurfacej]=numofblocks+1;
+							floor[14,decidesurfacej+1]=numofblocks+1;
+							floor[13,decidesurfacej]=numofblocks+1;
+							
+							i=0;
+							break;
+						}
+					}
+				}
+			}
+			else if(orientation==2)//upsidedown
+			{
+				while(i==1)
+				{
+					decideSurface();
+					if(decidesurfacei != -1)
+					{
+					}
+				}
+			}
+			else//leftside
+			{
+			}
+		}
+
 		numofblocks++;
 		Debug.Log ("placed T " + numofblocks);
 	}//end createT
