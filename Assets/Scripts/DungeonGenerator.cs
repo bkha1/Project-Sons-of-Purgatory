@@ -59,6 +59,7 @@ public class DungeonGenerator : MonoBehaviour {
 		createLine ();
 		createSquare ();
 		createL();
+		createT();
 		
 		findTopmost();
 		Debug.Log ("topmost " + topmosti + " " + topmostj);
@@ -581,11 +582,101 @@ public class DungeonGenerator : MonoBehaviour {
 					decideSurface();
 					if(decidesurfacei != -1)
 					{
+						if(floor[decidesurfacei,decidesurfacej+1] != 0)//there is a foothold
+						{
+							if(floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej+2]==0)
+							{
+								floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
+								floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-2,decidesurfacej+2]=numofblocks+1;
+								
+								i=0;
+								break;
+							}
+						}
+						else//no foothold, drop block until there is
+						{
+							/*if(decidesurfacei != 15)
+							{
+							}
+							else//hooks on the left
+							{
+							}*/
+							if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+2]==0)
+							{
+								floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
+								floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-1,decidesurfacej+2]=numofblocks+1;
+								
+								i=0;
+								break;
+							}
+						}
 					}
-				}
+					else
+					{
+						if(floor[14,decidesurfacej-1]!=0 && floor[14,decidesurfacej]==0 && floor[14,decidesurfacej+1]==0 && floor[15,decidesurfacej+1]==0 && floor[14,decidesurfacej+2]==0)
+						{
+							floor[14,decidesurfacej]=numofblocks+1;
+							floor[14,decidesurfacej+1]=numofblocks+1;
+							floor[15,decidesurfacej+1]=numofblocks+1;
+							floor[14,decidesurfacej+2]=numofblocks+1;
+							
+							i=0;
+							break;
+						}
+					}
+				}//end while
 			}
 			else//leftside
 			{
+				while(i==1)
+				{
+					decideSurface();
+					if(decidesurfacei != -1)
+					{
+						if(floor[decidesurfacei,decidesurfacej+1] != 0)//there is a foothold
+						{
+							if(floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0 && floor[decidesurfacei-3,decidesurfacej+1]==0)
+							{
+								floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
+								floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-3,decidesurfacej+1]=numofblocks+1;
+								i=0;
+								break;
+							}
+						}
+						else//hook
+						{
+							if(floor[decidesurfacei-1,decidesurfacej]==0 && floor[decidesurfacei,decidesurfacej+1]==0 && floor[decidesurfacei-1,decidesurfacej+1]==0 && floor[decidesurfacei-2,decidesurfacej+1]==0)
+							{
+								floor[decidesurfacei-1,decidesurfacej]=numofblocks+1;
+								floor[decidesurfacei,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
+								floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+								
+								i=0;
+								break;
+							}
+						}
+					}
+					else
+					{
+						if(floor[14,decidesurfacej-1]!=0 && floor[15,decidesurfacej+1]==0 && floor[14,decidesurfacej]==0 && floor[14,decidesurfacej+1]==0 && floor[13,decidesurfacej+1]==0)
+						{
+							floor[15,decidesurfacej+1]=numofblocks+1;
+							floor[14,decidesurfacej]=numofblocks+1;
+							floor[14,decidesurfacej+1]=numofblocks+1;
+							floor[13,decidesurfacej+1]=numofblocks+1;
+							
+							i=0;
+							break;
+						}
+					}
+				}//end while
 			}
 		}
 
