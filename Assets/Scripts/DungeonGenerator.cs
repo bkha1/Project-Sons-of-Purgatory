@@ -56,18 +56,20 @@ public class DungeonGenerator : MonoBehaviour {
 			}//end for
 		}//end for
 		/*
-		//createLine ();
+		createLine ();
 		createSquare ();
-		//createL();
+		createL();
 		createT();
 		createS();
-		createZ ();*/
+		createZ ();
+		createJ();*/
 		placeBlocks();
 		placeBlocks ();
 		placeBlocks();
 		placeBlocks ();
-		//placeBlocks();
-		createJ();
+		placeBlocks();
+		placeBlocks();
+		placeBlocks();
 		
 		findTopmost();
 		Debug.Log ("topmost " + topmosti + " " + topmostj);
@@ -169,6 +171,23 @@ public class DungeonGenerator : MonoBehaviour {
 							i = 0;
 							break;
 						}
+						else//drop it until it hits an occupied block
+						{
+							for(int d=1;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0 || floor[d,decidesurfacej+3]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d,decidesurfacej+2]=numofblocks+1;
+									floor[d,decidesurfacej+3]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;
+						}
 					}
 					else
 					{
@@ -213,6 +232,23 @@ public class DungeonGenerator : MonoBehaviour {
 						floor[decidesurfacei-2,decidesurfacej]=numofblocks+1;
 						floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
 						floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
+						i=0;
+						break;
+					}
+					else
+					{
+						for(int d=2;d<16;d++)
+						{
+							if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1]!=0)
+							{
+								d--;
+								floor[d,decidesurfacej]=numofblocks+1;
+								floor[d,decidesurfacej+1]=numofblocks+1;
+								floor[d-1,decidesurfacej]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								break;
+							}
+						}
 						i=0;
 						break;
 					}
@@ -288,6 +324,23 @@ public class DungeonGenerator : MonoBehaviour {
 							i=0;
 							break;
 						}
+						else
+						{
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d-2,decidesurfacej]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;
+						}
 					}
 					else
 					{
@@ -319,6 +372,23 @@ public class DungeonGenerator : MonoBehaviour {
 							floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
 							floor[decidesurfacei-2,decidesurfacej+2]=numofblocks+1;
 							
+							i=0;
+							break;
+						}
+						else
+						{
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d-1,decidesurfacej+1] !=0 || floor[d-1,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									break;
+								}
+							}
 							i=0;
 							break;
 						}
@@ -401,7 +471,37 @@ public class DungeonGenerator : MonoBehaviour {
 										
 								}
 							}
+							/*
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d,decidesurfacej+1]!=0 || floor[d-2,decidesurfacej] !=0)
+								{
+									d--;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-2,decidesurfacej]=numofblocks+1;
+									floor[d-2,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;*/
 						}
+						
+						for(int d=3;d<16;d++)
+						{
+							if(floor[d,decidesurfacej+1]!=0 || floor[d-2,decidesurfacej] !=0)
+							{
+								d--;
+								floor[d,decidesurfacej+1]=numofblocks+1;
+								floor[d-2,decidesurfacej]=numofblocks+1;
+								floor[d-2,decidesurfacej+1]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								break;
+							}
+						}
+						i=0;
+						break;
 						
 						/*if(floor[decidesurfacei-1,decidesurfacej]==0)
 						{
@@ -436,6 +536,24 @@ public class DungeonGenerator : MonoBehaviour {
 							floor[decidesurfacei-1,decidesurfacej+1]=numofblocks+1;
 							floor[decidesurfacei-1,decidesurfacej+2]=numofblocks+1;
 							floor[decidesurfacei-2,decidesurfacej+2]=numofblocks+1;
+							i=0;
+							break;
+						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej+2]=numofblocks+1;
+									break;
+								}
+							}
 							i=0;
 							break;
 						}
@@ -534,6 +652,24 @@ public class DungeonGenerator : MonoBehaviour {
 							i=0;
 							break;
 						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;
+						}
 					}
 					else
 					{
@@ -564,6 +700,24 @@ public class DungeonGenerator : MonoBehaviour {
 							floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
 							floor[decidesurfacei-3,decidesurfacej]=numofblocks+1;
 							
+							i=0;
+							break;
+						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d-1,decidesurfacej+1] !=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d-2,decidesurfacej]=numofblocks+1;
+									break;
+								}
+							}
 							i=0;
 							break;
 						}
@@ -621,7 +775,38 @@ public class DungeonGenerator : MonoBehaviour {
 								i=0;
 								break;
 							}
+							/*
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d-1,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;*/
 						}
+						//NEW DROPPING ALGORITHM
+						for(int d=2;d<16;d++)
+						{
+							if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d-1,decidesurfacej+2]!=0)
+							{
+								d--;
+								floor[d-1,decidesurfacej]=numofblocks+1;
+								floor[d,decidesurfacej+1]=numofblocks+1;
+								floor[d-1,decidesurfacej+2]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								break;
+							}
+						}
+						i=0;
+						break;
 					}
 					else
 					{
@@ -669,7 +854,38 @@ public class DungeonGenerator : MonoBehaviour {
 								i=0;
 								break;
 							}
+							/*
+							//NEW DROPPING ALGORITHM
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0)
+								{
+									d--;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d-2,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;*/
 						}
+						//NEW DROPPING ALGORITHM
+						for(int d=3;d<16;d++)
+						{
+							if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0)
+							{
+								d--;
+								floor[d-1,decidesurfacej]=numofblocks+1;
+								floor[d,decidesurfacej+1]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								floor[d-2,decidesurfacej+1]=numofblocks+1;
+								break;
+							}
+						}
+						i=0;
+						break;
 					}
 					else
 					{
@@ -732,6 +948,24 @@ public class DungeonGenerator : MonoBehaviour {
 							i=0;
 							break;
 						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d-1,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;
+						}
 					}
 					else
 					{
@@ -780,7 +1014,38 @@ public class DungeonGenerator : MonoBehaviour {
 								i=0;
 								break;
 							}
+							/*
+							//NEW DROPPING ALGORITHM
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0)
+								{
+									d--;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d-2,decidesurfacej]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;*/
 						}
+						//NEW DROPPING ALGORITHM
+						for(int d=3;d<16;d++)
+						{
+							if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0)
+							{
+								d--;
+								floor[d-1,decidesurfacej]=numofblocks+1;
+								floor[d,decidesurfacej+1]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								floor[d-2,decidesurfacej]=numofblocks+1;
+								break;
+							}
+						}
+						i=0;
+						break;
 					}
 					else
 					{
@@ -857,7 +1122,38 @@ public class DungeonGenerator : MonoBehaviour {
 								i=0;
 								break;
 							}
+							/*
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;*/
 						}
+						//NEW DROPPING ALGORITHM
+						for(int d=2;d<16;d++)
+						{
+							if(floor[d-1,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+							{
+								d--;
+								floor[d-1,decidesurfacej]=numofblocks+1;
+								floor[d,decidesurfacej+1]=numofblocks+1;
+								floor[d,decidesurfacej+2]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								break;
+							}
+						}
+						i=0;
+						break;
 					}
 					else
 					{
@@ -888,6 +1184,24 @@ public class DungeonGenerator : MonoBehaviour {
 							floor[decidesurfacei-2,decidesurfacej+1]=numofblocks+1;
 							floor[decidesurfacei-3,decidesurfacej+1]=numofblocks+1;
 							
+							i=0;
+							break;
+						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d-1,decidesurfacej+1] !=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d-2,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
 							i=0;
 							break;
 						}
@@ -966,6 +1280,24 @@ public class DungeonGenerator : MonoBehaviour {
 							i=0;
 							break;
 						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d-2,decidesurfacej+1]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;
+						}
 					}
 					else
 					{
@@ -999,6 +1331,24 @@ public class DungeonGenerator : MonoBehaviour {
 							i=0;
 							break;
 						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d,decidesurfacej+1]=numofblocks+1;
+									floor[d,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;
+						}
 					}
 					else
 					{
@@ -1028,6 +1378,24 @@ public class DungeonGenerator : MonoBehaviour {
 							floor[decidesurfacei-3,decidesurfacej]=numofblocks+1;
 							floor[decidesurfacei-3,decidesurfacej+1]=numofblocks+1;
 							
+							i=0;
+							break;
+						}
+						else
+						{
+							//NEW DROPPING ALGORITHM
+							for(int d=3;d<16;d++)
+							{
+								if(floor[d,decidesurfacej]!=0 || floor[d-2,decidesurfacej+1]!=0)
+								{
+									d--;
+									floor[d,decidesurfacej]=numofblocks+1;
+									floor[d-2,decidesurfacej+1]=numofblocks+1;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d-2,decidesurfacej]=numofblocks+1;
+									break;
+								}
+							}
 							i=0;
 							break;
 						}
@@ -1079,7 +1447,38 @@ public class DungeonGenerator : MonoBehaviour {
 								i=0;
 								break;
 							}
+							/*
+							//NEW DROPPING ALGORITHM
+							for(int d=2;d<16;d++)
+							{
+								if(floor[d-1,decidesurfacej]!=0 || floor[d-1,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+								{
+									d--;
+									floor[d-1,decidesurfacej]=numofblocks+1;
+									floor[d-1,decidesurfacej+1]=numofblocks+1;
+									floor[d,decidesurfacej+2]=numofblocks+1;
+									floor[d-1,decidesurfacej+2]=numofblocks+1;
+									break;
+								}
+							}
+							i=0;
+							break;*/
 						}
+						//NEW DROPPING ALGORITHM
+						for(int d=2;d<16;d++)
+						{
+							if(floor[d-1,decidesurfacej]!=0 || floor[d-1,decidesurfacej+1] !=0 || floor[d,decidesurfacej+2]!=0)
+							{
+								d--;
+								floor[d-1,decidesurfacej]=numofblocks+1;
+								floor[d-1,decidesurfacej+1]=numofblocks+1;
+								floor[d,decidesurfacej+2]=numofblocks+1;
+								floor[d-1,decidesurfacej+2]=numofblocks+1;
+								break;
+							}
+						}
+						i=0;
+						break;
 					}
 					else
 					{
@@ -1226,14 +1625,15 @@ public class DungeonGenerator : MonoBehaviour {
 		findRightmost ();
 		int j = Random.Range(0,rightmostj + 2);
 		
-		if(rightmostj > 11)//quick fix so that out of bound errors on the right hand side wont occur
-		{
-			j = Random.Range (0,13);
-		}
 		//TODO: make right hand sides occur more
 		if(Random.Range (0,4)>3)//right hand sides occur 75% of the time
 		{
 			j = rightmostj+1;
+		}
+		
+		if(rightmostj > 11)//quick fix so that out of bound errors on the right hand side wont occur
+		{
+			j = Random.Range (0,13);
 		}
 		
 		if(numofblocks < 3)//right hand side always occur for the first 3 blocks
