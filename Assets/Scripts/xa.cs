@@ -7,8 +7,16 @@ using System.Collections;
 
 public class xa : MonoBehaviour {
 
-	//public static Scoring sc; // scoring will be added in an upcomming tutorial
+	//static scripts
 	public static KillCount sc;
+	//public static DungeonGenerator dungen;//dungeon generator
+	public static DungeonPopulator dunpop;
+	public static int[,] mapgrid = new int[16,16];
+	
+	public static int currentposi = -1;
+	public static int currentposj = -1;
+	
+	public static bool initialload = true;
 
 	public static float orthSize;
 	public static float orthSizeX;
@@ -45,6 +53,7 @@ public class xa : MonoBehaviour {
 	public static bool playerdead = false;
 
 	public static int facingDir = 1;//1 = up, 2 = upright, 3 = right, 4 = downright, 5 = down, 6 = downleft, 7 = left, 8 = upleft
+	public static int playerexitdirection = 0;//will determine which way the player exits
 	
 	//public enum anim { None, WalkLeft, WalkRight, RopeLeft, RopeRight, Climb, ClimbStop, StandLeft, StandRight, HangLeft, HangRight, FallLeft, FallRight , ShootLeft, ShootRight }
 	public enum anim {None, WalkUp, StandUp, WalkUpRight, StandUpRight, WalkRight, StandRight, WalkDownRight, StandDownRight, WalkDown, StandDown, WalkDownLeft, StandDownLeft, WalkLeft, StandLeft, WalkUpLeft, StandUpLeft}
@@ -53,9 +62,63 @@ public class xa : MonoBehaviour {
 	public void Start()
 	{
 		players = GameObject.FindGameObjectsWithTag("Player");
-		//sc = (Scoring)(this.gameObject.GetComponent("Scoring")); // scoring will be added in an upcomming tutorial
 		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
-
+		
+		//do this stuff once in the beginning
+		if(initialload)
+		{
+			dunpop = (DungeonPopulator) (this.gameObject.GetComponent("DungeonPopulator"));
+			dunpop.assignRooms();
+			
+			//fill map with zeroes first
+			/*for(int i=0;i<17;i++)
+			{
+				for(int j=0;j<17;j++)
+				{
+					mapgrid[i,j]=0;
+				}
+			}*/
+			
+			for(int i=0;i<16;i++)
+			{
+				for(int j=0;j<16;j++)
+				{
+					mapgrid[i,j] = dunpop.getValueInIndexOfRooms(i,j);
+					
+					if(mapgrid[i,j] == -10)
+					{
+						currentposi = i;
+						currentposj = j;
+					}
+				}
+			}//end for
+			
+			initialload = false;
+		}//end initialload check
+		
+		Debug.Log("current position: " + currentposi + ", " + currentposj);
+		
+		if(currentposi!=0)
+		{
+			if(mapgrid[currentposi-1,currentposj]!=0)//check north
+			{}
+		}
+		if(currentposj!=0)
+		{
+			if(mapgrid[currentposi,currentposj-1]!=0)//check west
+			{}
+		}
+		if(currentposi!=15)
+		{
+			if(mapgrid[currentposi+1,currentposj]!=0)//check south
+			{}
+		}
+		if(currentposj!=15)
+		{
+			if(mapgrid[currentposi,currentposj+1]!=0)//check east
+			{}
+		}
+		
 		// gather information from the camera to find the screen size
 		xa.camRatio = 1.333f; // 4:3 is 1.333f (800x600) 
 		xa.orthSize = Camera.mainCamera.camera.orthographicSize;
@@ -89,8 +152,6 @@ public class xa : MonoBehaviour {
 		if (Input.GetKey(KeyCode.Space)) 
 		{ isShoot = true; }
 		*/
-		
-		
 		
 		//new keyboard inputs
 		if(Input.GetKeyDown(KeyCode.A))
@@ -149,5 +210,22 @@ public class xa : MonoBehaviour {
 		*/
 		
 		//Debug.Log("test");
+		if(playerexitdirection==1)
+		{
+			Debug.Log("exit north");
+		}
+		else if(playerexitdirection==2)
+		{
+			Debug.Log("exit east");
+		}
+		else if(playerexitdirection==3)
+		{
+			Debug.Log("exit south");
+		}
+		else if(playerexitdirection==4)
+		{
+			Debug.Log("exit west");
+		}
+		playerexitdirection=0;
 	}
 }

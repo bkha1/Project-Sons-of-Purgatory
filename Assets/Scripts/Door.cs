@@ -3,12 +3,15 @@ using System.Collections;
 
 public class Door : MonoBehaviour {
 	
-	private string lvlname;
-	private string tempname;
-	public int numoflevels;
-	static ArrayList lvlbank = new ArrayList();//bank of all the levels to be used
-	static ArrayList usedlvls = new ArrayList();//list of all the used levels within this dungeon
-	static bool levelsloadedintobank = false;
+	//private string lvlname;
+	//private string tempname;
+	
+	//public int numoflevels;
+	public int whichside;
+	
+	//static ArrayList lvlbank = new ArrayList();//bank of all the levels to be used
+	//static ArrayList usedlvls = new ArrayList();//list of all the used levels within this dungeon
+	//static bool levelsloadedintobank = false;
 
 	// Use this for initialization
 	void Start ()
@@ -35,7 +38,7 @@ public class Door : MonoBehaviour {
 		
 		//Debug.Log (levelsloadedintobank);
 		
-		if(!levelsloadedintobank)
+		/*if(!levelsloadedintobank)
 		{
 			for(int i = 1; i<numoflevels + 1;i++)
 			{
@@ -58,7 +61,7 @@ public class Door : MonoBehaviour {
 			lvlname = (string)lvlbank[randomlvlindex];
 			lvlbank.RemoveAt(randomlvlindex);//removes lvl from the bank
 			usedlvls.Add(lvlname);//adds the used level to the usedlvls list
-		}
+		}*/
 		
 	
 	}
@@ -71,14 +74,26 @@ public class Door : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		//bug:holding mouse0 while loading doesnt let you shoot in the later movies
-		if(other.gameObject.CompareTag("Player"))
+		//bug:holding mouse0 while loading doesnt let you shoot in the later scenes
+		/*if(other.gameObject.CompareTag("Player"))
 		{
 			if(lvlname.Equals("EMPTY") == false)
 			{
 				Debug.Log(lvlname);
 				Application.LoadLevel(lvlname);
 			}
+		}*/
+		
+		if(other.gameObject.CompareTag("Player"))
+		{
+			if(whichside==1)//north
+			{xa.playerexitdirection=1;}
+			else if(whichside==2)//east
+			{xa.playerexitdirection=2;}
+			else if(whichside==3)//south
+			{xa.playerexitdirection=3;}
+			else if(whichside==4)//west
+			{xa.playerexitdirection=4;}
 		}
 	}
 }

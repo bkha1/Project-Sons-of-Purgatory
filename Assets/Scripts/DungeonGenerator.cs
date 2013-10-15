@@ -55,14 +55,7 @@ public class DungeonGenerator : MonoBehaviour {
 				floor[i,j] = 0;
 			}//end for
 		}//end for
-		/*
-		createLine ();
-		createSquare ();
-		createL();
-		createT();
-		createS();
-		createZ ();
-		createJ();*/
+
 		/*placeBlocks();
 		placeBlocks ();
 		placeBlocks();
@@ -70,21 +63,11 @@ public class DungeonGenerator : MonoBehaviour {
 		placeBlocks();
 		placeBlocks();
 		placeBlocks();*/
-		/*createSquare ();
-		createSquare ();
-		createSquare ();
-		createSquare ();
-		createSquare ();
-		createSquare ();
-		createSquare ();*/
-		createT();
-		createT();
-		createT();
-		createT();
-		createT();
-		createT();
-		createT();
+		/*createT();
+		selectStartpoint();
+		selectEndpoint();*/
 		
+		/*
 		findTopmost();
 		Debug.Log ("topmost " + topmosti + " " + topmostj);
 		findRightmost();
@@ -107,7 +90,7 @@ public class DungeonGenerator : MonoBehaviour {
 			Debug.Log(grid);
 			grid = "";
 		}//end for
-	
+	*/
 	}
 	
 	// Update is called once per frame
@@ -1899,14 +1882,6 @@ public class DungeonGenerator : MonoBehaviour {
 		}
 	}//end findBottommost
 	
-	/*bool checkTraversable()
-	{
-		if(numofblocks != 0)
-		{
-		}
-		return false;
-	}//end checkTraversable*/
-	
 	bool isWider()
 	{
 		findRightmost();
@@ -1933,7 +1908,7 @@ public class DungeonGenerator : MonoBehaviour {
 			j = rightmostj+1;
 		}
 		
-		if(numofblocks < 3)//right hand side always occur for the first 3 blocks
+		if(numofblocks < 4)//right hand side always occur for the first 4 blocks
 		{
 			j = rightmostj+1;
 		}
@@ -1984,31 +1959,231 @@ public class DungeonGenerator : MonoBehaviour {
 	
 	void selectStartpoint()
 	{
+		bool selected=false;
+		if(isWider())
+		{
+			//int i = 15;
+			for(int j = 0; j < 16; j++)
+			{
+				for(int i = 15; i > -1; i--)
+				{
+					if(floor[i,j] != 0 && floor[i,j]!=-20)
+					{
+						if(Random.Range (0,5)==0)//20% chance
+						{
+							floor[i,j] = -10;//start point is signified by -10
+							selected=true;
+							break;
+						}
+					}
+				}
+				if(selected)
+				{
+					break;
+				}
+			}
+		}
+		else
+		{
+			//int j=15;
+			for(int i = 15; i > -1; i--)
+			{
+				for(int j = 15; j > -1; j--)
+				{
+					if(floor[i,j] != 0 && floor[i,j]!=-20)
+					{
+						if(Random.Range(0,5)==0)
+						{
+							floor[i,j]=-10;
+							selected=true;
+							break;
+						}
+						
+					}
+				}
+				if(selected)
+				{
+					break;
+				}
+				
+			}
+		}
+		if(selected==false)
+		{
+			selectStartpoint();
+		}
 		
 	}//selectStart
 	
 	void selectEndpoint()
 	{
-	}//end selectEnd
-	
-	void placeBlocks()
-	{
-		int rand = Random.Range(0,4);
-		if(rand ==0)
+		bool selected = false;
+		if(isWider())
 		{
-			createSquare();
-		}
-		else if(rand==1)
-		{
-			createT ();
-		}
-		else if(rand==2)
-		{
-			createS();
+			//int i=0;
+			for(int j = 15; j > -1; j--)
+			{
+				for(int i = 0; i < 16; i++)
+				{
+					if(floor[i,j] != 0 && floor[i,j]!=-10)
+					{
+						if(Random.Range(0,5)==0)
+						{
+							floor[i,j]=-20;
+							selected=true;
+							break;
+						}
+					}
+				}
+				
+				if(selected)
+				{
+					break;
+				}
+			}
 		}
 		else
 		{
-			createZ();
+			//int j=0;
+			for(int i = 0; i < 16; i++)
+			{
+				for(int j = 0; j < 16; j++)
+				{
+					
+					if(floor[i,j] != 0 && floor[i,j]!=-10)
+					{	
+						if(Random.Range(0,5)==0)
+						{
+							floor[i,j]=-20;
+							selected=true;
+							break;
+						}
+					}
+				}
+				
+				if(selected)
+				{
+					break;
+				}
+			}
 		}
+		if(selected==false)
+		{
+			selectEndpoint();
+		}
+	}//end selectEnd
+	
+	public void placeBlocks(int num)
+	{
+		eraseFloor();
+		for(int i=0;i<4;i++)
+		{
+			int rand = Random.Range(0,7);
+			if(rand ==0)
+			{
+				createSquare();
+			}
+			else if(rand==1)
+			{
+				createT ();
+			}
+			else if(rand==2)
+			{
+				createS();
+			}
+			else if(rand==3)
+			{
+				createZ();
+			}
+			else if(rand==4)
+			{
+				createLine();
+			}
+			else if(rand==5)
+			{
+				createL();
+			}
+			else
+			{
+				createJ();
+			}
+		}
+		
+		for(int i=0;i<num;i++)
+		{
+			int rand = Random.Range(0,7);
+			if(rand ==0)
+			{
+				createSquare();
+			}
+			else if(rand==1)
+			{
+				createT ();
+			}
+			else if(rand==2)
+			{
+				createS();
+			}
+			else if(rand==3)
+			{
+				createZ();
+			}
+			else if(rand==4)
+			{
+				createLine();
+			}
+			else if(rand==5)
+			{
+				createL();
+			}
+			else
+			{
+				createJ();
+			}
+		}
+		
+		selectStartpoint();
+		selectEndpoint();
+	}
+	
+	void eraseFloor()
+	{		
+		for(int i = 0; i < 16; i++)
+		{
+			for(int j = 0; j < 16; j++)
+			{
+				
+				floor[i,j] = 0;
+			}
+		}
+	}//end eraseFloor
+	
+	/*public void getLayout(int[,] array)
+	{
+		//array = new int[16,16];
+		for(int i=0;i<16;i++)
+		{
+			for(int j=0;j<16;j++)
+			{
+				array[i,j] = floor[i,j];
+				//Debug.Log(tempgrid[i,j]);
+			}
+		}
+		//return floor;
+	}//end getLayout
+	*/
+	
+	public int getValueInIndex(int i, int j)
+	{
+		return floor[i,j];
+	}
+	
+	//FOR TESTING PURPOSES SINCE WE DONT HAVE THAT MANY LEVELS MADE YET
+	public void testPlaceBlocks()
+	{
+		eraseFloor();
+		createT();
+		selectStartpoint();
+		selectEndpoint();
 	}
 }
