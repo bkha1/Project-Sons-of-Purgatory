@@ -10,13 +10,9 @@ public class xa : MonoBehaviour {
 	//static scripts
 	public static KillCount sc;
 	//public static DungeonGenerator dungen;//dungeon generator
-	public static DungeonPopulator dunpop;
-	public static int[,] mapgrid = new int[16,16];
 	
-	public static int currentposi = -1;
-	public static int currentposj = -1;
 	
-	public static bool initialload = true;
+	
 
 	public static float orthSize;
 	public static float orthSizeX;
@@ -53,17 +49,32 @@ public class xa : MonoBehaviour {
 	public static bool playerdead = false;
 
 	public static int facingDir = 1;//1 = up, 2 = upright, 3 = right, 4 = downright, 5 = down, 6 = downleft, 7 = left, 8 = upleft
-	public static int playerexitdirection = 0;//will determine which way the player exits
 	
 	//public enum anim { None, WalkLeft, WalkRight, RopeLeft, RopeRight, Climb, ClimbStop, StandLeft, StandRight, HangLeft, HangRight, FallLeft, FallRight , ShootLeft, ShootRight }
 	public enum anim {None, WalkUp, StandUp, WalkUpRight, StandUpRight, WalkRight, StandRight, WalkDownRight, StandDownRight, WalkDown, StandDown, WalkDownLeft, StandDownLeft, WalkLeft, StandLeft, WalkUpLeft, StandUpLeft}
 	public static Vector3 glx;
+	
+	//dungeon layout stuff
+	public static DungeonPopulator dunpop;
+	public static int currentposi = -1;
+	public static int currentposj = -1;
+	public static bool initialload = true;
+	public static int[,] mapgrid = new int[16,16];
+	public static int playerexitdirection = 0;//will determine which way the player exits
+	public static int northroom = -1;
+	public static int eastroom = -1;
+	public static int southroom = -1;
+	public static int westroom = -1;
+	public bool isstartscene;
 
 	public void Start()
 	{
+		//Debug.Log("xa.cs start() function");
 		players = GameObject.FindGameObjectsWithTag("Player");
 		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
 		
+		if(isstartscene)//start scene check, will probably change this to loading scene (good for testing a single scene without initial loading stuff)
+		{
 		//do this stuff once in the beginning
 		if(initialload)
 		{
@@ -95,34 +106,56 @@ public class xa : MonoBehaviour {
 			
 			initialload = false;
 		}//end initialload check
-		
+		}//end isstartscene check
 		Debug.Log("current position: " + currentposi + ", " + currentposj);
 		
-		if(currentposi!=0)
+		northroom = -1;
+		eastroom = -1;
+		southroom = -1;
+		westroom = -1;
+		
+		if(currentposi>0)
 		{
 			if(mapgrid[currentposi-1,currentposj]!=0)//check north
-			{}
+			{
+				northroom = mapgrid[currentposi-1,currentposj];
+			}
 		}
-		if(currentposj!=0)
+		if(currentposj>0)
 		{
 			if(mapgrid[currentposi,currentposj-1]!=0)//check west
-			{}
+			{
+				westroom = mapgrid[currentposi,currentposj-1];
+			}
 		}
-		if(currentposi!=15)
+		if(currentposi<15 && currentposi!=-1)
 		{
 			if(mapgrid[currentposi+1,currentposj]!=0)//check south
-			{}
+			{
+				southroom = mapgrid[currentposi+1,currentposj];
+			}
 		}
-		if(currentposj!=15)
+		if(currentposj<15 && currentposj!=-1)
 		{
 			if(mapgrid[currentposi,currentposj+1]!=0)//check east
-			{}
+			{
+				eastroom = mapgrid[currentposi,currentposj+1];
+			}
 		}
+		
 		
 		// gather information from the camera to find the screen size
 		xa.camRatio = 1.333f; // 4:3 is 1.333f (800x600) 
 		xa.orthSize = Camera.mainCamera.camera.orthographicSize;
 		xa.orthSizeX = xa.orthSize * xa.camRatio;
+		
+		//stuff that must default controls to at the load of each scene
+		isLeft = false;
+		isRight = false;
+		isUp = false;
+		isDown = false;
+		isShoot = false;
+		shooting = false;
 	}
 
 	public void Update() 
@@ -191,15 +224,18 @@ public class xa : MonoBehaviour {
 		else
 		{ isDownRight = false; }
 		
+		
 		//Input for mouse
 		if(Input.GetMouseButtonDown(0))
 		{ //Debug.Log("Left mouse button clicked!");
 			isShoot = true;
 		}
-		if(Input.GetMouseButtonUp(0))
+		else if(Input.GetMouseButtonUp(0))
 		{ //Debug.Log("Left mouse button up!");
 			isShoot = false;
 		}
+		/*if(Input.GetMouseButton(0))
+		{isShoot=true;}*/
 		
 		/*
 		//TODO:Make sure that the user cant hold down more than 2 directional keys
@@ -209,22 +245,85 @@ public class xa : MonoBehaviour {
 		{ isUp = true; isDown =false; Debug.Log("Up and Down pressed at the same time!");}
 		*/
 		
-		//Debug.Log("test");
 		if(playerexitdirection==1)
 		{
 			Debug.Log("exit north");
+			if(northroom!=-1)
+			{
+				currentposi--;
+				if(northroom==-10)//startpoint
+				{Debug.Log("startScene");
+					Application.LoadLevel("startScene");
+				}
+				else if(northroom==-20)//endpoint
+				{Debug.Log("endScene");
+					Application.LoadLevel("endScene");
+				}
+				else
+				{Debug.Log("level" + northroom);
+					Application.LoadLevel("level" + northroom);
+				}
+			}
 		}
 		else if(playerexitdirection==2)
 		{
 			Debug.Log("exit east");
+			if(eastroom!=-1)
+			{
+				currentposj++;
+				if(eastroom==-10)//startpoint
+				{Debug.Log("startScene");
+					Application.LoadLevel("startScene");
+				}
+				else if(eastroom==-20)//endpoint
+				{Debug.Log("endScene");
+					Application.LoadLevel("endScene");
+				}
+				else
+				{Debug.Log("level" + eastroom);
+					Application.LoadLevel("level" + eastroom);
+				}
+			}
 		}
 		else if(playerexitdirection==3)
 		{
 			Debug.Log("exit south");
+			if(southroom!=-1)
+			{
+				currentposi++;
+				if(southroom==-10)//startpoint
+				{Debug.Log("startScene");
+					Application.LoadLevel("startScene");
+				}
+				else if(southroom==-20)//endpoint
+				{Debug.Log("endScene");
+					Application.LoadLevel("endScene");
+				}
+				else
+				{Debug.Log("level" + southroom);
+					Application.LoadLevel("level" + southroom);
+				}
+			}
 		}
 		else if(playerexitdirection==4)
 		{
 			Debug.Log("exit west");
+			if(westroom!=-1)
+			{
+				currentposj--;
+				if(westroom==-10)//startpoint
+				{Debug.Log("startScene");
+					Application.LoadLevel("startScene");
+				}
+				else if(westroom==-20)//endpoint
+				{Debug.Log("endScene");
+					Application.LoadLevel("endScene");
+				}
+				else
+				{Debug.Log("level" + westroom);
+					Application.LoadLevel("level" + westroom);
+				}
+			}
 		}
 		playerexitdirection=0;
 	}

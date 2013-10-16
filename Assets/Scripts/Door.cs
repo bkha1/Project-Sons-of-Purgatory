@@ -62,14 +62,33 @@ public class Door : MonoBehaviour {
 			lvlbank.RemoveAt(randomlvlindex);//removes lvl from the bank
 			usedlvls.Add(lvlname);//adds the used level to the usedlvls list
 		}*/
-		
 	
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		//check which sides are available to show doors
+		if(whichside==1)
+		{
+			if(xa.northroom==-1)
+			{this.gameObject.SetActive(false);}
+		}
+		else if(whichside==2)
+		{
+			if(xa.eastroom==-1)
+			{this.gameObject.SetActive(false);}
+		}
+		else if(whichside==3)
+		{
+			if(xa.southroom==-1)
+			{this.gameObject.SetActive(false);}
+		}
+		else if(whichside==4)
+		{
+			if(xa.westroom==-1)
+			{this.gameObject.SetActive(false);}
+		}
 	}
 	
 	void OnTriggerEnter(Collider other)
@@ -94,6 +113,14 @@ public class Door : MonoBehaviour {
 			{xa.playerexitdirection=3;}
 			else if(whichside==4)//west
 			{xa.playerexitdirection=4;}
+		}
+	}
+	
+	void OnTriggerExit(Collider other)
+	{
+		if(other.gameObject.CompareTag("Player"))
+		{
+			xa.playerexitdirection=0;
 		}
 	}
 }
