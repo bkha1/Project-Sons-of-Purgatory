@@ -2182,7 +2182,39 @@ public class DungeonGenerator : MonoBehaviour {
 	public void testPlaceBlocks()
 	{
 		eraseFloor();
-		createT();
+		//createT();
+		for(int i=0;i<2;i++)
+		{
+			int rand = Random.Range(0,7);
+			if(rand ==0)
+			{
+				createSquare();
+			}
+			else if(rand==1)
+			{
+				createT ();
+			}
+			else if(rand==2)
+			{
+				createS();
+			}
+			else if(rand==3)
+			{
+				createZ();
+			}
+			else if(rand==4)
+			{
+				createLine();
+			}
+			else if(rand==5)
+			{
+				createL();
+			}
+			else
+			{
+				createJ();
+			}
+		}
 		selectStartpoint();
 		selectEndpoint();
 	}

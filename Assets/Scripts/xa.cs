@@ -11,9 +11,6 @@ public class xa : MonoBehaviour {
 	public static KillCount sc;
 	//public static DungeonGenerator dungen;//dungeon generator
 	
-	
-	
-
 	public static float orthSize;
 	public static float orthSizeX;
 	public static float orthSizeY;
@@ -66,12 +63,24 @@ public class xa : MonoBehaviour {
 	public static int southroom = -1;
 	public static int westroom = -1;
 	public bool isstartscene;
+	
+	//for PlayerRoomSideDecider
+	public static int playerstartside = 0;
+	public PlayerRoomSideDecider playerroomsidedecider;
+	public bool playerexists = false;
 
 	public void Start()
 	{
-		//Debug.Log("xa.cs start() function");
-		players = GameObject.FindGameObjectsWithTag("Player");
+		
 		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
+		if(!playerexists)
+		{
+			playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
+			playerroomsidedecider.spawnPlayer();
+			playerexists = true;
+		}
+		
+		players = GameObject.FindGameObjectsWithTag("Player");
 		
 		if(isstartscene)//start scene check, will probably change this to loading scene (good for testing a single scene without initial loading stuff)
 		{
@@ -161,8 +170,11 @@ public class xa : MonoBehaviour {
 	public void Update() 
 	{
 		//find player's position
-		playerPosition = players[0].transform.position;
-		playerdead = players[0].GetComponent<Player>().isDead();
+		if(playerexists)
+		{
+			playerPosition = players[0].transform.position;
+			playerdead = players[0].GetComponent<Player>().isDead();
+		}
 		// these are false unless one of keys is pressed
 		/*isLeft = false;
 		isRight = false;
@@ -250,6 +262,7 @@ public class xa : MonoBehaviour {
 			Debug.Log("exit north");
 			if(northroom!=-1)
 			{
+				playerstartside = 3;
 				currentposi--;
 				if(northroom==-10)//startpoint
 				{Debug.Log("startScene");
@@ -270,6 +283,7 @@ public class xa : MonoBehaviour {
 			Debug.Log("exit east");
 			if(eastroom!=-1)
 			{
+				playerstartside = 4;
 				currentposj++;
 				if(eastroom==-10)//startpoint
 				{Debug.Log("startScene");
@@ -290,6 +304,7 @@ public class xa : MonoBehaviour {
 			Debug.Log("exit south");
 			if(southroom!=-1)
 			{
+				playerstartside = 1;
 				currentposi++;
 				if(southroom==-10)//startpoint
 				{Debug.Log("startScene");
@@ -310,6 +325,7 @@ public class xa : MonoBehaviour {
 			Debug.Log("exit west");
 			if(westroom!=-1)
 			{
+				playerstartside = 2;
 				currentposj--;
 				if(westroom==-10)//startpoint
 				{Debug.Log("startScene");
