@@ -68,26 +68,103 @@ public class Door : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		//check which sides are available to show doors
-		if(whichside==1)
+		if(xa.currentposi==-1)//for when testing scenes individually
 		{
-			if(xa.northroom==-1)
-			{this.gameObject.SetActive(false);}
+			this.gameObject.SetActive(false);
 		}
-		else if(whichside==2)
+		else if(xa.visitgrid[xa.currentposi,xa.currentposj] == 1)
 		{
-			if(xa.eastroom==-1)
-			{this.gameObject.SetActive(false);}
+			//check which sides are available to show doors
+			/*if(whichside==1)
+			{
+				if(xa.northroom==-1)
+				{this.gameObject.SetActive(false);}
+			}
+			else if(whichside==2)
+			{
+				if(xa.eastroom==-1)
+				{this.gameObject.SetActive(false);}
+			}
+			else if(whichside==3)
+			{
+				if(xa.southroom==-1)
+				{this.gameObject.SetActive(false);}
+			}
+			else if(whichside==4)
+			{
+				if(xa.westroom==-1)
+				{this.gameObject.SetActive(false);}
+			}*/
+			if(whichside==1)
+			{
+				if(xa.northroom!=-1)
+				{
+					//Debug.Log("northroom " + xa.northroom);
+					this.gameObject.GetComponent<MeshRenderer>().enabled=true;
+					this.gameObject.GetComponent<OTSprite>().enabled=true;
+					this.gameObject.GetComponent<BoxCollider>().enabled=true;
+				}
+				else
+				{
+					this.gameObject.GetComponent<MeshRenderer>().enabled=false;
+					this.gameObject.GetComponent<OTSprite>().enabled=false;
+					this.gameObject.GetComponent<BoxCollider>().enabled=false;
+				}
+			}
+			else if(whichside==2)
+			{
+				if(xa.eastroom!=-1)
+				{
+					//Debug.Log("eastroom " + xa.eastroom);
+					this.gameObject.GetComponent<MeshRenderer>().enabled=true;
+					this.gameObject.GetComponent<OTSprite>().enabled=true;
+					this.gameObject.GetComponent<BoxCollider>().enabled=true;
+				}
+				else
+				{
+					this.gameObject.GetComponent<MeshRenderer>().enabled=false;
+					this.gameObject.GetComponent<OTSprite>().enabled=false;
+					this.gameObject.GetComponent<BoxCollider>().enabled=false;
+				}
+			}
+			else if(whichside==3)
+			{
+				if(xa.southroom!=-1)
+				{
+					//Debug.Log("southroom " + xa.southroom);
+					this.gameObject.GetComponent<MeshRenderer>().enabled=true;
+					this.gameObject.GetComponent<OTSprite>().enabled=true;
+					this.gameObject.GetComponent<BoxCollider>().enabled=true;
+				}
+				else
+				{
+					this.gameObject.GetComponent<MeshRenderer>().enabled=false;
+					this.gameObject.GetComponent<OTSprite>().enabled=false;
+					this.gameObject.GetComponent<BoxCollider>().enabled=false;
+				}
+			}
+			else if(whichside==4)
+			{
+				if(xa.westroom!=-1)
+				{
+					//Debug.Log("westroom " + xa.westroom);
+					this.gameObject.GetComponent<MeshRenderer>().enabled=true;
+					this.gameObject.GetComponent<OTSprite>().enabled=true;
+					this.gameObject.GetComponent<BoxCollider>().enabled=true;
+				}
+				else
+				{
+					this.gameObject.GetComponent<MeshRenderer>().enabled=false;
+					this.gameObject.GetComponent<OTSprite>().enabled=false;
+					this.gameObject.GetComponent<BoxCollider>().enabled=false;
+				}
+			}
 		}
-		else if(whichside==3)
+		else//disable doors
 		{
-			if(xa.southroom==-1)
-			{this.gameObject.SetActive(false);}
-		}
-		else if(whichside==4)
-		{
-			if(xa.westroom==-1)
-			{this.gameObject.SetActive(false);}
+			this.gameObject.GetComponent<MeshRenderer>().enabled=false;
+			this.gameObject.GetComponent<OTSprite>().enabled=false;
+			this.gameObject.GetComponent<BoxCollider>().enabled=false;
 		}
 	}
 	

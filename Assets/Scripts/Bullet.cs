@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour {
 	private Vector3 movement;
 	public int moveSpeed = 15;
 	
+	private int damage = 100;
+	
 	private GameObject thisGameObject;
 
 	// Use this for initialization
@@ -29,6 +31,11 @@ public class Bullet : MonoBehaviour {
 	public void destroyMe()
 	{
 		Destroy(thisGameObject);
+	}
+	
+	public int getDamage()
+	{
+		return damage;
 	}
 	
 	void OnTriggerEnter(Collider other)

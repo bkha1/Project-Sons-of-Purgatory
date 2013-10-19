@@ -218,11 +218,13 @@
     <Compile Include="Assets\Scripts\DungeonGenerator.cs" />
     <Compile Include="Assets\Scripts\DungeonPopulator.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemySkullAI.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\KillCount.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerAnims.cs" />
     <Compile Include="Assets\Scripts\PlayerRoomSideDecider.cs" />
+    <Compile Include="Assets\Scripts\RoomName.cs" />
     <Compile Include="Assets\Scripts\xa.cs" />
     <Compile Include="Assets\iTween\Plugins\iTween.cs" />
     <Compile Include="Assets\iTween\Sample\MoveSample.cs" />

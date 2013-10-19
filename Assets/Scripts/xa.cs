@@ -57,6 +57,7 @@ public class xa : MonoBehaviour {
 	public static int currentposj = -1;
 	public static bool initialload = true;
 	public static int[,] mapgrid = new int[16,16];
+	public static int[,] visitgrid = new int[16,16];//will be used to determine which rooms have been visited and unlocked
 	public static int playerexitdirection = 0;//will determine which way the player exits
 	public static int northroom = -1;
 	public static int eastroom = -1;
@@ -104,11 +105,13 @@ public class xa : MonoBehaviour {
 				for(int j=0;j<16;j++)
 				{
 					mapgrid[i,j] = dunpop.getValueInIndexOfRooms(i,j);
+					visitgrid[i,j] = -1;//marks them as unvisited
 					
 					if(mapgrid[i,j] == -10)
 					{
 						currentposi = i;
 						currentposj = j;
+						visitgrid[i,j] = 1;//marks the start area as visited already
 					}
 				}
 			}//end for
@@ -248,6 +251,12 @@ public class xa : MonoBehaviour {
 		}
 		/*if(Input.GetMouseButton(0))
 		{isShoot=true;}*/
+		
+		if(Input.GetKey(KeyCode.K))
+		{
+			Debug.Log("manual door override activated");
+			visitgrid[currentposi,currentposj] = 1;
+		}
 		
 		/*
 		//TODO:Make sure that the user cant hold down more than 2 directional keys
