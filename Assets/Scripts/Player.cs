@@ -301,9 +301,6 @@ public class Player : MonoBehaviour {
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
 		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
 		
-		
-		
-		
 		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
 		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
 		
@@ -594,15 +591,18 @@ public class Player : MonoBehaviour {
 			}
 		}*/
 		
-		if(!dead)
+		if(!dead)//NOTE: SHOULD PROBABLY MIGRATE THIS TO ENEMY SCRIPTS INSTEAD, THEN I CAN CHECK IF THE PLAYER IS ALIVE AND KILL HIM IF HE IS
 		{
 			if(other.gameObject.CompareTag("Enemy"))
 			{
-				if(!other.GetComponent<Enemy>().isDead())
+				/*if(!other.GetComponent<Enemy>().isDead())
 				{
 					dead = true;
 					gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
-				}
+				}*/
+				
+				dead = true;
+				gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
 			}
 		}
 	}

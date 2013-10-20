@@ -41,7 +41,7 @@ public class xa : MonoBehaviour {
 	public static bool falling;
 	public static bool shooting;
 	
-	public static Vector3 playerPosition;
+	public static Vector3 playerPosition = new Vector3(0,0,0);
 	private GameObject[] players;
 	public static bool playerdead = false;
 
