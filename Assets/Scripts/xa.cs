@@ -43,7 +43,8 @@ public class xa : MonoBehaviour {
 	
 	public static Vector3 playerPosition = new Vector3(0,0,0);
 	private GameObject[] players;
-	public static bool playerdead = false;
+	//private List<GameObject> players;
+	//public static bool playerdead = false;
 
 	public static int facingDir = 1;//1 = up, 2 = upright, 3 = right, 4 = downright, 5 = down, 6 = downleft, 7 = left, 8 = upleft
 	
@@ -72,16 +73,17 @@ public class xa : MonoBehaviour {
 
 	public void Start()
 	{
-		
 		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
+		playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
 		if(!playerexists)
 		{
-			playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
 			playerroomsidedecider.spawnPlayer();
+			players = GameObject.FindGameObjectsWithTag("Player");
 			playerexists = true;
 		}
 		
-		players = GameObject.FindGameObjectsWithTag("Player");
+		
+		//Debug.Log("length: " + players.Length);
 		
 		if(isstartscene)//start scene check, will probably change this to loading scene (good for testing a single scene without initial loading stuff)
 		{
@@ -176,8 +178,18 @@ public class xa : MonoBehaviour {
 		if(playerexists)
 		{
 			playerPosition = players[0].transform.position;
-			playerdead = players[0].GetComponent<Player>().isDead();
+			//playerdead = players[0].GetComponent<Player>().isDead();
+			/*if(players[0].GetComponent<Player>().isDead())
+			{
+				playerexists=false;
+				Destroy(players[0]);
+				//Debug.Log("length: " + players[0].transform.position);
+				
+				//playerroomsidedecider.respawnPlayer();
+			}*/
+			//Debug.Log("length: " + players.Length);
 		}
+		
 		// these are false unless one of keys is pressed
 		/*isLeft = false;
 		isRight = false;

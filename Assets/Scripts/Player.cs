@@ -61,6 +61,7 @@ public class Player : MonoBehaviour {
 	public void Update ()
 	{		
 		UpdateRaycasts();
+		blinkCheck();
 		
 		moveDirX = 0;
 		moveDirY = 0;
@@ -580,31 +581,19 @@ public class Player : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		// did the player collide with a pickup?
-		// pickups and scoring will be added in an upcomming tutorial
-		/*if (other.gameObject.CompareTag("Pickup"))
-		{
-			if (other.GetComponent<Pickup>())
-			{
-				other.GetComponent<Pickup>().PickMeUp();
-				xa.sc.Pickup();
-			}
-		}*/
 		
-		if(!dead)//NOTE: SHOULD PROBABLY MIGRATE THIS TO ENEMY SCRIPTS INSTEAD, THEN I CAN CHECK IF THE PLAYER IS ALIVE AND KILL HIM IF HE IS
+		/*if(!dead)//NOTE: SHOULD PROBABLY MIGRATE THIS TO ENEMY SCRIPTS INSTEAD, THEN I CAN CHECK IF THE PLAYER IS ALIVE AND KILL HIM IF HE IS
 		{
 			if(other.gameObject.CompareTag("Enemy"))
 			{
-				/*if(!other.GetComponent<Enemy>().isDead())
+				if(!other.GetComponent<Enemy>().isDead())
 				{
 					dead = true;
 					gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
-				}*/
+				}
 				
-				dead = true;
-				gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
 			}
-		}
+		}*/
 	}
 	
 	void OnTriggerStay(Collider other)
@@ -708,4 +697,81 @@ public class Player : MonoBehaviour {
 	{
 		return dead;
 	}
+	
+	public void killPlayer()
+	{
+		//gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
+		
+		
+		dead = true;
+		//TODO: play a dying animation?
+		//TODO: let xa.cs know that player has died, deduct a life and respawn
+		respawnPlayer();
+		//play respawn animations?
+		StartCoroutine(triggerTempInvincibility(3));
+	}
+	
+	void respawnPlayer()
+	{
+		Vector2 playerpos;
+		
+		if(xa.playerstartside==1)//start north
+		{
+			playerpos = new Vector2(-0.5f,5.7f);		
+		}
+		else if(xa.playerstartside==2)//start east
+		{
+			playerpos = new Vector2(8.5f,0.7f);
+		}
+		else if(xa.playerstartside==3)//start south
+		{
+			playerpos = new Vector2(0.5f,-5.3f);
+		}
+		else if(xa.playerstartside==4)//start west
+		{
+			playerpos = new Vector2(-8.5f,.7f);	
+		}
+		else
+		{
+			playerpos = new Vector2(-0.5f,5.7f);
+		}
+		gameObject.GetComponent<OTSprite>().position = playerpos;
+	}//end respawnPlayer
+	
+	private bool blinking = false;
+	IEnumerator triggerTempInvincibility(float seconds)
+	{	
+		blinking = true;
+		yield return new WaitForSeconds(seconds);
+		dead = false;
+		gameObject.GetComponent<MeshRenderer>().enabled = true;
+		blinking = false;
+		//Debug.Log("REVIVED!");	
+	}//end triggerTempInvincibility
+	
+	float blinktimer = 0;
+	void blinkCheck()
+	{
+		if(blinking == true)
+		{
+			if(blinktimer<.05)
+			{
+				//blinktimer++;
+				blinktimer+=Time.deltaTime;
+			}
+			else
+			{
+				if(gameObject.GetComponent<MeshRenderer>().enabled)
+				{
+					gameObject.GetComponent<MeshRenderer>().enabled=false;
+				}
+				else
+				{
+					gameObject.GetComponent<MeshRenderer>().enabled=true;
+				}
+				
+				blinktimer=0;
+			}
+		}
+	}//end blink
 }

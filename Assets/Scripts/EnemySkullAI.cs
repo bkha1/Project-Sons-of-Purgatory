@@ -217,63 +217,63 @@ public class EnemySkullAI : MonoBehaviour {
 			//Debug.Log("q1");
 			if(deg <= 11.25)//target right
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=0;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=1;
-				newbullet2.GetComponent<Bullet>().moveDirY=.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=.5f;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=1;
-				newbullet3.GetComponent<Bullet>().moveDirY=-.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=-.5f;
 			}
 			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
 			{
-				newbullet.GetComponent<Bullet>().moveDirX = 1;
-				newbullet.GetComponent<Bullet>().moveDirY= .5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirX = 1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY= .5f;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=1;
-				newbullet2.GetComponent<Bullet>().moveDirY=0;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=0;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=1;
-				newbullet3.GetComponent<Bullet>().moveDirY=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=1;
 			}
 			else if(deg <=56.25 && deg > 33.75)//target upright
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX = 1;
-				newbullet2.GetComponent<Bullet>().moveDirY= .5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX = 1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY= .5f;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = .5f;
-				newbullet3.GetComponent<Bullet>().moveDirY= 1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = .5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= 1;
 			}
 			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
 			{
-				newbullet.GetComponent<Bullet>().moveDirX = .5f;
-				newbullet.GetComponent<Bullet>().moveDirY= 1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX = .5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirY= 1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=1;
-				newbullet2.GetComponent<Bullet>().moveDirY=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = 0;
-				newbullet3.GetComponent<Bullet>().moveDirY= 1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = 0;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= 1;
 			}
 			else if(deg > 78.75)//target up
 			{
-				newbullet.GetComponent<Bullet>().moveDirX = 0;
-				newbullet.GetComponent<Bullet>().moveDirY= 1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX = 0;
+				newbullet.GetComponent<EnemyBullet>().moveDirY= 1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX = .5f;
-				newbullet2.GetComponent<Bullet>().moveDirY= 1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX = .5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY= 1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=-.5f;
-				newbullet3.GetComponent<Bullet>().moveDirY=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=-.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=1;
 			}
 			/*else
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=1;
 			}*/
 		}
 		else if(bulletpoint.x <= thisskull.x && bulletpoint.y > thisskull.y)//quadrant 2
@@ -281,63 +281,63 @@ public class EnemySkullAI : MonoBehaviour {
 			//Debug.Log("q2");
 			if(deg <= -78.75)//up
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=0;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX = .5f;
-				newbullet2.GetComponent<Bullet>().moveDirY= 1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX = .5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY= 1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=-.5f;
-				newbullet3.GetComponent<Bullet>().moveDirY=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=-.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=1;
 			}
 			else if(deg <= -56.25 && deg > -78.75)//11
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-.5f;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-.5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=0;
-				newbullet2.GetComponent<Bullet>().moveDirY=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=0;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=-1;
-				newbullet3.GetComponent<Bullet>().moveDirY=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=1;
 			}
 			else if(deg <= -33.75 && deg > -56.25)//upleft
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=-.5f;
-				newbullet2.GetComponent<Bullet>().moveDirY=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=-.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=-1;
-				newbullet3.GetComponent<Bullet>().moveDirY=.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=.5f;
 			}
 			else if(deg <= -11.25 && deg > -33.75)//10
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=.5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=.5f;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=-1;
-				newbullet2.GetComponent<Bullet>().moveDirY=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=-1;
-				newbullet3.GetComponent<Bullet>().moveDirY=0;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=0;
 			}
 			else if(deg > -11.25)//left
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=0;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=-1;
-				newbullet2.GetComponent<Bullet>().moveDirY=.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=.5f;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = -1;
-				newbullet3.GetComponent<Bullet>().moveDirY= -.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = -1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= -.5f;
 			}
 			/*else
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=1;
 			}*/
 		}
 		else if(bulletpoint.x < thisskull.x && bulletpoint.y <= thisskull.y)//quadrant 3
@@ -345,63 +345,63 @@ public class EnemySkullAI : MonoBehaviour {
 			//Debug.Log("q3");
 			if(deg <= 11.25)//target left
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=0;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=-1;
-				newbullet2.GetComponent<Bullet>().moveDirY=.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=.5f;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = -1;
-				newbullet3.GetComponent<Bullet>().moveDirY= -.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = -1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= -.5f;
 			}
 			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
 			{
-				newbullet.GetComponent<Bullet>().moveDirX = -1;
-				newbullet.GetComponent<Bullet>().moveDirY= -.5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirX = -1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY= -.5f;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=-1;
-				newbullet2.GetComponent<Bullet>().moveDirY=0;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=0;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=-1;
-				newbullet3.GetComponent<Bullet>().moveDirY=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=-1;
 			}
 			else if(deg <=56.25 && deg > 33.75)//target downleft
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX = -1;
-				newbullet2.GetComponent<Bullet>().moveDirY= -.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX = -1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY= -.5f;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = -.5f;
-				newbullet3.GetComponent<Bullet>().moveDirY= -1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = -.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= -1;
 			}
 			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
 			{
-				newbullet.GetComponent<Bullet>().moveDirX = -.5f;
-				newbullet.GetComponent<Bullet>().moveDirY= -1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX = -.5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirY= -1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=-1;
-				newbullet2.GetComponent<Bullet>().moveDirY=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = 0;
-				newbullet3.GetComponent<Bullet>().moveDirY= -1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = 0;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= -1;
 			}
 			else if(deg > 78.75)//target down
 			{
-				newbullet.GetComponent<Bullet>().moveDirX = 0;
-				newbullet.GetComponent<Bullet>().moveDirY= -1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX = 0;
+				newbullet.GetComponent<EnemyBullet>().moveDirY= -1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX = -.5f;
-				newbullet2.GetComponent<Bullet>().moveDirY= -1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX = -.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY= -1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=.5f;
-				newbullet3.GetComponent<Bullet>().moveDirY=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=-1;
 			}
 			/*else
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-1;
 			}*/
 		}
 		else if(bulletpoint.x >= thisskull.x && bulletpoint.y < thisskull.y)//quadrant 4
@@ -409,63 +409,63 @@ public class EnemySkullAI : MonoBehaviour {
 			//Debug.Log("q4");
 			if(deg <= -78.75)//down
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=0;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX = -.5f;
-				newbullet2.GetComponent<Bullet>().moveDirY= -1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX = -.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY= -1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=.5f;
-				newbullet3.GetComponent<Bullet>().moveDirY=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=-1;
 			}
 			else if(deg <= -56.25 && deg > -78.75)//5
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=.5f;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=.5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=0;
-				newbullet2.GetComponent<Bullet>().moveDirY=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=0;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=1;
-				newbullet3.GetComponent<Bullet>().moveDirY=-1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=-1;
 			}
 			else if(deg <= -33.75 && deg > -56.25)//downright
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=.5f;
-				newbullet2.GetComponent<Bullet>().moveDirY=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=1;
-				newbullet3.GetComponent<Bullet>().moveDirY=-.5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=-.5f;
 			}
 			else if(deg <= -11.25 && deg > -33.75)//4
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-.5f;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-.5f;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=1;
-				newbullet2.GetComponent<Bullet>().moveDirY=-1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=-1;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX=1;
-				newbullet3.GetComponent<Bullet>().moveDirY=0;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY=0;
 			}
 			else if(deg > -11.25)//right
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=0;
 				
-				newbullet2.GetComponent<Bullet>().moveDirX=1;
-				newbullet2.GetComponent<Bullet>().moveDirY=-.5f;
+				newbullet2.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet2.GetComponent<EnemyBullet>().moveDirY=-.5f;
 				
-				newbullet3.GetComponent<Bullet>().moveDirX = 1;
-				newbullet3.GetComponent<Bullet>().moveDirY= .5f;
+				newbullet3.GetComponent<EnemyBullet>().moveDirX = 1;
+				newbullet3.GetComponent<EnemyBullet>().moveDirY= .5f;
 			}
 			/*else
 			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<EnemyBullet>().moveDirX=1;
+				newbullet.GetComponent<EnemyBullet>().moveDirY=-1;
 			}*/
 			
 		}
@@ -565,4 +565,6 @@ public class EnemySkullAI : MonoBehaviour {
 		else
 			return false;
 	}
+	
+	
 }

@@ -65,9 +65,40 @@ public class PlayerRoomSideDecider : MonoBehaviour {
 		}
 		else
 		{
-			playerpos = new Vector2(0f,0f);
+			playerpos = new Vector2(-0.5f,5.7f);
 		}
 		playerspawn.GetComponent<OTSprite>().position=playerpos;
-		xa.playerstartside=0;
+		//xa.playerstartside=0;
 	}
+	
+	/*public void respawnPlayer()
+	{
+		//TODO: Trigger temp invincibility for player
+		
+		Vector2 playerpos;
+		GameObject playerspawn = (GameObject)Instantiate(player);
+		
+		if(xa.playerstartside==1)//start north
+		{
+			playerpos = new Vector2(-0.5f,5.7f);		
+		}
+		else if(xa.playerstartside==2)//start east
+		{
+			playerpos = new Vector2(8.5f,.7f);
+		}
+		else if(xa.playerstartside==3)//start south
+		{
+			playerpos = new Vector2(0.5f,-5.3f);
+		}
+		else if(xa.playerstartside==4)//start west
+		{
+			playerpos = new Vector2(-8.5f,.7f);	
+		}
+		else
+		{
+			playerpos = new Vector2(-0.5f,5.7f);
+		}
+		playerspawn.GetComponent<OTSprite>().position=playerpos;
+		//xa.playerstartside=0;
+	}*/
 }
