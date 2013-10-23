@@ -42,7 +42,8 @@ public class xa : MonoBehaviour {
 	public static bool shooting;
 	
 	public static Vector3 playerPosition = new Vector3(0,0,0);
-	private GameObject[] players;
+	//private GameObject[] players;
+	private GameObject playerobject;
 	//private List<GameObject> players;
 	//public static bool playerdead = false;
 
@@ -78,7 +79,8 @@ public class xa : MonoBehaviour {
 		if(!playerexists)
 		{
 			playerroomsidedecider.spawnPlayer();
-			players = GameObject.FindGameObjectsWithTag("Player");
+			//players = GameObject.FindGameObjectsWithTag("Player");
+			playerobject = GameObject.FindGameObjectWithTag("Player");
 			playerexists = true;
 		}
 		
@@ -177,7 +179,8 @@ public class xa : MonoBehaviour {
 		//find player's position
 		if(playerexists)
 		{
-			playerPosition = players[0].transform.position;
+			//playerPosition = players[0].transform.position;
+			playerPosition = playerobject.transform.position;
 			//playerdead = players[0].GetComponent<Player>().isDead();
 			/*if(players[0].GetComponent<Player>().isDead())
 			{

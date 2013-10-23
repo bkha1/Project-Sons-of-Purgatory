@@ -15,7 +15,7 @@ public class EnemySkullAI : MonoBehaviour {
 	
 	private int bobcount=0;
 	
-	
+	public int health = 1000;//health!
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +28,7 @@ public class EnemySkullAI : MonoBehaviour {
 		bob ();
 		wander ();
 		//attacking();
+		healthCheck();
 	}
 	
 	private bool blockednorth = false;
@@ -566,5 +567,31 @@ public class EnemySkullAI : MonoBehaviour {
 			return false;
 	}
 	
+	void healthCheck()
+	{
+		if(health<0)
+		{
+			Destroy(gameObject);
+		}
+	}//end healthCheck
 	
+	IEnumerator hitFlash()
+	{
+		//gameObject.renderer.material.color = Color.white;
+		gameObject.GetComponent<OTSprite>().materialReference="additive";
+		yield return new WaitForSeconds(.2f);
+		gameObject.GetComponent<OTSprite>().materialReference="transparent";
+
+	}//end hitFlash
+	
+	void OnTriggerEnter(Collider other)
+	{
+
+		if(other.gameObject.CompareTag("Bullet"))
+		{
+			health -=other.gameObject.GetComponent<Bullet>().getDamage();
+			Destroy(other.gameObject);//destroy the bullet
+			StartCoroutine(hitFlash());
+		}
+	}
 }
