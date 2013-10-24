@@ -15,7 +15,8 @@ public class EnemySkullAI : MonoBehaviour {
 	
 	private int bobcount=0;
 	
-	public int health = 1000;//health!
+	//public int health = 1000;//health!
+	//private bool dead = false;
 
 	// Use this for initialization
 	void Start () {
@@ -23,12 +24,19 @@ public class EnemySkullAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		updateRaycasts();
-		
-		bob ();
-		wander ();
-		//attacking();
-		healthCheck();
+		if(!gameObject.GetComponent<EnemyProperties>().dead)
+		{
+			updateRaycasts();
+			
+			bob ();
+			wander ();
+			//attacking();
+			//healthCheck();
+		}
+		else
+		{
+			gameObject.GetComponent<OTSprite>().tintColor = Color.black;
+		}
 	}
 	
 	private bool blockednorth = false;
@@ -567,13 +575,16 @@ public class EnemySkullAI : MonoBehaviour {
 			return false;
 	}
 	
-	void healthCheck()
+	/*void healthCheck()
 	{
 		if(health<0)
 		{
-			Destroy(gameObject);
+			//Destroy(gameObject);
+			gameObject.GetComponent<OTSprite>().tintColor = Color.black;
+			//gameObject.GetComponent<OTSprite>().depth = -1;
+			dead = true;
 		}
-	}//end healthCheck
+	}//end healthCheck*/
 	
 	IEnumerator hitFlash()
 	{
@@ -586,12 +597,19 @@ public class EnemySkullAI : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-
-		if(other.gameObject.CompareTag("Bullet"))
+		if(!gameObject.GetComponent<EnemyProperties>().dead)
 		{
-			health -=other.gameObject.GetComponent<Bullet>().getDamage();
-			Destroy(other.gameObject);//destroy the bullet
-			StartCoroutine(hitFlash());
+			if(other.gameObject.CompareTag("Bullet"))
+			{
+				//health -=other.gameObject.GetComponent<Bullet>().getDamage();
+				gameObject.GetComponent<EnemyProperties>().health -=other.gameObject.GetComponent<Bullet>().getDamage();
+				Destroy(other.gameObject);//destroy the bullet
+				StartCoroutine(hitFlash());
+			}
+			else if(other.gameObject.CompareTag("Player"))
+			{
+				other.gameObject.GetComponent<Player>().killPlayer();
+			}
 		}
 	}
 }

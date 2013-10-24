@@ -48,11 +48,11 @@ public class EnemyBullet : MonoBehaviour {
 		
 		if(other.gameObject.CompareTag("Player"))
 		{
-			if(other.gameObject.GetComponent<Player>().isDead()==false)
-			{
+			//if(other.gameObject.GetComponent<Player>().isDead()==false)
+			//{
 				//other.gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
 				other.gameObject.GetComponent<Player>().killPlayer();
-			}
+			//}
 		}
 	}
 }

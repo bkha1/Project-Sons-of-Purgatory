@@ -337,26 +337,31 @@ public class Player : MonoBehaviour {
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
+				//newbullet.GetComponent<OTSprite>().rotation = 0;
 			}
 			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
 			{
 				newbullet.GetComponent<Bullet>().moveDirX = 1;
 				newbullet.GetComponent<Bullet>().moveDirY= .5f;
+				newbullet.GetComponent<OTSprite>().rotation = 22.5f;
 			}
 			else if(deg <=56.25 && deg > 33.75)//target upright
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<OTSprite>().rotation = 45;
 			}
 			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
 			{
 				newbullet.GetComponent<Bullet>().moveDirX = .5f;
 				newbullet.GetComponent<Bullet>().moveDirY= 1;
+				newbullet.GetComponent<OTSprite>().rotation = 67.5f;
 			}
 			else if(deg > 78.75)//target up
 			{
 				newbullet.GetComponent<Bullet>().moveDirX = 0;
 				newbullet.GetComponent<Bullet>().moveDirY= 1;
+				newbullet.GetComponent<OTSprite>().rotation = 90;
 			}
 			else
 			{
@@ -393,26 +398,31 @@ public class Player : MonoBehaviour {
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=0;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<OTSprite>().rotation = 90;
 			}
 			else if(deg <= -56.25 && deg > -78.75)//11
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=-.5f;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<OTSprite>().rotation = 112.5f;
 			}
 			else if(deg <= -33.75 && deg > -56.25)//upleft
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=1;
+				newbullet.GetComponent<OTSprite>().rotation = 135;
 			}
 			else if(deg <= -11.25 && deg > -33.75)//10
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=.5f;
+				newbullet.GetComponent<OTSprite>().rotation = 157.5f;
 			}
 			else if(deg > -11.25)//left
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<OTSprite>().rotation = 180;
 			}
 			else
 			{
@@ -448,26 +458,31 @@ public class Player : MonoBehaviour {
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<OTSprite>().rotation = 180;
 			}
 			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
 			{
 				newbullet.GetComponent<Bullet>().moveDirX = -1;
 				newbullet.GetComponent<Bullet>().moveDirY= -.5f;
+				newbullet.GetComponent<OTSprite>().rotation = 202.5f;
 			}
 			else if(deg <=56.25 && deg > 33.75)//target downleft
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=-1;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<OTSprite>().rotation = 225;
 			}
 			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
 			{
 				newbullet.GetComponent<Bullet>().moveDirX = -.5f;
 				newbullet.GetComponent<Bullet>().moveDirY= -1;
+				newbullet.GetComponent<OTSprite>().rotation = 247.5f;
 			}
 			else if(deg > 78.75)//target down
 			{
 				newbullet.GetComponent<Bullet>().moveDirX = 0;
 				newbullet.GetComponent<Bullet>().moveDirY= -1;
+				newbullet.GetComponent<OTSprite>().rotation = 270;
 			}
 			else
 			{
@@ -504,26 +519,31 @@ public class Player : MonoBehaviour {
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=0;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<OTSprite>().rotation = 270;
 			}
 			else if(deg <= -56.25 && deg > -78.75)//5
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=.5f;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<OTSprite>().rotation = 292.5f;
 			}
 			else if(deg <= -33.75 && deg > -56.25)//downright
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
+				newbullet.GetComponent<OTSprite>().rotation = 315;
 			}
 			else if(deg <= -11.25 && deg > -33.75)//4
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=-.5f;
+				newbullet.GetComponent<OTSprite>().rotation = 337.5f;
 			}
 			else if(deg > -11.25)//right
 			{
 				newbullet.GetComponent<Bullet>().moveDirX=1;
 				newbullet.GetComponent<Bullet>().moveDirY=0;
+				newbullet.GetComponent<OTSprite>().rotation = 0;
 			}
 			else
 			{
@@ -702,13 +722,15 @@ public class Player : MonoBehaviour {
 	{
 		//gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
 		
-		
-		dead = true;
-		//TODO: play a dying animation?
-		//TODO: let xa.cs know that player has died, deduct a life and respawn
-		respawnPlayer();
-		//play respawn animations?
-		StartCoroutine(triggerTempInvincibility(3));
+		if(dead == false)
+		{
+			dead = true;
+			//TODO: play a dying animation?
+			//TODO: let xa.cs know that player has died, deduct a life and respawn
+			respawnPlayer();
+			//play respawn animations?
+			StartCoroutine(triggerTempInvincibility(3));
+		}
 	}
 	
 	void respawnPlayer()
