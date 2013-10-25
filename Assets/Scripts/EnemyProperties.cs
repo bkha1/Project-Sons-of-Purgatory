@@ -6,6 +6,7 @@ public class EnemyProperties : MonoBehaviour {
 	public int health = 100;
 	public bool dead = false;
 	public bool frenzy = false;
+	public int id = 0;
 	
 	// Use this for initialization
 	void Start () {

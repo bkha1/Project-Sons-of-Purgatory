@@ -20,6 +20,8 @@ public class EnemySkullAI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gameObject.GetComponent<EnemyProperties>().health = 1000;
+		gameObject.GetComponent<EnemyProperties>().id = 1;//enemy id is 1
 	}
 	
 	// Update is called once per frame

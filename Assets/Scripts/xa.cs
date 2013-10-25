@@ -71,6 +71,8 @@ public class xa : MonoBehaviour {
 	public static int playerstartside = 0;
 	public PlayerRoomSideDecider playerroomsidedecider;
 	public bool playerexists = false;
+	
+	public static bool exitscene = false;
 
 	public void Start()
 	{
@@ -172,6 +174,7 @@ public class xa : MonoBehaviour {
 		isDown = false;
 		isShoot = false;
 		shooting = false;
+		exitscene =false;
 	}
 
 	public void Update() 
@@ -286,6 +289,7 @@ public class xa : MonoBehaviour {
 			Debug.Log("exit north");
 			if(northroom!=-1)
 			{
+				exitscene=true;
 				playerstartside = 3;
 				currentposi--;
 				if(northroom==-10)//startpoint
@@ -307,6 +311,7 @@ public class xa : MonoBehaviour {
 			Debug.Log("exit east");
 			if(eastroom!=-1)
 			{
+				exitscene=true;
 				playerstartside = 4;
 				currentposj++;
 				if(eastroom==-10)//startpoint
@@ -325,9 +330,11 @@ public class xa : MonoBehaviour {
 		}
 		else if(playerexitdirection==3)
 		{
+			
 			Debug.Log("exit south");
 			if(southroom!=-1)
 			{
+				exitscene=true;
 				playerstartside = 1;
 				currentposi++;
 				if(southroom==-10)//startpoint
@@ -346,9 +353,11 @@ public class xa : MonoBehaviour {
 		}
 		else if(playerexitdirection==4)
 		{
+			
 			Debug.Log("exit west");
 			if(westroom!=-1)
 			{
+				exitscene=true;
 				playerstartside = 2;
 				currentposj--;
 				if(westroom==-10)//startpoint

@@ -92,6 +92,16 @@ public class DungeonPopulator : MonoBehaviour {
 				{
 					roomsgrid[i,j]=0;
 				}
+				
+				//an empty levelbank skips this section of the code above, so ive duplicated it down here
+				if(tempgrid[i,j]==-10)
+				{
+					roomsgrid[i,j]=-10;
+				}
+				if(tempgrid[i,j]==-20)
+				{
+					roomsgrid[i,j]=-20;
+				}
 			}
 		}
 		
