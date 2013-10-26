@@ -228,6 +228,7 @@
     <Compile Include="Assets\Scripts\PlayerAnims.cs" />
     <Compile Include="Assets\Scripts\PlayerRoomSideDecider.cs" />
     <Compile Include="Assets\Scripts\RoomName.cs" />
+    <Compile Include="Assets\Scripts\Triscuits.cs" />
     <Compile Include="Assets\Scripts\xa.cs" />
     <Compile Include="Assets\iTween\Plugins\iTween.cs" />
     <Compile Include="Assets\iTween\Sample\MoveSample.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Assets\iTween\Sample\SampleInfo.cs" />
     <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh2.shader" />
     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\lorem-ascii.txt" />
+    <None Include="Assets\SpriteAtlases\triscuit.xml" />
     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\russian.txt" />
     <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
     <None Include="Assets\AstarPathfindingProject\ExampleScenes\Materials\Projector Multiply.shader" />

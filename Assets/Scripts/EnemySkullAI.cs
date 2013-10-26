@@ -21,11 +21,13 @@ public class EnemySkullAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameObject.GetComponent<EnemyProperties>().health = 1000;
-		gameObject.GetComponent<EnemyProperties>().id = 1;//enemy id is 1
+		//gameObject.GetComponent<EnemyProperties>().id = 1;//enemy id is 1
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		gameObject.GetComponent<OTSprite>().spriteContainer = OT.ContainerByName("doge");//so that the container is constantly updated, should migrate to animation script later
+		
 		if(!gameObject.GetComponent<EnemyProperties>().dead)
 		{
 			updateRaycasts();

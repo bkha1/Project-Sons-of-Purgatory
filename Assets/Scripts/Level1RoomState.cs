@@ -9,6 +9,19 @@ public class Level1RoomState : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		if(xa.currentposi!=-1)
+		{
+			if(xa.visitgrid[xa.currentposi,xa.currentposj]==1)//(visited)
+			{
+				Destroy(gameObject);
+			}
+			else
+			{
+				DontDestroyOnLoad(gameObject);
+				location.x = xa.currentposi;
+				location.y = xa.currentposj;
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -43,7 +56,7 @@ public class Level1RoomState : MonoBehaviour {
 	
 	void Awake()
 	{	
-		if(xa.currentposi!=-1)
+		/*if(xa.currentposi!=-1)
 		{
 			if(xa.visitgrid[xa.currentposi,xa.currentposj]==1)//(visited)
 			{
@@ -55,8 +68,7 @@ public class Level1RoomState : MonoBehaviour {
 				location.x = xa.currentposi;
 				location.y = xa.currentposj;
 			}
-		}
-
+		}*/
 	}
 	
 	

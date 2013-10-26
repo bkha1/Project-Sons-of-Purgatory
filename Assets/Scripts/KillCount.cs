@@ -25,14 +25,15 @@ public class KillCount : MonoBehaviour {
 		//if(!xa.playerdead)
 		//{
 			timeIncrease();
+		killIncrease();
 		//}
 	
 	}
 	
 	public void killIncrease()
 	{
-		killValue += 1;
-		killValueText.text = killValue.ToString ("D7");
+		
+		killValueText.text = xa.experiencepoints.ToString ("D7");
 	}
 	
 	public void bulletIncrease()

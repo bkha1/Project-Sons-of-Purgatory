@@ -755,7 +755,8 @@ public class Player : MonoBehaviour {
 		}
 		else
 		{
-			playerpos = new Vector2(-0.5f,5.7f);
+			//playerpos = new Vector2(-0.5f,5.7f);
+			playerpos = new Vector2(0,0);
 		}
 		gameObject.GetComponent<OTSprite>().position = playerpos;
 	}//end respawnPlayer

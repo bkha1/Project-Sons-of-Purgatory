@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour {
 	private int damage = 100;
 	
 	private GameObject thisGameObject;
-
+	
 	// Use this for initialization
 	void Start () {
 		

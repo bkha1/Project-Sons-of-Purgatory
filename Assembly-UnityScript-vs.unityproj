@@ -60,6 +60,7 @@
      <Compile Include="Assets\Orthello\Examples\7 - Tweening\JSStar7_2.js" />
      <None Include="Assets\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh2.shader" />
      <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\lorem-ascii.txt" />
+     <None Include="Assets\SpriteAtlases\triscuit.xml" />
      <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\russian.txt" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
      <None Include="Assets\AstarPathfindingProject\ExampleScenes\Materials\Projector Multiply.shader" />

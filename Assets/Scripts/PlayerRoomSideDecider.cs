@@ -65,7 +65,8 @@ public class PlayerRoomSideDecider : MonoBehaviour {
 		}
 		else
 		{
-			playerpos = new Vector2(-0.5f,5.7f);
+			//playerpos = new Vector2(-0.5f,5.7f);
+			playerpos = new Vector2(0,0);
 		}
 		playerspawn.GetComponent<OTSprite>().position=playerpos;
 		//xa.playerstartside=0;

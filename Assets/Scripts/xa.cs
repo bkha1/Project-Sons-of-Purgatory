@@ -73,8 +73,13 @@ public class xa : MonoBehaviour {
 	public bool playerexists = false;
 	
 	public static bool exitscene = false;
-
-	public void Start()
+	
+	//for bullets and leveling up
+	public static ArrayList powerupbank = new ArrayList();//banks of all the powerups and their levels to be used
+	public static int powerlevel = 1;//the level in the powerupbank
+	public static int experiencepoints = 0;
+	
+	public void Awake()
 	{
 		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
 		playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
@@ -97,14 +102,50 @@ public class xa : MonoBehaviour {
 			dunpop = (DungeonPopulator) (this.gameObject.GetComponent("DungeonPopulator"));
 			dunpop.assignRooms();
 			
-			//fill map with zeroes first
-			/*for(int i=0;i<17;i++)
+			for(int i=0;i<16;i++)
 			{
-				for(int j=0;j<17;j++)
+				for(int j=0;j<16;j++)
 				{
-					mapgrid[i,j]=0;
+					mapgrid[i,j] = dunpop.getValueInIndexOfRooms(i,j);
+					visitgrid[i,j] = -1;//marks them as unvisited
+					
+					if(mapgrid[i,j] == -10)
+					{
+						currentposi = i;
+						currentposj = j;
+						//visitgrid[i,j] = 1;//marks the start area as visited already
+					}
 				}
-			}*/
+			}//end for
+			
+			initialload = false;
+		}//end initialload check
+		}//end isstartscene check
+		Debug.Log("current position: " + currentposi + ", " + currentposj);
+	}
+
+	public void Start()
+	{
+		/*sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
+		playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
+		if(!playerexists)
+		{
+			playerroomsidedecider.spawnPlayer();
+			//players = GameObject.FindGameObjectsWithTag("Player");
+			playerobject = GameObject.FindGameObjectWithTag("Player");
+			playerexists = true;
+		}
+		
+		
+		//Debug.Log("length: " + players.Length);
+		
+		if(isstartscene)//start scene check, will probably change this to loading scene (good for testing a single scene without initial loading stuff)
+		{
+		//do this stuff once in the beginning
+		if(initialload)
+		{
+			dunpop = (DungeonPopulator) (this.gameObject.GetComponent("DungeonPopulator"));
+			dunpop.assignRooms();
 			
 			for(int i=0;i<16;i++)
 			{
@@ -117,7 +158,7 @@ public class xa : MonoBehaviour {
 					{
 						currentposi = i;
 						currentposj = j;
-						visitgrid[i,j] = 1;//marks the start area as visited already
+						//visitgrid[i,j] = 1;//marks the start area as visited already
 					}
 				}
 			}//end for
@@ -126,7 +167,7 @@ public class xa : MonoBehaviour {
 		}//end initialload check
 		}//end isstartscene check
 		Debug.Log("current position: " + currentposi + ", " + currentposj);
-		
+		*/
 		northroom = -1;
 		eastroom = -1;
 		southroom = -1;

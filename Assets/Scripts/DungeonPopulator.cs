@@ -77,7 +77,7 @@ public class DungeonPopulator : MonoBehaviour {
 					{
 						randomlvlindex = Random.Range (0,lvlbank.ToArray().Length);//randomly chooses lvl
 						roomsgrid[i,j] = (int)lvlbank[randomlvlindex];
-						lvlbank.RemoveAt(randomlvlindex);//removes lvl from the bank
+						//lvlbank.RemoveAt(randomlvlindex);//removes lvl from the bank
 					}
 					else if(tempgrid[i,j]==-10)
 					{
