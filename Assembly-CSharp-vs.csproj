@@ -227,6 +227,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerAnims.cs" />
     <Compile Include="Assets\Scripts\PlayerRoomSideDecider.cs" />
+    <Compile Include="Assets\Scripts\PlayerWeapon.cs" />
     <Compile Include="Assets\Scripts\RoomName.cs" />
     <Compile Include="Assets\Scripts\Triscuits.cs" />
     <Compile Include="Assets\Scripts\xa.cs" />

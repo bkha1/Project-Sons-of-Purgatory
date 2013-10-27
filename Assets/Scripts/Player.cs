@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 	private OTAnimatingSprite shootSprite;
 	
 	//testing stuff
-	public GameObject bullet;
+	//public GameObject bullet;
 
 	// movement
 	private float moveSpeed = 5;
@@ -134,11 +134,10 @@ public class Player : MonoBehaviour {
 		*/
 		
 		//shooting
-		if(xa.isShoot && !xa.shooting)
+		/*if(xa.isShoot && !xa.shooting)
 		{
-			//Debug.Log ("SHOOTING");
 			StartCoroutine (Shoot ());
-		}
+		}*/
 
 		UpdateMovement();
 	}
@@ -283,310 +282,311 @@ public class Player : MonoBehaviour {
 	
 	/* ============================== SHOOT ====================================================================== */
 	
-	IEnumerator Shoot()
-	{
-		xa.shooting = true;
-		xa.sc.bulletIncrease();
-		
-		Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
-		
-		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
-		Destroy (newbullet,3);//destroys the newly created object in 3 seconds
-		
-		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
-		
-		//Debug.Log("player:" + bulletpos.x + " " + bulletpos.y);
-		
-		
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
-		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
-		
-		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
-		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
-		
-		//Debug.Log("Degree:" + deg);
-		
-		int quadr = 0;//records which quadrant was clicked
-		
-		//checking where player is clicking and adjusting it for 8way using the deg variable
-		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
-		{
-			quadr = 1;
-			//Debug.Log("QUADRANT 1");
-			/*if(deg < 22.5)//target right
-			{
-				//Debug.Log("TARGET RIGHT");
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-			}
-			else if(deg > 67.5) //target up
-			{
-				//Debug.Log("TARGET UP");
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-			}
-			else //target upright
-			{
-				//Debug.Log("TARGET UPRIGHT");
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-			}*/
-			
-			if(deg <= 11.25)//target right
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-				//newbullet.GetComponent<OTSprite>().rotation = 0;
-			}
-			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
-			{
-				newbullet.GetComponent<Bullet>().moveDirX = 1;
-				newbullet.GetComponent<Bullet>().moveDirY= .5f;
-				newbullet.GetComponent<OTSprite>().rotation = 22.5f;
-			}
-			else if(deg <=56.25 && deg > 33.75)//target upright
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-				newbullet.GetComponent<OTSprite>().rotation = 45;
-			}
-			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
-			{
-				newbullet.GetComponent<Bullet>().moveDirX = .5f;
-				newbullet.GetComponent<Bullet>().moveDirY= 1;
-				newbullet.GetComponent<OTSprite>().rotation = 67.5f;
-			}
-			else if(deg > 78.75)//target up
-			{
-				newbullet.GetComponent<Bullet>().moveDirX = 0;
-				newbullet.GetComponent<Bullet>().moveDirY= 1;
-				newbullet.GetComponent<OTSprite>().rotation = 90;
-			}
-			else
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-			}
-		}
-		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
-		{
-			quadr = 2;
-			//Debug.Log("QUADRANT 2");
-			/*
-			if(deg < -67.5) //target up
-			{
-				//Debug.Log("TARGET UP");
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-			}
-			else if(deg > -22.5)//target left
-			{
-				//Debug.Log("TARGET LEFT");
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-			}
-			else //target upleft
-			{
-				//Debug.Log("TARGET UPLEFT");
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-			}
-			*/
-			
-			if(deg <= -78.75)//up
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-				newbullet.GetComponent<OTSprite>().rotation = 90;
-			}
-			else if(deg <= -56.25 && deg > -78.75)//11
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-.5f;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-				newbullet.GetComponent<OTSprite>().rotation = 112.5f;
-			}
-			else if(deg <= -33.75 && deg > -56.25)//upleft
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-				newbullet.GetComponent<OTSprite>().rotation = 135;
-			}
-			else if(deg <= -11.25 && deg > -33.75)//10
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=.5f;
-				newbullet.GetComponent<OTSprite>().rotation = 157.5f;
-			}
-			else if(deg > -11.25)//left
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-				newbullet.GetComponent<OTSprite>().rotation = 180;
-			}
-			else
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=1;
-			}
-		}
-		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
-		{
-			quadr = 3;
-			//Debug.Log("QUADRANT 3");
-			/*
-			if(deg < 22.5)//target left
-			{
-				//Debug.Log("TARGET LEFT");
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-			}
-			else if(deg > 67.5)//target down
-			{
-				//Debug.Log("TARGET DOWN");
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-			}
-			else//target downleft
-			{
-				//Debug.Log("TARGET DOWNLEFT");
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-			}*/
-			
-			if(deg <= 11.25)//target left
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-				newbullet.GetComponent<OTSprite>().rotation = 180;
-			}
-			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
-			{
-				newbullet.GetComponent<Bullet>().moveDirX = -1;
-				newbullet.GetComponent<Bullet>().moveDirY= -.5f;
-				newbullet.GetComponent<OTSprite>().rotation = 202.5f;
-			}
-			else if(deg <=56.25 && deg > 33.75)//target downleft
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-				newbullet.GetComponent<OTSprite>().rotation = 225;
-			}
-			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
-			{
-				newbullet.GetComponent<Bullet>().moveDirX = -.5f;
-				newbullet.GetComponent<Bullet>().moveDirY= -1;
-				newbullet.GetComponent<OTSprite>().rotation = 247.5f;
-			}
-			else if(deg > 78.75)//target down
-			{
-				newbullet.GetComponent<Bullet>().moveDirX = 0;
-				newbullet.GetComponent<Bullet>().moveDirY= -1;
-				newbullet.GetComponent<OTSprite>().rotation = 270;
-			}
-			else
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=-1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-			}
-			
-		}
-		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
-		{
-			quadr = 4;
-			//Debug.Log("QUADRANT 4");
-			/*
-			if(deg < -67.5)//target down
-			{
-				//Debug.Log("TARGET DOWN");
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-			}
-			else if(deg > -22.5)//target right
-			{
-				//Debug.Log("TARGET RIGHT");
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-			}
-			else//target downright
-			{
-				//Debug.Log("TARGET DOWNRIGHT");
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-			}*/
-			
-			if(deg <= -78.75)//down
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=0;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-				newbullet.GetComponent<OTSprite>().rotation = 270;
-			}
-			else if(deg <= -56.25 && deg > -78.75)//5
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=.5f;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-				newbullet.GetComponent<OTSprite>().rotation = 292.5f;
-			}
-			else if(deg <= -33.75 && deg > -56.25)//downright
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-				newbullet.GetComponent<OTSprite>().rotation = 315;
-			}
-			else if(deg <= -11.25 && deg > -33.75)//4
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-.5f;
-				newbullet.GetComponent<OTSprite>().rotation = 337.5f;
-			}
-			else if(deg > -11.25)//right
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=0;
-				newbullet.GetComponent<OTSprite>().rotation = 0;
-			}
-			else
-			{
-				newbullet.GetComponent<Bullet>().moveDirX=1;
-				newbullet.GetComponent<Bullet>().moveDirY=-1;
-			}
-		}
-		else
-		{
-			quadr = 0;
-			//Debug.Log("LACK OF QUADRANT?");
-		}
-		
-		
-		/*
-		movement = new Vector3(moveDirX, moveDirY,0f);
-		movement *= Time.deltaTime*moveSpeed;
-		GetComponent<OTSprite>().position+=(Vector2)movement;*/
-		
-		/*
-		// show the shoot sprite and play the animation
-		shootRenderer.enabled = true;
-		shootSprite.Play("shoot");
-		
-		// check facing direction and flip the shoot parent to the correct side
-		if(xa.facingDir == 1)
-		{
-			shootParent.localScale = new Vector3(1,1,1); // left side
-		}
-		if(xa.facingDir == 2)
-		{
-			shootParent.localScale = new Vector3(-1,1,1); // right side
-		}
-		*/
-		
-		yield return new WaitForSeconds(0.05f);
-		
-		
-		// hide the sprite
-		//shootRenderer.enabled = false;
-		
-		xa.shooting = false;
-	}//end shoot()
+	
+//	IEnumerator Shoot()
+//	{
+//		xa.shooting = true;
+//		xa.sc.bulletIncrease();
+//		
+//		Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+//		
+//		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
+//		Destroy (newbullet,3);//destroys the newly created object in 3 seconds
+//		
+//		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
+//		
+//		//Debug.Log("player:" + bulletpos.x + " " + bulletpos.y);
+//		
+//		
+//		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+//    	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
+//		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
+//		
+//		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
+//		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+//		
+//		//Debug.Log("Degree:" + deg);
+//		
+//		int quadr = 0;//records which quadrant was clicked
+//		
+//		//checking where player is clicking and adjusting it for 8way using the deg variable
+//		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+//		{
+//			quadr = 1;
+//			//Debug.Log("QUADRANT 1");
+//			/*if(deg < 22.5)//target right
+//			{
+//				//Debug.Log("TARGET RIGHT");
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//			}
+//			else if(deg > 67.5) //target up
+//			{
+//				//Debug.Log("TARGET UP");
+//				newbullet.GetComponent<Bullet>().moveDirX=0;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//			}
+//			else //target upright
+//			{
+//				//Debug.Log("TARGET UPRIGHT");
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//			}*/
+//			
+//			if(deg <= 11.25)//target right
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//				//newbullet.GetComponent<OTSprite>().rotation = 0;
+//			}
+//			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX = 1;
+//				newbullet.GetComponent<Bullet>().moveDirY= .5f;
+//				newbullet.GetComponent<OTSprite>().rotation = 22.5f;
+//			}
+//			else if(deg <=56.25 && deg > 33.75)//target upright
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//				newbullet.GetComponent<OTSprite>().rotation = 45;
+//			}
+//			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX = .5f;
+//				newbullet.GetComponent<Bullet>().moveDirY= 1;
+//				newbullet.GetComponent<OTSprite>().rotation = 67.5f;
+//			}
+//			else if(deg > 78.75)//target up
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX = 0;
+//				newbullet.GetComponent<Bullet>().moveDirY= 1;
+//				newbullet.GetComponent<OTSprite>().rotation = 90;
+//			}
+//			else
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//			}
+//		}
+//		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+//		{
+//			quadr = 2;
+//			//Debug.Log("QUADRANT 2");
+//			/*
+//			if(deg < -67.5) //target up
+//			{
+//				//Debug.Log("TARGET UP");
+//				newbullet.GetComponent<Bullet>().moveDirX=0;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//			}
+//			else if(deg > -22.5)//target left
+//			{
+//				//Debug.Log("TARGET LEFT");
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//			}
+//			else //target upleft
+//			{
+//				//Debug.Log("TARGET UPLEFT");
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//			}
+//			*/
+//			
+//			if(deg <= -78.75)//up
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=0;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//				newbullet.GetComponent<OTSprite>().rotation = 90;
+//			}
+//			else if(deg <= -56.25 && deg > -78.75)//11
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-.5f;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//				newbullet.GetComponent<OTSprite>().rotation = 112.5f;
+//			}
+//			else if(deg <= -33.75 && deg > -56.25)//upleft
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//				newbullet.GetComponent<OTSprite>().rotation = 135;
+//			}
+//			else if(deg <= -11.25 && deg > -33.75)//10
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=.5f;
+//				newbullet.GetComponent<OTSprite>().rotation = 157.5f;
+//			}
+//			else if(deg > -11.25)//left
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//				newbullet.GetComponent<OTSprite>().rotation = 180;
+//			}
+//			else
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=1;
+//			}
+//		}
+//		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+//		{
+//			quadr = 3;
+//			//Debug.Log("QUADRANT 3");
+//			/*
+//			if(deg < 22.5)//target left
+//			{
+//				//Debug.Log("TARGET LEFT");
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//			}
+//			else if(deg > 67.5)//target down
+//			{
+//				//Debug.Log("TARGET DOWN");
+//				newbullet.GetComponent<Bullet>().moveDirX=0;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//			}
+//			else//target downleft
+//			{
+//				//Debug.Log("TARGET DOWNLEFT");
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//			}*/
+//			
+//			if(deg <= 11.25)//target left
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//				newbullet.GetComponent<OTSprite>().rotation = 180;
+//			}
+//			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX = -1;
+//				newbullet.GetComponent<Bullet>().moveDirY= -.5f;
+//				newbullet.GetComponent<OTSprite>().rotation = 202.5f;
+//			}
+//			else if(deg <=56.25 && deg > 33.75)//target downleft
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//				newbullet.GetComponent<OTSprite>().rotation = 225;
+//			}
+//			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX = -.5f;
+//				newbullet.GetComponent<Bullet>().moveDirY= -1;
+//				newbullet.GetComponent<OTSprite>().rotation = 247.5f;
+//			}
+//			else if(deg > 78.75)//target down
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX = 0;
+//				newbullet.GetComponent<Bullet>().moveDirY= -1;
+//				newbullet.GetComponent<OTSprite>().rotation = 270;
+//			}
+//			else
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=-1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//			}
+//			
+//		}
+//		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+//		{
+//			quadr = 4;
+//			//Debug.Log("QUADRANT 4");
+//			/*
+//			if(deg < -67.5)//target down
+//			{
+//				//Debug.Log("TARGET DOWN");
+//				newbullet.GetComponent<Bullet>().moveDirX=0;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//			}
+//			else if(deg > -22.5)//target right
+//			{
+//				//Debug.Log("TARGET RIGHT");
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//			}
+//			else//target downright
+//			{
+//				//Debug.Log("TARGET DOWNRIGHT");
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//			}*/
+//			
+//			if(deg <= -78.75)//down
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=0;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//				newbullet.GetComponent<OTSprite>().rotation = 270;
+//			}
+//			else if(deg <= -56.25 && deg > -78.75)//5
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=.5f;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//				newbullet.GetComponent<OTSprite>().rotation = 292.5f;
+//			}
+//			else if(deg <= -33.75 && deg > -56.25)//downright
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//				newbullet.GetComponent<OTSprite>().rotation = 315;
+//			}
+//			else if(deg <= -11.25 && deg > -33.75)//4
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-.5f;
+//				newbullet.GetComponent<OTSprite>().rotation = 337.5f;
+//			}
+//			else if(deg > -11.25)//right
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=0;
+//				newbullet.GetComponent<OTSprite>().rotation = 0;
+//			}
+//			else
+//			{
+//				newbullet.GetComponent<Bullet>().moveDirX=1;
+//				newbullet.GetComponent<Bullet>().moveDirY=-1;
+//			}
+//		}
+//		else
+//		{
+//			quadr = 0;
+//			//Debug.Log("LACK OF QUADRANT?");
+//		}
+//		
+//		
+//		/*
+//		movement = new Vector3(moveDirX, moveDirY,0f);
+//		movement *= Time.deltaTime*moveSpeed;
+//		GetComponent<OTSprite>().position+=(Vector2)movement;*/
+//		
+//		/*
+//		// show the shoot sprite and play the animation
+//		shootRenderer.enabled = true;
+//		shootSprite.Play("shoot");
+//		
+//		// check facing direction and flip the shoot parent to the correct side
+//		if(xa.facingDir == 1)
+//		{
+//			shootParent.localScale = new Vector3(1,1,1); // left side
+//		}
+//		if(xa.facingDir == 2)
+//		{
+//			shootParent.localScale = new Vector3(-1,1,1); // right side
+//		}
+//		*/
+//		
+//		yield return new WaitForSeconds(0.05f);
+//		
+//		
+//		// hide the sprite
+//		//shootRenderer.enabled = false;
+//		
+//		xa.shooting = false;
+//	}//end shoot()
 	
 	/* ============================== DEATH AND RESPAWN ====================================================================== */
 	

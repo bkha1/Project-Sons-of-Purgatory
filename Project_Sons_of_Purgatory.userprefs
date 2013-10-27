@@ -1,15 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemyProperties.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerWeapon.cs">
     <Files>
-      <File FileName="Assets\Scripts\xa.cs" Line="103" Column="1" />
-      <File FileName="Assets\Scripts\Level1RoomState.cs" Line="21" Column="2" />
-      <File FileName="Assets\Scripts\EnemySkullAI.cs" Line="29" Column="84" />
-      <File FileName="Assets\Scripts\Player.cs" Line="771" Column="8" />
-      <File FileName="Assets\Scripts\Bullet.cs" Line="14" Column="2" />
-      <File FileName="Assets\Scripts\Triscuits.cs" Line="15" Column="78" />
-      <File FileName="Assets\Scripts\EnemyProperties.cs" Line="52" Column="1" />
-      <File FileName="Assets\Scripts\KillCount.cs" Line="28" Column="15" />
+      <File FileName="Assets\Scripts\PlayerWeapon.cs" Line="641" Column="23" />
+      <File FileName="Assets\Scripts\xa.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Level1RoomState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemySkullAI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Bullet.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Triscuits.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemyProperties.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\KillCount.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

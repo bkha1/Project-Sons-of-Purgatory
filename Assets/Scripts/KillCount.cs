@@ -24,7 +24,7 @@ public class KillCount : MonoBehaviour {
 	void Update () {
 		//if(!xa.playerdead)
 		//{
-			timeIncrease();
+		timeIncrease();
 		killIncrease();
 		//}
 	
@@ -49,8 +49,9 @@ public class KillCount : MonoBehaviour {
 	
 	private void timeIncrease()
 	{
-		timeValue += Time.deltaTime;
+		//timeValue += Time.deltaTime;
+		//timeValueText.text = timeValue.ToString();
+		timeValue = OT.fps;
 		timeValueText.text = timeValue.ToString();
-		
 	}
 }
