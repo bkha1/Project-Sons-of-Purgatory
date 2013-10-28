@@ -5,6 +5,7 @@ public class PlayerWeapon : MonoBehaviour {
 	
 	private float rateoffire = 0.1f;
 	public GameObject bullet;
+	public GameObject multibullet;
 	Vector2 playerpos;
 	// Use this for initialization
 	void Start () {
@@ -21,30 +22,35 @@ public class PlayerWeapon : MonoBehaviour {
 		{
 			//Debug.Log ("SHOOTING");
 			
-			if(xa.experiencepoints>1000)
+			if(xa.experiencepoints>=1200)
 			{
-				StartCoroutine (spreadShot());
+				StartCoroutine (spreadShot(playerpos, multibullet));
+			}
+			else if(xa.experiencepoints>=500)
+			{
+				
+				StartCoroutine (Shoot(playerpos, multibullet));
 			}
 			else
 			{
-				StartCoroutine (Shoot ());
+				StartCoroutine (Shoot (playerpos, bullet));
 			}
 		}
 	
 	}
 	
-	IEnumerator Shoot()
+	IEnumerator Shoot(Vector2 bulletpos, GameObject bullet)
 	{
 		xa.shooting = true;
 		xa.sc.bulletIncrease();
 		
-		Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+		//Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
 		
 		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
 		Destroy (newbullet,5);//destroys the newly created object in 3 seconds
 		
 		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
-		
+		//newbullet.transform.position = bulletpos;
 		
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
@@ -230,11 +236,14 @@ public class PlayerWeapon : MonoBehaviour {
 		xa.shooting = false;
 	}//end shoot()
 	
-	IEnumerator spreadShot()
+	IEnumerator spreadShot(Vector2 bulletpos, GameObject bullet)
 	{
 		xa.sc.bulletIncrease();
+		xa.sc.bulletIncrease();
+		xa.sc.bulletIncrease();
 		
-		Vector2 bulletpos = playerpos;
+		
+		//Vector2 bulletpos = playerpos;
 		
 		GameObject newbullet = (GameObject)Instantiate(bullet);//create a new bullet object
 		GameObject newbullet2 = (GameObject)Instantiate(bullet);
@@ -243,10 +252,6 @@ public class PlayerWeapon : MonoBehaviour {
 		Destroy (newbullet,5);//destroys the newly created object in 3 seconds
 		Destroy (newbullet2,5);
 		Destroy (newbullet3,5);
-		
-		//newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
-		//newbullet2.GetComponent<OTSprite>().position = bulletpos;
-		//newbullet3.GetComponent<OTSprite>().position = bulletpos;
 		
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
@@ -633,11 +638,5 @@ public class PlayerWeapon : MonoBehaviour {
 		xa.shooting = false;
 	}//end spreadShot
 	
-	IEnumerator multiShot()
-	{
-		
-		xa.shooting = true;
-		yield return new WaitForSeconds(rateoffire);
-		xa.shooting = false;
-	}//end multiShot
-}
+	
+}//end class

@@ -1,16 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerWeapon.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemySkullAI.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerWeapon.cs" Line="641" Column="23" />
-      <File FileName="Assets\Scripts\xa.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\xa.cs" Line="226" Column="4" />
+      <File FileName="Assets\Scripts\PlayerWeapon.cs" Line="25" Column="28" />
       <File FileName="Assets\Scripts\Level1RoomState.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemySkullAI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bullet.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Triscuits.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemySkullAI.cs" Line="609" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="645" Column="26" />
       <File FileName="Assets\Scripts\EnemyProperties.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\KillCount.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EnemyBullet.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

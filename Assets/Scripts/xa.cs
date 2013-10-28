@@ -220,6 +220,11 @@ public class xa : MonoBehaviour {
 
 	public void Update() 
 	{
+		if(experiencepoints < 0)
+		{
+			experiencepoints =0;
+		}
+		
 		//find player's position
 		if(playerexists)
 		{

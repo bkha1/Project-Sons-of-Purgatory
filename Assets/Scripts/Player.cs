@@ -618,99 +618,10 @@ public class Player : MonoBehaviour {
 	
 	void OnTriggerStay(Collider other)
 	{
-		/*
-		if(other.gameObject.CompareTag ("Wall"))
-		{
-			Debug.Log("found a wall!");
-		}//end wall
-		*/
-		
-		// has the player been crushed by a block?
-		// this will be added in an upcomming tutorial
-		/*if (other.gameObject.CompareTag("Crusher"))
-		{
-			if(xa.alive)
-			{
-				xa.alive = false;
-				RespawnPlayer();
-				xa.sc.LifeSubtract();
-			}
-		}*/
-		
-		/*
-		// is the player overlapping a ladder?
-		if(other.gameObject.CompareTag("Ladder"))
-		{
-			xa.onLadder = false;
-			xa.blockedUp = false;
-			xa.blockedDown = false;
-			
-			ladderHitbox.y = other.transform.localScale.y * 0.5f; // get half the ladders Y height
-			
-			// is the player overlapping the ladder?
-			// if player is landing on top of ladder from a fall, let him pass by
-			if ((thisTransform.position.y + xa.playerHitboxY) < ((ladderHitbox.y + 0.1f) + other.transform.position.y))
-			{
-				xa.onLadder = true;
-				xa.falling = false;
-			}
-			
-			// if the player is at the top of the ladder, then snap her to the top
-			if ((thisTransform.position.y + xa.playerHitboxY) >= (ladderHitbox.y + other.transform.position.y) && xa.isUp)
-			{
-				xa.blockedUp = true;
-				xa.glx = thisTransform.position;
-                xa.glx.y = (ladderHitbox.y + other.transform.position.y) - xa.playerHitboxY;
-                thisTransform.position = xa.glx;
-			}
-			
-			// if the player is at the bottom of the ladder, then snap her to the bottom
-			if ((thisTransform.position.y - xa.playerHitboxY) <= (-ladderHitbox.y + other.transform.position.y))
-			{
-				xa.blockedDown = true;
-				xa.glx = thisTransform.position;
-				xa.glx.y = (-ladderHitbox.y + other.transform.position.y) + xa.playerHitboxY;
-                thisTransform.position = xa.glx;
-			}
-		}
-		
-		// is the player overlapping a rope?
-		if(other.gameObject.CompareTag("Rope"))
-		{
-			xa.onRope = false;
-			
-			if(!xa.onRope && !dropFromRope) 
-			{
-				// snap player to center of the rope
-				if (thisTransform.position.y < (other.transform.position.y + 0.2f) && thisTransform.position.y > (other.transform.position.y - 0.2f))
-                {
-					xa.onRope = true;
-					xa.falling = false;
-					xa.glx = thisTransform.position;
-                    xa.glx.y = other.transform.position.y;
-                    thisTransform.position = xa.glx;
-                }
-			}
-		}
-		*/
 	}
 	
 	void OnTriggerExit(Collider other)
 	{
-		/*
-		// did the player exit a rope trigger?
-		if (other.gameObject.CompareTag("Rope"))
-		{
-			xa.onRope = false;
-			dropFromRope = false;
-		}
-		
-		// did the player exit a ladder trigger?
-		if (other.gameObject.CompareTag("Ladder")) 
-		{
-			xa.onLadder = false;
-		}
-		*/
 	}
 	
 	public bool isDead()
@@ -730,6 +641,8 @@ public class Player : MonoBehaviour {
 			respawnPlayer();
 			//play respawn animations?
 			StartCoroutine(triggerTempInvincibility(3));
+			
+			xa.experiencepoints-=300;
 		}
 	}
 	

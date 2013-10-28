@@ -2183,7 +2183,7 @@ public class DungeonGenerator : MonoBehaviour {
 	{
 		eraseFloor();
 		//createT();
-		for(int i=0;i<2;i++)
+		for(int i=0;i<4;i++)
 		{
 			int rand = Random.Range(0,7);
 			if(rand ==0)
