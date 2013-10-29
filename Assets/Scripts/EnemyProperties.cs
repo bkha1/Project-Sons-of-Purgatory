@@ -47,7 +47,7 @@ public class EnemyProperties : MonoBehaviour {
 				
 				if(Random.Range(0,10)==0)
 				{
-					Vector3 tempscale = new Vector3(5,5,0);
+					//Vector3 tempscale = new Vector3(5,5,0);
 					//clonetriscuit.transform.localScale.Set(clonetriscuit.transform.localScale.x*5,clonetriscuit.transform.localScale.y*5,1);
 					clonetriscuit.GetComponent<OTSprite>().size *= 1.5f;
 					clonetriscuit.GetComponent<Triscuits>().xp*=5;

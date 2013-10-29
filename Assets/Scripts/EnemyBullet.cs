@@ -8,8 +8,6 @@ public class EnemyBullet : MonoBehaviour {
 	private Vector3 movement;
 	public int moveSpeed = 15;
 	
-	private int damage = 100;
-	
 	private GameObject thisGameObject;
 
 	// Use this for initialization
@@ -33,11 +31,6 @@ public class EnemyBullet : MonoBehaviour {
 		Destroy(thisGameObject);
 	}
 	
-	public int getDamage()
-	{
-		return damage;
-	}
-	
 	void OnTriggerEnter(Collider other)
 	{
 
@@ -52,6 +45,7 @@ public class EnemyBullet : MonoBehaviour {
 			//{
 				//other.gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
 				other.gameObject.GetComponent<Player>().killPlayer();
+			destroyMe();
 			//}
 		}
 	}

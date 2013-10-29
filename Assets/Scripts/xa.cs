@@ -81,7 +81,6 @@ public class xa : MonoBehaviour {
 	
 	public void Awake()
 	{
-		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
 		playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
 		if(!playerexists)
 		{
@@ -90,9 +89,6 @@ public class xa : MonoBehaviour {
 			playerobject = GameObject.FindGameObjectWithTag("Player");
 			playerexists = true;
 		}
-		
-		
-		//Debug.Log("length: " + players.Length);
 		
 		if(isstartscene)//start scene check, will probably change this to loading scene (good for testing a single scene without initial loading stuff)
 		{
@@ -126,6 +122,7 @@ public class xa : MonoBehaviour {
 
 	public void Start()
 	{
+		sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
 		/*sc = (KillCount) (this.gameObject.GetComponent("KillCount"));
 		playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
 		if(!playerexists)

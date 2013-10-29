@@ -82,6 +82,7 @@
     <None Include="Assets\AstarPathfindingProject\Readme.txt" />
     <None Include="Assets\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\SpriteAtlases\level.xml" />
+    <None Include="Assets\SpriteAtlases\doge2.xml" />
     <None Include="Assets\Orthello\Examples\0 - Simple Examples\TextSprites\Atlases\chalk.xml" />
     <None Include="Assets\AstarPathfindingProject\Plugins\JsonFx\License.txt" />
     <None Include="Assets\Orthello\Examples\0 - Simple Examples\Multi Resolution Art\atlas.xml" />

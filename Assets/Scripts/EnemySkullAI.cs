@@ -22,6 +22,12 @@ public class EnemySkullAI : MonoBehaviour {
 	void Start () {
 		gameObject.GetComponent<EnemyProperties>().health = 1000;
 		//gameObject.GetComponent<EnemyProperties>().id = 1;//enemy id is 1
+		
+		if(gameObject.GetComponent<EnemyProperties>().frenzy==true)
+		{
+			gameObject.GetComponent<EnemyProperties>().health = 1500;
+			gameObject.GetComponent<OTSprite>().size*=2;
+		}
 	}
 	
 	// Update is called once per frame

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Level1RoomState : MonoBehaviour {
+public class RoomState : MonoBehaviour {
 	
 	private bool childrenenabled = true;
 	private GameObject[] enemies;
