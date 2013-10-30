@@ -39,14 +39,17 @@ public class EnemyBullet : MonoBehaviour {
 			destroyMe();
 		}
 		
-		if(other.gameObject.CompareTag("Player"))
+		/*if(other.gameObject.CompareTag("Player"))
 		{
 			//if(other.gameObject.GetComponent<Player>().isDead()==false)
 			//{
 				//other.gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
+			if(!other.gameObject.GetComponent<Player>().isDead())
+			{
 				other.gameObject.GetComponent<Player>().killPlayer();
-			destroyMe();
+				destroyMe();
+			}
 			//}
-		}
+		}*/
 	}
 }

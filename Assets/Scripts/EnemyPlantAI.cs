@@ -19,9 +19,13 @@ public class EnemyPlantAI : MonoBehaviour {
 		
 		if(!gameObject.GetComponent<EnemyProperties>().dead)
 		{	
-			if(!isattacking)
+			waiting ();
+			
+			
+			if(gameObject.GetComponent<EnemyProperties>().hurt)
 			{
-				attacking();
+				StartCoroutine(hitFlash());
+				gameObject.GetComponent<EnemyProperties>().hurt = false;
 			}
 		}
 		else
@@ -30,14 +34,62 @@ public class EnemyPlantAI : MonoBehaviour {
 		}
 	}
 	
-	private bool isattacking = false;
-			
+	bool isattacking = false;
+	//int startaim = Random.Range(0,360);
+	//float attackinterval = 0;
+	int startaim = Random.Range(0,360);
 	IEnumerator attacking()
 	{
+		
 		isattacking = true;
-		yield return new WaitForSeconds(.5f);
+		
+		shootAngle(startaim);
+		startaim+=12;
+		if(startaim>=360)
+		{
+			startaim = 360 - startaim;
+		}
+		
+		yield return new WaitForSeconds(.05f);
 		isattacking = false;
+
 	}//end attacking
+	
+	int waitingrand = -1;
+	int waitingduration;
+	float waitingtimer = 0;
+	void waiting()
+	{
+		if(waitingrand==-1)
+		{
+			waitingrand=Random.Range(0,3);
+			waitingduration = Random.Range(1,4);
+			waitingtimer = 0;
+			//startaim = Random.Range(0,360);
+		}
+		
+		if(waitingrand<2)
+		{
+			if(!isattacking)
+			{
+				StartCoroutine(attacking());
+			}
+		}
+		
+		waitingtimer+=Time.deltaTime;
+		if(waitingtimer>waitingduration)
+		{
+			waitingrand = -1;
+		}
+	}
+	
+	void shootAngle(int degrees)
+	{
+		GameObject newbullet = (GameObject)Instantiate(bullet);
+		Destroy (newbullet,5);
+		newbullet.GetComponent<OTSprite>().position = new Vector2(transform.position.x,transform.position.y);
+		newbullet.GetComponent<RotationBullet>().rotation = degrees;
+	}//end shootAngle
 	
 	IEnumerator hitFlash()
 	{
@@ -49,7 +101,7 @@ public class EnemyPlantAI : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if(!gameObject.GetComponent<EnemyProperties>().dead)
+		/*if(!gameObject.GetComponent<EnemyProperties>().dead)
 		{
 			if(other.gameObject.CompareTag("Bullet"))
 			{
@@ -58,10 +110,10 @@ public class EnemyPlantAI : MonoBehaviour {
 				Destroy(other.gameObject);//destroy the bullet
 				StartCoroutine(hitFlash());
 			}
-			else if(other.gameObject.CompareTag("Player"))
+			if(other.gameObject.CompareTag("Player"))
 			{
 				other.gameObject.GetComponent<Player>().killPlayer();
 			}
-		}
+		}*/
 	}
 }

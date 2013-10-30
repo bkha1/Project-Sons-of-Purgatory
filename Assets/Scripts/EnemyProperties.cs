@@ -6,6 +6,7 @@ public class EnemyProperties : MonoBehaviour {
 	public int health = 100;
 	public bool dead = false;
 	public bool frenzy = false;
+	public bool hurt = false;
 	//public int id = 0;
 	
 	public GameObject triscuit;
@@ -54,10 +55,17 @@ public class EnemyProperties : MonoBehaviour {
 				}
 				
 			}
-			
-
 			dead = true;
 			//xa.sc.killIncrease();
+		}
+	}//end checkHealth
+	
+	public void hitEnemy(int damage)
+	{
+		if(!dead)
+		{
+			health -= damage;
+			hurt = true;
 		}
 	}
 }

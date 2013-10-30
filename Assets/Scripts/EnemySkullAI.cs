@@ -42,6 +42,11 @@ public class EnemySkullAI : MonoBehaviour {
 			wander ();
 			//attacking();
 			//healthCheck();
+			if(gameObject.GetComponent<EnemyProperties>().hurt)
+			{
+				StartCoroutine(hitFlash());
+				gameObject.GetComponent<EnemyProperties>().hurt = false;
+			}
 		}
 		else
 		{
@@ -607,7 +612,7 @@ public class EnemySkullAI : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if(!gameObject.GetComponent<EnemyProperties>().dead)
+		/*if(!gameObject.GetComponent<EnemyProperties>().dead)
 		{
 			if(other.gameObject.CompareTag("Bullet"))
 			{
@@ -616,10 +621,10 @@ public class EnemySkullAI : MonoBehaviour {
 				Destroy(other.gameObject);//destroy the bullet
 				StartCoroutine(hitFlash());
 			}
-			else if(other.gameObject.CompareTag("Player"))
+			if(other.gameObject.CompareTag("Player"))
 			{
 				other.gameObject.GetComponent<Player>().killPlayer();
 			}
-		}
+		}*/
 	}
 }

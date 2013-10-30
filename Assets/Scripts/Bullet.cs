@@ -45,5 +45,14 @@ public class Bullet : MonoBehaviour {
 		{
 			destroyMe();
 		}
+		
+		if(other.gameObject.CompareTag("Enemy"))
+		{
+			if(!other.gameObject.GetComponent<EnemyProperties>().dead)
+			{
+				other.gameObject.GetComponent<EnemyProperties>().hitEnemy(damage);
+				Destroy (gameObject);
+			}
+		}
 	}
 }

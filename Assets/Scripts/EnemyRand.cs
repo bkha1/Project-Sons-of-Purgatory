@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemySkullRand : MonoBehaviour {
+public class EnemyRand : MonoBehaviour {
 	
 	public int chance = 70;
 	public int frenzychance = 5;

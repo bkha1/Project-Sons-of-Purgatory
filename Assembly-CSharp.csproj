@@ -222,9 +222,8 @@
     <Compile Include="Assets\Scripts\EnemyBullet.cs" />
     <Compile Include="Assets\Scripts\EnemyPlantAI.cs" />
     <Compile Include="Assets\Scripts\EnemyProperties.cs" />
-    <Compile Include="Assets\Scripts\EnemyRotationBullet.cs" />
+    <Compile Include="Assets\Scripts\EnemyRand.cs" />
     <Compile Include="Assets\Scripts\EnemySkullAI.cs" />
-    <Compile Include="Assets\Scripts\EnemySkullRand.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\KillCount.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
@@ -233,6 +232,7 @@
     <Compile Include="Assets\Scripts\PlayerWeapon.cs" />
     <Compile Include="Assets\Scripts\RoomName.cs" />
     <Compile Include="Assets\Scripts\RoomState.cs" />
+    <Compile Include="Assets\Scripts\RotationBullet.cs" />
     <Compile Include="Assets\Scripts\Triscuits.cs" />
     <Compile Include="Assets\Scripts\Wall.cs" />
     <Compile Include="Assets\Scripts\xa.cs" />

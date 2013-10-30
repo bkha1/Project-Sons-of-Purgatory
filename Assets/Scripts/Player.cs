@@ -602,18 +602,22 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		
-		/*if(!dead)//NOTE: SHOULD PROBABLY MIGRATE THIS TO ENEMY SCRIPTS INSTEAD, THEN I CAN CHECK IF THE PLAYER IS ALIVE AND KILL HIM IF HE IS
+		if(!dead)
 		{
 			if(other.gameObject.CompareTag("Enemy"))
 			{
-				if(!other.GetComponent<Enemy>().isDead())
+				if(!other.GetComponent<EnemyProperties>().dead)
 				{
-					dead = true;
-					gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
+					killPlayer();
 				}
 				
 			}
-		}*/
+			else if(other.gameObject.CompareTag("EnemyBullet"))
+			{
+				killPlayer ();
+				Destroy(other.gameObject);
+			}
+		}
 	}
 	
 	void OnTriggerStay(Collider other)
