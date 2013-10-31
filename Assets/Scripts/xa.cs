@@ -24,22 +24,24 @@ public class xa : MonoBehaviour {
 	public static float playerHitboxX = 0.225f; // player x = 0.45
 	public static float playerHitboxY = 0.5f; // 0.5 is correct for ladders while player actual y = 0.6
 
-	public static bool isLeft;
-	public static bool isRight;
-	public static bool isUp;
-	public static bool isDown;
-	public static bool isUpLeft;
-	public static bool isUpRight;
-	public static bool isDownLeft;
-	public static bool isDownRight;
+	public static bool isLeft = false;
+	public static bool isRight = false;
+	public static bool isUp = false;
+	public static bool isDown = false;
+	public static bool isUpLeft = false;
+	public static bool isUpRight = false;
+	public static bool isDownLeft = false;
+	public static bool isDownRight = false;
 	
-	public static bool isShoot;
+	public static bool isShift = false;
+	
+	public static bool isShoot = false;
 
 	public static bool alive;
 	public static bool onLadder;
 	public static bool onRope;
 	public static bool falling;
-	public static bool shooting;
+	public static bool shooting = false;
 	
 	public static Vector3 playerPosition = new Vector3(0,0,0);
 	//private GameObject[] players;
@@ -206,12 +208,15 @@ public class xa : MonoBehaviour {
 		xa.orthSizeX = xa.orthSize * xa.camRatio;
 		
 		//stuff that must default controls to at the load of each scene
-		isLeft = false;
+		/*isLeft = false;
 		isRight = false;
 		isUp = false;
 		isDown = false;
 		isShoot = false;
 		shooting = false;
+		exitscene =false;
+		
+		isShift = false;*/
 		exitscene =false;
 	}
 
@@ -240,78 +245,89 @@ public class xa : MonoBehaviour {
 		}
 		
 		// these are false unless one of keys is pressed
-		/*isLeft = false;
+		isLeft = false;
 		isRight = false;
 		isUp = false;
 		isDown = false;
-		isShoot = false;*/
-
-		/*
+		
+		isUpLeft = false;
+		isUpRight = false;
+		isDownLeft = false;
+		isDownRight = false;
+		
+		isShoot = false;
+		isShift = false;
+		
+		//if(Input.GetKey(KeyCode.A) && (Input.GetKey(KeyCode.W)))
+		//{isUpLeft = true;}
+		
 		// keyboard input
-		if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) 
+		if(Input.GetKey(KeyCode.A)) 
 		{ isLeft = true; }
-		if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) 
+		if (Input.GetKey(KeyCode.D)) 
 		{ isRight = true; }
 
-		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) 
+		if (Input.GetKey(KeyCode.W)) 
 		{ isUp = true; }
-		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) 
+		if (Input.GetKey(KeyCode.S)) 
 		{ isDown = true; }
 
-		if (Input.GetKey(KeyCode.Space)) 
-		{ isShoot = true; }
-		*/
+		//if (Input.GetKey(KeyCode.Space)) 
+		//{ isShoot = true; }
 		
 		//new keyboard inputs
-		if(Input.GetKeyDown(KeyCode.A))
+		/*if(Input.GetKeyDown(KeyCode.A))
 		{ isLeft = true;}
-		if(Input.GetKeyUp(KeyCode.A))
+		else if(Input.GetKeyUp(KeyCode.A))
 		{ isLeft = false;}
 		if(Input.GetKeyDown(KeyCode.D))
 		{ isRight = true; }
-		if(Input.GetKeyUp(KeyCode.D))
+		else if(Input.GetKeyUp(KeyCode.D))
 		{ isRight = false; }
 		if(Input.GetKeyDown(KeyCode.W))
 		{ isUp = true; }
-		if(Input.GetKeyUp(KeyCode.W))
+		else if(Input.GetKeyUp(KeyCode.W))
 		{ isUp = false; }
 		if(Input.GetKeyDown(KeyCode.S))
 		{ isDown = true; }
-		if(Input.GetKeyUp(KeyCode.S))
-		{ isDown = false; }
+		else if(Input.GetKeyUp(KeyCode.S))
+		{ isDown = false; }*/
+		
+		if(Input.GetMouseButton(1))
+		{ isShift = true;}
 		
 		if(isLeft && isUp)
 		{ isUpLeft = true; }
-		else
-		{ isUpLeft = false; }
+		//else
+		//{ isUpLeft = false; }
 		
 		if(isRight && isUp)
 		{ isUpRight = true;}
-		else
-		{ isUpRight = false;}
+		//else
+		//{ isUpRight = false;}
 		
 		if(isLeft && isDown)
 		{ isDownLeft = true; }
-		else
-		{ isDownLeft = false; }
+		//else
+		//{ isDownLeft = false; }
 		
 		if(isRight && isDown)
 		{ isDownRight = true; }
-		else
-		{ isDownRight = false; }
+		//else
+		//{ isDownRight = false; }
 		
 		
 		//Input for mouse
-		if(Input.GetMouseButtonDown(0))
+		/*if(Input.GetMouseButtonDown(0))
 		{ //Debug.Log("Left mouse button clicked!");
 			isShoot = true;
 		}
 		else if(Input.GetMouseButtonUp(0))
 		{ //Debug.Log("Left mouse button up!");
 			isShoot = false;
-		}
-		/*if(Input.GetMouseButton(0))
-		{isShoot=true;}*/
+		}*/
+		if(Input.GetMouseButton(0))
+		{isShoot=true;}
 		
 		if(Input.GetKey(KeyCode.K))
 		{

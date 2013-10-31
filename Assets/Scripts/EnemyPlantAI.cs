@@ -34,24 +34,33 @@ public class EnemyPlantAI : MonoBehaviour {
 		}
 	}
 	
-	bool isattacking = false;
 	//int startaim = Random.Range(0,360);
 	//float attackinterval = 0;
+	int attackingduration = 6;
+	int attackingtimer = 0;
 	int startaim = Random.Range(0,360);
-	IEnumerator attacking()
+	void attacking()
 	{
+		//isattacking = true;
 		
-		isattacking = true;
-		
-		shootAngle(startaim);
-		startaim+=12;
-		if(startaim>=360)
+		if(attackingtimer>attackingduration)
 		{
-			startaim = 360 - startaim;
+			shootAngle(startaim);
+			startaim+=12;
+			if(startaim>=360)
+			{
+				startaim = 360 - startaim;
+			}
 		}
 		
-		yield return new WaitForSeconds(.05f);
-		isattacking = false;
+		//yield return new WaitForSeconds(.05f);
+		//isattacking = false;
+		
+		attackingtimer++;
+		if(attackingtimer > attackingduration+1)
+		{
+			attackingtimer=0;
+		}
 
 	}//end attacking
 	
@@ -70,16 +79,18 @@ public class EnemyPlantAI : MonoBehaviour {
 		
 		if(waitingrand<2)
 		{
-			if(!isattacking)
-			{
-				StartCoroutine(attacking());
-			}
+			//if(!isattacking)
+			//{
+				//StartCoroutine(attacking());
+				attacking();
+			//}
 		}
 		
 		waitingtimer+=Time.deltaTime;
 		if(waitingtimer>waitingduration)
 		{
 			waitingrand = -1;
+			//waitingtimer=0;
 		}
 	}
 	

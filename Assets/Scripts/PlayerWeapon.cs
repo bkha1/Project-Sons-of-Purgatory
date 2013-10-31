@@ -5,11 +5,12 @@ public class PlayerWeapon : MonoBehaviour {
 	
 	private float rateoffire = 0.1f;
 	public GameObject bullet;
+	public GameObject rotatingbullet;
 	public GameObject multibullet;
 	Vector2 playerpos;
 	// Use this for initialization
 	void Start () {
-	
+	xa.shooting = false;
 	}
 	
 	// Update is called once per frame
@@ -33,7 +34,15 @@ public class PlayerWeapon : MonoBehaviour {
 			}
 			else
 			{
-				StartCoroutine (Shoot (playerpos, bullet));
+				//StartCoroutine (Shoot (playerpos, bullet));
+				if(xa.isShift)
+				{
+					StartCoroutine (Shoot2 (playerpos, rotatingbullet));
+				}
+				else
+				{
+					StartCoroutine (Shoot (playerpos, bullet));
+				}
 			}
 		}
 	
@@ -229,6 +238,140 @@ public class PlayerWeapon : MonoBehaviour {
 		{
 			quadr = 0;
 			//Debug.Log("LACK OF QUADRANT?");
+		}
+		
+		yield return new WaitForSeconds(rateoffire);
+		
+		xa.shooting = false;
+	}//end shoot()
+	
+	
+	IEnumerator Shoot2(Vector2 bulletpos, GameObject bullet)
+	{
+		xa.shooting = true;
+		xa.sc.bulletIncrease();
+		
+		//Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+		
+		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
+		Destroy (newbullet,5);//destroys the newly created object in 3 seconds
+		
+		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
+		//newbullet.transform.position = bulletpos;
+		
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
+		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
+		
+		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		
+		
+		int quadr = 0;//records which quadrant was clicked
+		
+		//checking where player is clicking and adjusting it for 8way using the deg variable
+		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		{
+			quadr = 1;
+			//Debug.Log("QUADRANT 1");
+			
+			if(deg <= 11.25)//target right
+			{
+				newbullet.GetComponent<RotationBullet>().rotation = 0;
+			}
+			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
+			{
+				newbullet.GetComponent<RotationBullet>().rotation = 22.5f;
+			}
+			else if(deg <=56.25 && deg > 33.75)//target upright
+			{
+				newbullet.GetComponent<RotationBullet>().rotation = 45;
+			}
+			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =67.5f;
+			}
+			else if(deg > 78.75)//target up
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =90;
+			}
+		}
+		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		{
+			quadr = 2;
+			
+			if(deg <= -78.75)//up
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =90;
+			}
+			else if(deg <= -56.25 && deg > -78.75)//11
+			{
+				newbullet.GetComponent<RotationBullet>().rotation = 112.5f;
+			}
+			else if(deg <= -33.75 && deg > -56.25)//upleft
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =135;
+			}
+			else if(deg <= -11.25 && deg > -33.75)//10
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =157.5f;
+			}
+			else if(deg > -11.25)//left
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =180;
+			}
+		}
+		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		{
+			quadr = 3;
+			
+			if(deg <= 11.25)//target left
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =180;
+			}
+			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =202.5f;
+			}
+			else if(deg <=56.25 && deg > 33.75)//target downleft
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =225;
+			}
+			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =247.5f;
+			}
+			else if(deg > 78.75)//target down
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =270;
+			}
+			
+		}
+		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		{
+			quadr = 4;
+			
+			if(deg <= -78.75)//down
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =270;
+			}
+			else if(deg <= -56.25 && deg > -78.75)//5
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =292.5f;
+			}
+			else if(deg <= -33.75 && deg > -56.25)//downright
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =315;
+			}
+			else if(deg <= -11.25 && deg > -33.75)//4
+			{
+				newbullet.GetComponent<RotationBullet>().rotation =337.5f;
+			}
+			else if(deg > -11.25)//right
+			{
+
+				newbullet.GetComponent<RotationBullet>().rotation =0;
+			}
 		}
 		
 		yield return new WaitForSeconds(rateoffire);

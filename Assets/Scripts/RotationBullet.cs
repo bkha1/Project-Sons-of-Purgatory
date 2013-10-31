@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RotationBullet : MonoBehaviour {
 	
-	public int rotation = 0;
+	public float rotation = 0;
 	public int speed = 1;
 	public int damage = 100;
 	//public bool isenemybullet = false;

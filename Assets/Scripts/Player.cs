@@ -16,8 +16,8 @@ public class Player : MonoBehaviour {
 
 	// movement
 	private float moveSpeed = 5;
-	private int moveDirX;
-	private int moveDirY;
+	private float moveDirX;
+	private float moveDirY;
 	private Vector3 movement;
 	private Transform thisTransform;
 			
@@ -69,21 +69,41 @@ public class Player : MonoBehaviour {
 		if(xa.isLeft && !xa.blockedLeft)
 		{
 			moveDirX = -1;
+			
+			if(xa.isShift)
+			{
+				moveDirX = -.6f;
+			}
 		}
 		
 		if(xa.isRight && !xa.blockedRight)
 		{
 			moveDirX = 1;
+			
+			if(xa.isShift)
+			{
+				moveDirX = .6f;
+			}
 		}
 		
 		if(xa.isUp && !xa.blockedUp)
 		{
 			moveDirY = 1;
+			
+			if(xa.isShift)
+			{
+				moveDirY = .6f;
+			}
 		}
 		
 		if(xa.isDown && !xa.blockedDown)
 		{
 			moveDirY = -1;
+			
+			if(xa.isShift)
+			{
+				moveDirY = -.6f;
+			}
 		}
 		
 		/*
@@ -602,7 +622,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		
-		if(!dead)
+		/*if(!dead)
 		{
 			if(other.gameObject.CompareTag("Enemy"))
 			{
@@ -617,7 +637,7 @@ public class Player : MonoBehaviour {
 				killPlayer ();
 				Destroy(other.gameObject);
 			}
-		}
+		}*/
 	}
 	
 	void OnTriggerStay(Collider other)
