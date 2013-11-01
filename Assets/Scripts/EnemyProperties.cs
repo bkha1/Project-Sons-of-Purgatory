@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyProperties : MonoBehaviour {
 	
-	public int health = 100;
+	public float health = 100;
 	public bool dead = false;
 	public bool frenzy = false;
 	public bool hurt = false;
@@ -60,7 +60,7 @@ public class EnemyProperties : MonoBehaviour {
 		}
 	}//end checkHealth
 	
-	public void hitEnemy(int damage)
+	public void hitEnemy(float damage)
 	{
 		if(!dead)
 		{

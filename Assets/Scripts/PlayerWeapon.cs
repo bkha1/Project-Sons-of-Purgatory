@@ -4,13 +4,15 @@ using System.Collections;
 public class PlayerWeapon : MonoBehaviour {
 	
 	private float rateoffire = 0.1f;
+	private bool shooting = false;
 	public GameObject bullet;
 	public GameObject rotatingbullet;
 	public GameObject multibullet;
+	public GameObject rotatingmultibullet;
 	Vector2 playerpos;
 	// Use this for initialization
 	void Start () {
-	xa.shooting = false;
+		shooting = false;
 	}
 	
 	// Update is called once per frame
@@ -19,22 +21,35 @@ public class PlayerWeapon : MonoBehaviour {
 		playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
 		
 		//shooting
-		if(xa.isShoot && !xa.shooting)
-		{
-			//Debug.Log ("SHOOTING");
-			
+		if(xa.isShoot && !shooting)
+		{	
 			if(xa.experiencepoints>=1200)
 			{
-				StartCoroutine (spreadShot(playerpos, multibullet));
+				if(xa.isShift)
+				{
+					StartCoroutine (spreadShot2(playerpos, rotatingmultibullet));
+				}
+				else
+				{
+					StartCoroutine (spreadShot(playerpos, multibullet));
+				}
 			}
 			else if(xa.experiencepoints>=500)
 			{
-				
-				StartCoroutine (Shoot(playerpos, multibullet));
+				if(xa.isShift)
+				{
+					StartCoroutine (Shoot2(playerpos, rotatingmultibullet));
+					//StartCoroutine (Shoot2(playerpos, rotatingbullet));
+					//StartCoroutine (Shoot2(new Vector2(playerpos.x,playerpos.y-1), rotatingbullet));
+					//StartCoroutine (Shoot2(new Vector2(playerpos.x,playerpos.y+1), rotatingbullet));
+				}
+				else
+				{
+					StartCoroutine (Shoot(playerpos, multibullet));
+				}
 			}
 			else
 			{
-				//StartCoroutine (Shoot (playerpos, bullet));
 				if(xa.isShift)
 				{
 					StartCoroutine (Shoot2 (playerpos, rotatingbullet));
@@ -50,7 +65,7 @@ public class PlayerWeapon : MonoBehaviour {
 	
 	IEnumerator Shoot(Vector2 bulletpos, GameObject bullet)
 	{
-		xa.shooting = true;
+		shooting = true;
 		xa.sc.bulletIncrease();
 		
 		//Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
@@ -242,13 +257,13 @@ public class PlayerWeapon : MonoBehaviour {
 		
 		yield return new WaitForSeconds(rateoffire);
 		
-		xa.shooting = false;
+		shooting = false;
 	}//end shoot()
 	
 	
 	IEnumerator Shoot2(Vector2 bulletpos, GameObject bullet)
 	{
-		xa.shooting = true;
+		shooting = true;
 		xa.sc.bulletIncrease();
 		
 		//Vector2 bulletpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
@@ -376,7 +391,7 @@ public class PlayerWeapon : MonoBehaviour {
 		
 		yield return new WaitForSeconds(rateoffire);
 		
-		xa.shooting = false;
+		shooting = false;
 	}//end shoot()
 	
 	IEnumerator spreadShot(Vector2 bulletpos, GameObject bullet)
@@ -776,10 +791,192 @@ public class PlayerWeapon : MonoBehaviour {
 		newbullet2.GetComponent<OTSprite>().position = bulletpos;
 		newbullet3.GetComponent<OTSprite>().position = bulletpos;
 		
-		xa.shooting = true;
+		shooting = true;
 		yield return new WaitForSeconds(rateoffire);
-		xa.shooting = false;
+		shooting = false;
 	}//end spreadShot
 	
-	
+	IEnumerator spreadShot2(Vector2 bulletpos, GameObject bullet)
+	{
+		xa.sc.bulletIncrease();
+		xa.sc.bulletIncrease();
+		xa.sc.bulletIncrease();
+		
+		
+		//Vector2 bulletpos = playerpos;
+		
+		GameObject centerbullet = (GameObject)Instantiate(bullet);//create a new bullet object
+		GameObject leftbullet = (GameObject)Instantiate(bullet);
+		GameObject rightbullet = (GameObject)Instantiate(bullet);
+		
+		Destroy (centerbullet,5);//destroys the newly created object in 3 seconds
+		Destroy (leftbullet,5);
+		Destroy (rightbullet,5);
+		
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
+		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
+		
+		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		
+		int quadr = 0;//records which quadrant was clicked
+		
+		//checking where player is clicking and adjusting it for 8way using the deg variable
+		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		{
+			quadr = 1;
+			//Debug.Log("QUADRANT 1");
+			
+			if(deg <= 11.25)//target right
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 0;
+				leftbullet.GetComponent<RotationBullet>().rotation = 22.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 337.5f;
+			}
+			else if(deg <= 33.75 && deg > 11.25)//target 2 o clock
+			{
+
+				centerbullet.GetComponent<RotationBullet>().rotation = 22.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 0;
+				rightbullet.GetComponent<RotationBullet>().rotation = 45;
+			}
+			else if(deg <=56.25 && deg > 33.75)//target upright
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 45;
+				leftbullet.GetComponent<RotationBullet>().rotation = 22.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 67.5f;
+			}
+			else if(deg <= 78.75 && deg > 56.25)//target 1 o clock
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 67.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 45;
+				rightbullet.GetComponent<RotationBullet>().rotation = 90;
+			}
+			else if(deg > 78.75)//target up
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 90;
+				leftbullet.GetComponent<RotationBullet>().rotation = 67.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 112.5f;
+			}
+		}
+		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		{
+			quadr = 2;
+			
+			if(deg <= -78.75)//up
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 90;
+				leftbullet.GetComponent<RotationBullet>().rotation = 67.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 112.5f;
+			}
+			else if(deg <= -56.25 && deg > -78.75)//11
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 112.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 90;
+				rightbullet.GetComponent<RotationBullet>().rotation = 135;
+			}
+			else if(deg <= -33.75 && deg > -56.25)//upleft
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 135;
+				leftbullet.GetComponent<RotationBullet>().rotation = 112.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 157.5f;
+			}
+			else if(deg <= -11.25 && deg > -33.75)//10
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 157.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 135;
+				rightbullet.GetComponent<RotationBullet>().rotation = 180;
+			}
+			else if(deg > -11.25)//left
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 180;
+				leftbullet.GetComponent<RotationBullet>().rotation = 157.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 202.5f;				
+			}
+		}
+		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		{
+			quadr = 3;
+			
+			if(deg <= 11.25)//target left
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 180;
+				leftbullet.GetComponent<RotationBullet>().rotation = 157.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 202.5f;
+			}
+			else if(deg <= 33.75 && deg > 11.25)//target 8 o clock
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 202.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 180;
+				rightbullet.GetComponent<RotationBullet>().rotation = 225;
+			}
+			else if(deg <=56.25 && deg > 33.75)//target downleft
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 225;
+				leftbullet.GetComponent<RotationBullet>().rotation = 202.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 247.5f;
+			}
+			else if(deg <= 78.75 && deg > 56.25)//target 7 o clock
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 247.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 225;
+				rightbullet.GetComponent<RotationBullet>().rotation = 270;
+			}
+			else if(deg > 78.75)//target down
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 270;
+				leftbullet.GetComponent<RotationBullet>().rotation = 247.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 292.5f;
+			}
+			
+		}
+		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		{
+			quadr = 4;
+			
+			if(deg <= -78.75)//down
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 270;
+				leftbullet.GetComponent<RotationBullet>().rotation = 247.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 292.5f;
+			}
+			else if(deg <= -56.25 && deg > -78.75)//5
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 292.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 270;
+				rightbullet.GetComponent<RotationBullet>().rotation = 315;
+			}
+			else if(deg <= -33.75 && deg > -56.25)//downright
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 315;
+				leftbullet.GetComponent<RotationBullet>().rotation = 292.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 337.5f;
+			}
+			else if(deg <= -11.25 && deg > -33.75)//4
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 337.5f;
+				leftbullet.GetComponent<RotationBullet>().rotation = 315;
+				rightbullet.GetComponent<RotationBullet>().rotation = 0;
+			}
+			else if(deg > -11.25)//right
+			{
+				centerbullet.GetComponent<RotationBullet>().rotation = 0;
+				leftbullet.GetComponent<RotationBullet>().rotation = 337.5f;
+				rightbullet.GetComponent<RotationBullet>().rotation = 22.5f;
+			}
+		}
+		
+		centerbullet.GetComponent<OTSprite>().position = bulletpos;
+		leftbullet.GetComponent<OTSprite>().position = bulletpos;
+		rightbullet.GetComponent<OTSprite>().position = bulletpos;
+		
+		//centerbullet.GetComponent<RotationBullet>().damage *=.5f;
+		leftbullet.GetComponent<RotationBullet>().damage *=.5f;
+		rightbullet.GetComponent<RotationBullet>().damage *=.5f;
+		
+		shooting = true;
+		yield return new WaitForSeconds(rateoffire);
+		shooting = false;
+	}//end spreadShot
 }//end class
