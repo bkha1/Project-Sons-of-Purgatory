@@ -9,7 +9,7 @@ public class PlayerWeapon : MonoBehaviour {
 	public GameObject rotatingbullet;
 	public GameObject multibullet;
 	public GameObject rotatingmultibullet;
-	Vector2 playerpos;
+	
 	// Use this for initialization
 	void Start () {
 		shooting = false;
@@ -18,7 +18,8 @@ public class PlayerWeapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-		playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+		//playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+		getAim();
 		
 		//shooting
 		if(xa.isShoot && !shooting)
@@ -27,43 +28,69 @@ public class PlayerWeapon : MonoBehaviour {
 			{
 				if(xa.isShift)
 				{
-					StartCoroutine (spreadShot2(playerpos, rotatingmultibullet));
+					StartCoroutine (spreadShot2(rotatingmultibullet));
 				}
 				else
 				{
-					StartCoroutine (spreadShot(playerpos, multibullet));
+					StartCoroutine (spreadShot(multibullet));
 				}
 			}
 			else if(xa.experiencepoints>=500)
 			{
 				if(xa.isShift)
 				{
-					StartCoroutine (Shoot2(playerpos, rotatingmultibullet));
+					StartCoroutine (Shoot2(rotatingmultibullet));
 					//StartCoroutine (Shoot2(playerpos, rotatingbullet));
 					//StartCoroutine (Shoot2(new Vector2(playerpos.x,playerpos.y-1), rotatingbullet));
 					//StartCoroutine (Shoot2(new Vector2(playerpos.x,playerpos.y+1), rotatingbullet));
 				}
 				else
 				{
-					StartCoroutine (Shoot(playerpos, multibullet));
+					StartCoroutine (Shoot(multibullet));
 				}
 			}
 			else
 			{
 				if(xa.isShift)
 				{
-					StartCoroutine (Shoot2 (playerpos, rotatingbullet));
+					StartCoroutine (Shoot2 (rotatingbullet));
 				}
 				else
 				{
-					StartCoroutine (Shoot (playerpos, bullet));
+					StartCoroutine (Shoot (bullet));
 				}
 			}
 		}
 	
-	}
+	}//end update
 	
-	IEnumerator Shoot(Vector2 bulletpos, GameObject bullet)
+	Vector2 playerpos;
+	int quadr = 0;
+	float deg = 0;
+	void getAim()
+	{
+		playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
+		
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
+		Vector2 differencepos = (Vector2)bulletpoint - playerpos;
+		deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		
+		quadr = 0;
+		if(bulletpoint.x > playerpos.x && bulletpoint.y >= playerpos.y)//quadrant 1
+		{quadr = 1;}
+		else if(bulletpoint.x <= playerpos.x && bulletpoint.y > playerpos.y)
+		{quadr = 2;}
+		else if(bulletpoint.x < playerpos.x && bulletpoint.y <= playerpos.y)
+		{quadr = 3;}
+		else if(bulletpoint.x >= playerpos.x && bulletpoint.y < playerpos.y)
+		{quadr = 4;}
+		else
+		{quadr = 0;}
+	}//end getAim
+	
+	
+	IEnumerator Shoot(GameObject bullet)
 	{
 		shooting = true;
 		xa.sc.bulletIncrease();
@@ -73,23 +100,22 @@ public class PlayerWeapon : MonoBehaviour {
 		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
 		Destroy (newbullet,5);//destroys the newly created object in 3 seconds
 		
-		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
+		newbullet.GetComponent<OTSprite>().position = playerpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
 		//newbullet.transform.position = bulletpos;
 		
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		/*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
-		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
 		
 		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
-		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);*/
 		
 		
-		int quadr = 0;//records which quadrant was clicked
+		//int quadr = 0;//records which quadrant was clicked
 		
 		//checking where player is clicking and adjusting it for 8way using the deg variable
-		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		if(quadr==1)//bulletpoint.x > playerpos.x && bulletpoint.y >= playerpos.y)//quadrant 1
 		{
-			quadr = 1;
+			//quadr = 1;
 			//Debug.Log("QUADRANT 1");
 			
 			if(deg <= 11.25)//target right
@@ -128,9 +154,9 @@ public class PlayerWeapon : MonoBehaviour {
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
 		}
-		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		else if(quadr==2)//bulletpoint.x <= playerpos.x && bulletpoint.y > playerpos.y)//quadrant 2
 		{
-			quadr = 2;
+			//quadr = 2;
 			
 			if(deg <= -78.75)//up
 			{
@@ -168,9 +194,9 @@ public class PlayerWeapon : MonoBehaviour {
 				newbullet.GetComponent<Bullet>().moveDirY=1;
 			}
 		}
-		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		else if(quadr == 3)//bulletpoint.x < playerpos.x && bulletpoint.y <= playerpos.y)//quadrant 3
 		{
-			quadr = 3;
+			//quadr = 3;
 			
 			if(deg <= 11.25)//target left
 			{
@@ -209,9 +235,9 @@ public class PlayerWeapon : MonoBehaviour {
 			}
 			
 		}
-		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		else if(quadr==4)//bulletpoint.x >= playerpos.x && bulletpoint.y < playerpos.y)//quadrant 4
 		{
-			quadr = 4;
+			//quadr = 4;
 			
 			if(deg <= -78.75)//down
 			{
@@ -249,11 +275,6 @@ public class PlayerWeapon : MonoBehaviour {
 				newbullet.GetComponent<Bullet>().moveDirY=-1;
 			}
 		}
-		else
-		{
-			quadr = 0;
-			//Debug.Log("LACK OF QUADRANT?");
-		}
 		
 		yield return new WaitForSeconds(rateoffire);
 		
@@ -261,7 +282,7 @@ public class PlayerWeapon : MonoBehaviour {
 	}//end shoot()
 	
 	
-	IEnumerator Shoot2(Vector2 bulletpos, GameObject bullet)
+	IEnumerator Shoot2(GameObject bullet)
 	{
 		shooting = true;
 		xa.sc.bulletIncrease();
@@ -271,23 +292,23 @@ public class PlayerWeapon : MonoBehaviour {
 		GameObject newbullet = (GameObject)Instantiate(bullet);//, bulletpos, Quaternion.identity); //new Vector3(transform.position.x,transform.position.y,transform.position.z), Quaternion.identity);//, GetComponent<OTSprite>().transform.position, Quaternion.identity);//thisTransform.transform.position, thisTransform.transform.rotation); //transform.position, transform.rotation);//create a new bullet object
 		Destroy (newbullet,5);//destroys the newly created object in 3 seconds
 		
-		newbullet.GetComponent<OTSprite>().position = bulletpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
+		newbullet.GetComponent<OTSprite>().position = playerpos;//OH MY FUCKING GOD, ORTHELLO YOU BASTARD, THIS IS HOW TO DECIDE POSITIONS FOR ORTHELLO SPRITES
 		//newbullet.transform.position = bulletpos;
 		
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		/*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
 		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
 		
 		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
-		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);*/
 		
 		
-		int quadr = 0;//records which quadrant was clicked
+		//int quadr = 0;//records which quadrant was clicked
 		
 		//checking where player is clicking and adjusting it for 8way using the deg variable
-		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		if(quadr == 1)//bulletpoint.x > playerpos.x && bulletpoint.y >= playerpos.y)//quadrant 1
 		{
-			quadr = 1;
+			//quadr = 1;
 			//Debug.Log("QUADRANT 1");
 			
 			if(deg <= 11.25)//target right
@@ -311,9 +332,9 @@ public class PlayerWeapon : MonoBehaviour {
 				newbullet.GetComponent<RotationBullet>().rotation =90;
 			}
 		}
-		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		else if(quadr==2)//bulletpoint.x <= playerpos.x && bulletpoint.y > playerpos.y)//quadrant 2
 		{
-			quadr = 2;
+			//quadr = 2;
 			
 			if(deg <= -78.75)//up
 			{
@@ -336,9 +357,9 @@ public class PlayerWeapon : MonoBehaviour {
 				newbullet.GetComponent<RotationBullet>().rotation =180;
 			}
 		}
-		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		else if(quadr==3)//bulletpoint.x < playerpos.x && bulletpoint.y <= playerpos.y)//quadrant 3
 		{
-			quadr = 3;
+			//quadr = 3;
 			
 			if(deg <= 11.25)//target left
 			{
@@ -362,9 +383,9 @@ public class PlayerWeapon : MonoBehaviour {
 			}
 			
 		}
-		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		else if(quadr==4)//bulletpoint.x >= playerpos.x && bulletpoint.y < playerpos.y)//quadrant 4
 		{
-			quadr = 4;
+			//quadr = 4;
 			
 			if(deg <= -78.75)//down
 			{
@@ -394,7 +415,7 @@ public class PlayerWeapon : MonoBehaviour {
 		shooting = false;
 	}//end shoot()
 	
-	IEnumerator spreadShot(Vector2 bulletpos, GameObject bullet)
+	IEnumerator spreadShot(GameObject bullet)
 	{
 		xa.sc.bulletIncrease();
 		xa.sc.bulletIncrease();
@@ -411,19 +432,19 @@ public class PlayerWeapon : MonoBehaviour {
 		Destroy (newbullet2,5);
 		Destroy (newbullet3,5);
 		
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		/*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
 		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
 		
 		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
-		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);*/
 		
-		int quadr = 0;//records which quadrant was clicked
+		//int quadr = 0;//records which quadrant was clicked
 		
 		//checking where player is clicking and adjusting it for 8way using the deg variable
-		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		if(quadr==1)//bulletpoint.x > playerpos.x && bulletpoint.y >= playerpos.y)//quadrant 1
 		{
-			quadr = 1;
+			//quadr = 1;
 			//Debug.Log("QUADRANT 1");
 			
 			if(deg <= 11.25)//target right
@@ -510,9 +531,9 @@ public class PlayerWeapon : MonoBehaviour {
 				bulletpos.y += 1;*/
 			}
 		}
-		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		else if(quadr==2)//bulletpoint.x <= playerpos.x && bulletpoint.y > playerpos.y)//quadrant 2
 		{
-			quadr = 2;
+			//quadr = 2;
 			
 			if(deg <= -78.75)//up
 			{
@@ -600,9 +621,9 @@ public class PlayerWeapon : MonoBehaviour {
 				bulletpos.y += 0;*/
 			}
 		}
-		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		else if(quadr==3)//bulletpoint.x < playerpos.x && bulletpoint.y <= playerpos.y)//quadrant 3
 		{
-			quadr = 3;
+			//quadr = 3;
 			
 			if(deg <= 11.25)//target left
 			{
@@ -691,9 +712,9 @@ public class PlayerWeapon : MonoBehaviour {
 			}
 			
 		}
-		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		else if(quadr==4)//bulletpoint.x >= playerpos.x && bulletpoint.y < playerpos.y)//quadrant 4
 		{
-			quadr = 4;
+			//quadr = 4;
 			
 			if(deg <= -78.75)//down
 			{
@@ -781,22 +802,17 @@ public class PlayerWeapon : MonoBehaviour {
 				bulletpos.y += 0;*/
 			}
 		}
-		else
-		{
-			quadr = 0;
-			//Debug.Log("LACK OF QUADRANT?");
-		}
 		
-		newbullet.GetComponent<OTSprite>().position = bulletpos;
-		newbullet2.GetComponent<OTSprite>().position = bulletpos;
-		newbullet3.GetComponent<OTSprite>().position = bulletpos;
+		newbullet.GetComponent<OTSprite>().position = playerpos;
+		newbullet2.GetComponent<OTSprite>().position = playerpos;
+		newbullet3.GetComponent<OTSprite>().position = playerpos;
 		
 		shooting = true;
 		yield return new WaitForSeconds(rateoffire);
 		shooting = false;
 	}//end spreadShot
 	
-	IEnumerator spreadShot2(Vector2 bulletpos, GameObject bullet)
+	IEnumerator spreadShot2(GameObject bullet)
 	{
 		xa.sc.bulletIncrease();
 		xa.sc.bulletIncrease();
@@ -813,19 +829,19 @@ public class PlayerWeapon : MonoBehaviour {
 		Destroy (leftbullet,5);
 		Destroy (rightbullet,5);
 		
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		/*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
     	Vector3 bulletpoint = ray.origin + (ray.direction * 1000);
 		//Debug.Log("mouse:" + bulletpoint.x + " " + bulletpoint.y);
 		
 		Vector2 differencepos = (Vector2)bulletpoint - bulletpos;
-		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);
+		float deg = Mathf.Rad2Deg*Mathf.Atan(differencepos.y/differencepos.x);*/
 		
-		int quadr = 0;//records which quadrant was clicked
+		//int quadr = 0;//records which quadrant was clicked
 		
 		//checking where player is clicking and adjusting it for 8way using the deg variable
-		if(bulletpoint.x > bulletpos.x && bulletpoint.y >= bulletpos.y)//quadrant 1
+		if(quadr==1)//bulletpoint.x > playerpos.x && bulletpoint.y >= playerpos.y)//quadrant 1
 		{
-			quadr = 1;
+			//quadr = 1;
 			//Debug.Log("QUADRANT 1");
 			
 			if(deg <= 11.25)//target right
@@ -860,9 +876,9 @@ public class PlayerWeapon : MonoBehaviour {
 				rightbullet.GetComponent<RotationBullet>().rotation = 112.5f;
 			}
 		}
-		else if(bulletpoint.x <= bulletpos.x && bulletpoint.y > bulletpos.y)//quadrant 2
+		else if(quadr==2)//bulletpoint.x <= playerpos.x && bulletpoint.y > playerpos.y)//quadrant 2
 		{
-			quadr = 2;
+			//quadr = 2;
 			
 			if(deg <= -78.75)//up
 			{
@@ -895,9 +911,9 @@ public class PlayerWeapon : MonoBehaviour {
 				rightbullet.GetComponent<RotationBullet>().rotation = 202.5f;				
 			}
 		}
-		else if(bulletpoint.x < bulletpos.x && bulletpoint.y <= bulletpos.y)//quadrant 3
+		else if(quadr==3)//bulletpoint.x < playerpos.x && bulletpoint.y <= playerpos.y)//quadrant 3
 		{
-			quadr = 3;
+			//quadr = 3;
 			
 			if(deg <= 11.25)//target left
 			{
@@ -931,9 +947,9 @@ public class PlayerWeapon : MonoBehaviour {
 			}
 			
 		}
-		else if(bulletpoint.x >= bulletpos.x && bulletpoint.y < bulletpos.y)//quadrant 4
+		else if(quadr==4)//bulletpoint.x >= playerpos.x && bulletpoint.y < playerpos.y)//quadrant 4
 		{
-			quadr = 4;
+			//quadr = 4;
 			
 			if(deg <= -78.75)//down
 			{
@@ -967,9 +983,9 @@ public class PlayerWeapon : MonoBehaviour {
 			}
 		}
 		
-		centerbullet.GetComponent<OTSprite>().position = bulletpos;
-		leftbullet.GetComponent<OTSprite>().position = bulletpos;
-		rightbullet.GetComponent<OTSprite>().position = bulletpos;
+		centerbullet.GetComponent<OTSprite>().position = playerpos;
+		leftbullet.GetComponent<OTSprite>().position = playerpos;
+		rightbullet.GetComponent<OTSprite>().position = playerpos;
 		
 		//centerbullet.GetComponent<RotationBullet>().damage *=.5f;
 		leftbullet.GetComponent<RotationBullet>().damage *=.5f;
