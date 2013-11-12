@@ -65,8 +65,8 @@ public class PlayerWeapon : MonoBehaviour {
 	}//end update
 	
 	Vector2 playerpos;
-	int quadr = 0;
-	float deg = 0;
+	int quadr = 0;//the quadrant that has been aimed
+	float deg = 0;//the degrees in that quadrant
 	void getAim()
 	{
 		playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
