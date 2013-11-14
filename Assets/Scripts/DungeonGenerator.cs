@@ -1959,6 +1959,7 @@ public class DungeonGenerator : MonoBehaviour {
 	
 	void selectStartpoint()
 	{
+		int chance = 5;
 		bool selected=false;
 		if(isWider())
 		{
@@ -1969,11 +1970,15 @@ public class DungeonGenerator : MonoBehaviour {
 				{
 					if(floor[i,j] != 0 && floor[i,j]!=-20)
 					{
-						if(Random.Range (0,5)==0)//20% chance
+						if(Random.Range (0,chance)==0)//20% chance initially, better chance for each fail check
 						{
 							floor[i,j] = -10;//start point is signified by -10
 							selected=true;
 							break;
+						}
+						else
+						{
+							chance--;
 						}
 					}
 				}
@@ -1992,11 +1997,15 @@ public class DungeonGenerator : MonoBehaviour {
 				{
 					if(floor[i,j] != 0 && floor[i,j]!=-20)
 					{
-						if(Random.Range(0,5)==0)
+						if(Random.Range(0,chance)==0)
 						{
 							floor[i,j]=-10;
 							selected=true;
 							break;
+						}
+						else
+						{
+							chance--;
 						}
 						
 					}
@@ -2017,6 +2026,7 @@ public class DungeonGenerator : MonoBehaviour {
 	
 	void selectEndpoint()
 	{
+		int chance = 5;
 		bool selected = false;
 		if(isWider())
 		{
@@ -2027,11 +2037,15 @@ public class DungeonGenerator : MonoBehaviour {
 				{
 					if(floor[i,j] != 0 && floor[i,j]!=-10)
 					{
-						if(Random.Range(0,5)==0)
+						if(Random.Range(0,chance)==0)
 						{
 							floor[i,j]=-20;
 							selected=true;
 							break;
+						}
+						else
+						{
+							chance--;
 						}
 					}
 				}
@@ -2052,11 +2066,15 @@ public class DungeonGenerator : MonoBehaviour {
 					
 					if(floor[i,j] != 0 && floor[i,j]!=-10)
 					{	
-						if(Random.Range(0,5)==0)
+						if(Random.Range(0,chance)==0)
 						{
 							floor[i,j]=-20;
 							selected=true;
 							break;
+						}
+						else
+						{
+							chance--;
 						}
 					}
 				}

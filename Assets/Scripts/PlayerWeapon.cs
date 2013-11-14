@@ -89,6 +89,15 @@ public class PlayerWeapon : MonoBehaviour {
 		{quadr = 0;}
 	}//end getAim
 	
+	public int getQuadr()
+	{
+		return quadr;
+	}
+	
+	public float getDeg()
+	{
+		return deg;
+	}
 	
 	IEnumerator Shoot(GameObject bullet)
 	{
