@@ -1,62 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerGun : MonoBehaviour {
-	
+public class PlayerGunPivot : MonoBehaviour {
+
 	int quadr = 0;
 	float deg = 0;
 	float rotation = 0;
-	bool shooting = false;
-	float rateoffire = 0.1f;
 	Vector2 gunpos;
-	
-	public int gunid;
-	public bool isActive;
-	public GameObject bullet;
 
 	// Use this for initialization
 	void Start () {
-		shooting = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		
-		gunpos = new Vector2(gameObject.transform.position.x,gameObject.transform.position.y);
-		
-		if(gunid==0)
-		{
-			Debug.Log("gunid not assigned!");
-		}
-		
-		if(PlayerWeapon.numofguns>=gunid)
-		{
-			isActive=true;
-		}
-		else
-		{
-			isActive=false;
-		}
-		
-		if(isActive)
-		{
-			gameObject.GetComponent<MeshRenderer>().enabled = true;
-			quadr = PlayerWeapon.quadr;
-			deg = PlayerWeapon.deg;
-		
-			getRotation();
-		
-			gameObject.GetComponent<OTSprite>().rotation+=3;
-		
-			if(xa.isShoot && !shooting)
-			{
-			StartCoroutine (shoot(bullet));
-			}
-		}
-		else
-		{
-			gameObject.GetComponent<MeshRenderer>().enabled = false;
-		}
+		quadr = PlayerWeapon.quadr;
+		deg =  PlayerWeapon.deg;
+	
+		getRotation();
+	
+		gameObject.GetComponent<OTSprite>().rotation = rotation;
 	}
 	
 	void getRotation()
@@ -157,21 +122,4 @@ public class PlayerGun : MonoBehaviour {
 			}
 		}
 	}//end changeRotation
-	
-	IEnumerator shoot(GameObject bullet)
-	{
-		shooting = true;
-		xa.sc.bulletIncrease();
-		
-		GameObject newbullet = (GameObject)Instantiate(bullet);
-		Destroy (newbullet,5);//destroys the newly created object in 3 seconds
-		
-		newbullet.GetComponent<OTSprite>().position = gunpos;
-
-		newbullet.GetComponent<RotationBullet>().rotation = rotation;
-		
-		yield return new WaitForSeconds(rateoffire);
-		
-		shooting = false;
-	}//end shoot()
 }

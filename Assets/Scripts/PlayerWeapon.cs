@@ -10,6 +10,9 @@ public class PlayerWeapon : MonoBehaviour {
 	public GameObject multibullet;
 	public GameObject rotatingmultibullet;
 	
+	//public GameObject gun;//bulletspawner object
+	public static int numofguns = 0;
+	
 	// Use this for initialization
 	void Start () {
 		shooting = false;
@@ -24,40 +27,32 @@ public class PlayerWeapon : MonoBehaviour {
 		//shooting
 		if(xa.isShoot && !shooting)
 		{	
-			if(xa.experiencepoints>=1200)
+			if(xa.experiencepoints>=2000)
 			{
-				if(xa.isShift)
-				{
-					StartCoroutine (spreadShot2(rotatingmultibullet));
-				}
-				else
-				{
-					StartCoroutine (spreadShot(multibullet));
-				}
+				numofguns=5;
+			}
+			else if(xa.experiencepoints>=1500)
+			{
+				numofguns=4;
+			}
+			else if(xa.experiencepoints>=1000)
+			{
+				numofguns=3;
 			}
 			else if(xa.experiencepoints>=500)
 			{
-				if(xa.isShift)
-				{
-					StartCoroutine (Shoot2(rotatingmultibullet));
-					//StartCoroutine (Shoot2(playerpos, rotatingbullet));
-					//StartCoroutine (Shoot2(new Vector2(playerpos.x,playerpos.y-1), rotatingbullet));
-					//StartCoroutine (Shoot2(new Vector2(playerpos.x,playerpos.y+1), rotatingbullet));
-				}
-				else
-				{
-					StartCoroutine (Shoot(multibullet));
-				}
+				numofguns=2;
 			}
 			else
 			{
+				numofguns=1;
 				if(xa.isShift)
 				{
-					StartCoroutine (Shoot2 (rotatingbullet));
+					//StartCoroutine (Shoot2 (rotatingbullet));
 				}
 				else
 				{
-					StartCoroutine (Shoot (bullet));
+					//StartCoroutine (Shoot (bullet));
 				}
 			}
 		}
@@ -65,8 +60,8 @@ public class PlayerWeapon : MonoBehaviour {
 	}//end update
 	
 	Vector2 playerpos;
-	int quadr = 0;//the quadrant that has been aimed
-	float deg = 0;//the degrees in that quadrant
+	public static int quadr = 0;//the quadrant that has been aimed
+	public static float deg = 0;//the degrees in that quadrant
 	void getAim()
 	{
 		playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
