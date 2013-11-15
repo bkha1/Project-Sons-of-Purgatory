@@ -29,13 +29,34 @@ public class PlayerGun : MonoBehaviour {
 			Debug.Log("gunid not assigned!");
 		}
 		
-		if(PlayerWeapon.numofguns>=gunid)
+		isActive=false;
+		
+		if(PlayerWeapon.numofguns==1)
 		{
-			isActive=true;
+			if(gunid==3)
+				isActive=true;
 		}
-		else
+		else if(PlayerWeapon.numofguns==2)
 		{
-			isActive=false;
+			if(gunid==2)
+				isActive=true;
+			if(gunid==4)
+				isActive=true;
+		}
+		else if(PlayerWeapon.numofguns==3)
+		{
+			if(gunid==2 || gunid==3 || gunid==4)
+				isActive=true;
+		}
+		else if(PlayerWeapon.numofguns==4)
+		{
+			if(gunid==1 || gunid==5 || gunid==7 || gunid==9)
+				isActive=true;
+		}
+		else if(PlayerWeapon.numofguns==5)
+		{
+			if(gunid==1 || gunid==5 || gunid==7 || gunid==9 || gunid==3)
+				isActive=true;
 		}
 		
 		if(isActive)

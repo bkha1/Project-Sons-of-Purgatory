@@ -25,8 +25,8 @@ public class PlayerWeapon : MonoBehaviour {
 		getAim();
 		
 		//shooting
-		if(xa.isShoot && !shooting)
-		{	
+		//if(xa.isShoot && !shooting)
+		//{	
 			if(xa.experiencepoints>=2000)
 			{
 				numofguns=5;
@@ -55,7 +55,7 @@ public class PlayerWeapon : MonoBehaviour {
 					//StartCoroutine (Shoot (bullet));
 				}
 			}
-		}
+		//}
 	
 	}//end update
 	
