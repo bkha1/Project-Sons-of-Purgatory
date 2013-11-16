@@ -293,8 +293,8 @@ public class xa : MonoBehaviour {
 		else if(Input.GetKeyUp(KeyCode.S))
 		{ isDown = false; }*/
 		
-		if(Input.GetMouseButton(1))
-		{ isShift = true;}
+		/*if(Input.GetMouseButton(1))
+		{ isShift = true;}*/
 		
 		if(isLeft && isUp)
 		{ isUpLeft = true; }
@@ -328,6 +328,9 @@ public class xa : MonoBehaviour {
 		}*/
 		if(Input.GetMouseButton(0))
 		{isShoot=true;}
+		
+		if(Input.GetMouseButton(1))
+		{ isShift = true;}
 		
 		if(Input.GetKey(KeyCode.K))
 		{

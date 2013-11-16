@@ -106,6 +106,7 @@ public class Player : MonoBehaviour {
 			}
 		}
 		
+		
 		/*
 		// move left
 		if(xa.isLeft && !xa.blockedLeft && !xa.shooting) 
@@ -153,14 +154,49 @@ public class Player : MonoBehaviour {
 		}
 		*/
 		
-		//shooting
-		/*if(xa.isShoot && !xa.shooting)
-		{
-			StartCoroutine (Shoot ());
-		}*/
-
 		UpdateMovement();
+		
+		checkJustDefense();
 	}
+	
+	//JUST DEFENSE TEST VARIABLES
+	int justdefcooldown = 0;
+	bool justdef = false;
+	
+	void checkJustDefense()
+	{
+		if(xa.isShift && xa.isShoot)
+		{
+			if(justdefcooldown==0)
+			{
+				justdefcooldown = 25;
+			}
+			else if(justdefcooldown<=20)//so that the player cant just hold the buttons and hope it hits during the correct window
+			{
+				justdefcooldown=20;
+			}
+		}
+		
+		if(justdefcooldown>0)
+		{
+			if(justdefcooldown>20)//THIS GOVERNS THE JUST DEFENSE WINDOW = 25 - THIS NUMBER
+			{
+				justdef = true;
+			}
+			else
+			{
+				justdef = false;
+			}
+			
+			justdefcooldown--;
+			//Debug.Log("JD NOT READY");
+		}
+		else
+		{
+			//Debug.Log("JD READY");
+		}
+	}//end checkJustDefense
+
 	
 	void UpdateMovement() 
 	{
@@ -655,10 +691,15 @@ public class Player : MonoBehaviour {
 	
 	public void killPlayer()
 	{
-		//gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
-		
-		if(dead == false)
+		if(justdef)
 		{
+			Debug.Log("JUST DEFENSE");
+			dead = true;
+			StartCoroutine(triggerTempInvincibility(3));
+		}
+		else if(dead == false)
+		{
+			Debug.Log("JUST DEFENSE FAILED");
 			dead = true;
 			//TODO: play a dying animation?
 			//TODO: let xa.cs know that player has died, deduct a life and respawn
