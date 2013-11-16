@@ -161,6 +161,7 @@ public class Player : MonoBehaviour {
 	
 	//JUST DEFENSE TEST VARIABLES
 	int justdefcooldown = 0;
+	int justdefshiftcooldown = 0;
 	bool justdef = false;
 	
 	void checkJustDefense()
@@ -169,7 +170,7 @@ public class Player : MonoBehaviour {
 		{
 			if(justdefcooldown==0)
 			{
-				justdefcooldown = 25;
+				justdefcooldown = 25;//governs the window; has to be over 20; number - 20 = frame window
 			}
 			else if(justdefcooldown<=20)//so that the player cant just hold the buttons and hope it hits during the correct window
 			{
@@ -177,9 +178,21 @@ public class Player : MonoBehaviour {
 			}
 		}
 		
-		if(justdefcooldown>0)
+		if(xa.isShift)
 		{
-			if(justdefcooldown>20)//THIS GOVERNS THE JUST DEFENSE WINDOW = 25 - THIS NUMBER
+			if(justdefshiftcooldown==0)
+			{
+				justdefshiftcooldown = 25;
+			}
+			else if(justdefshiftcooldown<=20)
+			{
+				justdefshiftcooldown = 20;
+			}
+		}
+		
+		if(justdefcooldown>0 || justdefshiftcooldown>0)
+		{
+			if(justdefcooldown>20 || justdefshiftcooldown>20)
 			{
 				justdef = true;
 			}
@@ -188,15 +201,12 @@ public class Player : MonoBehaviour {
 				justdef = false;
 			}
 			
-			justdefcooldown--;
-			//Debug.Log("JD NOT READY");
-		}
-		else
-		{
-			//Debug.Log("JD READY");
+			if(justdefcooldown>0)
+				justdefcooldown--;
+			if(justdefshiftcooldown>0)
+				justdefshiftcooldown--;
 		}
 	}//end checkJustDefense
-
 	
 	void UpdateMovement() 
 	{

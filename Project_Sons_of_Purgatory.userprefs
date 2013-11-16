@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets\Scripts\xa.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PlayerWeapon.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="165" Column="2" />
+      <File FileName="Assets\Scripts\Player.cs" Line="209" Column="25" />
       <File FileName="Assets\Scripts\EnemySkullAI.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EnemyPlantAI.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RotationBullet.cs" Line="1" Column="1" />
