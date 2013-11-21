@@ -28,6 +28,7 @@ public class EnemyProperties : MonoBehaviour {
 	{
 		if(health<0 && !dead)
 		{
+			//StartCoroutine(hitPause());
 			int a = (int)triscuitsdropped/4;
 			if(Random.Range(0,2)==0)
 			{
@@ -68,4 +69,14 @@ public class EnemyProperties : MonoBehaviour {
 			hurt = true;
 		}
 	}
+	
+	IEnumerator hitPause()
+	{
+		Time.timeScale = 0;
+		for(int i=0;i<5;i++)
+		{
+			yield return null;
+		}
+		Time.timeScale = 1;
+	}//end hitPause()
 }

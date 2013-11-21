@@ -8,7 +8,16 @@ public class EnemyPlantAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		gameObject.GetComponent<EnemyProperties>().health = 2000;
+		if(gameObject.GetComponent<EnemyProperties>().frenzy==true)
+		{
+			gameObject.GetComponent<EnemyProperties>().health = 3000;
+			attackintervals = .2f;
+		}
+		else
+		{
+			gameObject.GetComponent<EnemyProperties>().health = 2000;
+			attackintervals = .4f;
+		}
 	
 	}
 	
@@ -36,9 +45,10 @@ public class EnemyPlantAI : MonoBehaviour {
 	
 	//int startaim = Random.Range(0,360);
 	//float attackinterval = 0;
-	int attackingduration = 6;
-	int attackingtimer = 0;
+	//int attackingduration = 6;
+	//int attackingtimer = 0;
 	int startaim = Random.Range(0,360);
+	/*
 	void attacking()
 	{
 		//isattacking = true;
@@ -63,6 +73,22 @@ public class EnemyPlantAI : MonoBehaviour {
 		}
 
 	}//end attacking
+	*/
+	
+	float attackintervals = .4f;
+	bool isattacking = false;
+	IEnumerator attack()
+	{
+		isattacking = true;
+		shootAngle(startaim);
+		startaim+=12;
+		if(startaim>=360)
+		{
+			startaim = 360 - startaim;
+		}
+		yield return new WaitForSeconds(attackintervals);
+		isattacking = false;
+	}
 	
 	int waitingrand = -1;
 	int waitingduration;
@@ -79,11 +105,12 @@ public class EnemyPlantAI : MonoBehaviour {
 		
 		if(waitingrand<2)
 		{
-			//if(!isattacking)
-			//{
-				//StartCoroutine(attacking());
-				attacking();
-			//}
+			if(!isattacking)
+			{
+				StartCoroutine(attack());
+			}
+				//attacking();
+			
 		}
 		
 		waitingtimer+=Time.deltaTime;

@@ -81,6 +81,8 @@ public class xa : MonoBehaviour {
 	public static int powerlevel = 1;//the level in the powerupbank
 	public static int experiencepoints = 0;
 	
+	public bool paused = false;
+	
 	public void Awake()
 	{
 		playerroomsidedecider = (PlayerRoomSideDecider)(this.gameObject.GetComponent("PlayerRoomSideDecider"));
@@ -336,6 +338,22 @@ public class xa : MonoBehaviour {
 		{
 			Debug.Log("manual door override activated");
 			visitgrid[currentposi,currentposj] = 1;
+		}
+		
+		if(Input.GetKeyDown(KeyCode.P))
+		{
+			
+			if(!paused)
+			{
+				paused = true;
+				Time.timeScale=0;
+			}
+			else
+			{
+				paused = false;
+				Time.timeScale=1;
+			}
+			
 		}
 		
 		/*

@@ -178,23 +178,29 @@ public class Player : MonoBehaviour {
 			}
 		}
 		
+		//simply hitting shift will also do a just defense check, this one has a quicker cooldown; maybe make the window smaller and award players with energy
 		if(xa.isShift)
 		{
 			if(justdefshiftcooldown==0)
 			{
-				justdefshiftcooldown = 25;
+				justdefshiftcooldown = 13;//smaller window
 			}
-			else if(justdefshiftcooldown<=20)
+			else if(justdefshiftcooldown<=10)
 			{
-				justdefshiftcooldown = 20;
+				justdefshiftcooldown = 10;
 			}
 		}
 		
 		if(justdefcooldown>0 || justdefshiftcooldown>0)
 		{
-			if(justdefcooldown>20 || justdefshiftcooldown>20)
+			if(justdefcooldown>20 || justdefshiftcooldown>10)
 			{
 				justdef = true;
+				
+				if(justdefshiftcooldown==11)
+				{
+					//BETTER REWARD FOR TIGHTER TIMING
+				}
 			}
 			else
 			{
@@ -704,15 +710,20 @@ public class Player : MonoBehaviour {
 		if(justdef)
 		{
 			Debug.Log("JUST DEFENSE");
-			dead = true;
+			//dead = true;
+			//gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.yellow;
+			StartCoroutine(hitPause());
+			
+			//gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.white;
 			StartCoroutine(triggerTempInvincibility(3));
 		}
 		else if(dead == false)
 		{
-			Debug.Log("JUST DEFENSE FAILED");
-			dead = true;
+			//Debug.Log("JUST DEFENSE FAILED");
+			//dead = true;
 			//TODO: play a dying animation?
 			//TODO: let xa.cs know that player has died, deduct a life and respawn
+
 			respawnPlayer();
 			//play respawn animations?
 			StartCoroutine(triggerTempInvincibility(3));
@@ -752,13 +763,23 @@ public class Player : MonoBehaviour {
 	private bool blinking = false;
 	IEnumerator triggerTempInvincibility(float seconds)
 	{	
+		dead = true;
 		blinking = true;
 		yield return new WaitForSeconds(seconds);
 		dead = false;
 		gameObject.GetComponent<MeshRenderer>().enabled = true;
 		blinking = false;
-		//Debug.Log("REVIVED!");	
 	}//end triggerTempInvincibility
+	
+	IEnumerator hitPause()
+	{
+		Time.timeScale = 0;
+		for(int i=0;i<10;i++)
+		{
+			yield return null;
+		}
+		Time.timeScale = 1;
+	}//end hitPause()
 	
 	float blinktimer = 0;
 	void blinkCheck()
