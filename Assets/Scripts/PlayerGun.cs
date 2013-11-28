@@ -9,6 +9,7 @@ public class PlayerGun : MonoBehaviour {
 	bool shooting = false;
 	float rateoffire = 0.1f;
 	Vector2 gunpos;
+	float rotateby;
 	
 	public int gunid;
 	public bool isActive;
@@ -66,12 +67,14 @@ public class PlayerGun : MonoBehaviour {
 			deg = PlayerWeapon.deg;
 		
 			getRotation();
+			
+			rotateby = Time.deltaTime * 250;
+			gameObject.GetComponent<OTSprite>().rotation+= rotateby;
 		
-			gameObject.GetComponent<OTSprite>().rotation+=3;
-		
-			if(xa.isShoot && !shooting)
+			if(xa.isShoot && !shooting && !xa.gamepaused)
 			{
-			StartCoroutine (shoot(bullet));
+				//StartCoroutine (shoot(bullet));
+				StartCoroutine (spreadShot(bullet));
 			}
 		}
 		else
@@ -195,4 +198,28 @@ public class PlayerGun : MonoBehaviour {
 		
 		shooting = false;
 	}//end shoot()
+	
+	IEnumerator spreadShot(GameObject bullet)
+	{
+		shooting = true;
+		xa.sc.bulletIncrease();
+		xa.sc.bulletIncrease();
+		xa.sc.bulletIncrease();
+		
+		GameObject newbullet1 = (GameObject)Instantiate (bullet);
+		GameObject newbullet2 = (GameObject)Instantiate (bullet);
+		GameObject newbullet3 = (GameObject)Instantiate (bullet);
+		Destroy (newbullet1,5);
+		Destroy (newbullet2,5);
+		Destroy (newbullet3,5);
+		newbullet1.GetComponent<OTSprite>().position = gunpos;
+		newbullet2.GetComponent<OTSprite>().position = gunpos;
+		newbullet3.GetComponent<OTSprite>().position = gunpos;
+		newbullet1.GetComponent<RotationBullet>().rotation = rotation + 22.5f;
+		newbullet2.GetComponent<RotationBullet>().rotation = rotation;
+		newbullet3.GetComponent<RotationBullet>().rotation = rotation - 22.5f;
+			
+		yield return new WaitForSeconds(rateoffire);
+		shooting = false;
+	}//end spreadShot
 }

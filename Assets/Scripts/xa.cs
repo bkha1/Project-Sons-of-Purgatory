@@ -81,7 +81,7 @@ public class xa : MonoBehaviour {
 	public static int powerlevel = 1;//the level in the powerupbank
 	public static int experiencepoints = 0;
 	
-	public bool paused = false;
+	public static bool gamepaused = false;//governs the game being paused or not
 	
 	public void Awake()
 	{
@@ -343,14 +343,14 @@ public class xa : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.P))
 		{
 			
-			if(!paused)
+			if(!gamepaused)
 			{
-				paused = true;
+				gamepaused = true;
 				Time.timeScale=0;
 			}
 			else
 			{
-				paused = false;
+				gamepaused = false;
 				Time.timeScale=1;
 			}
 			

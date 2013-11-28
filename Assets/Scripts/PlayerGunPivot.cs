@@ -19,9 +19,12 @@ public class PlayerGunPivot : MonoBehaviour {
 		quadr = PlayerWeapon.quadr;
 		deg =  PlayerWeapon.deg;
 	
-		getRotation();
+		if(xa.gamepaused==false)
+		{
+			getRotation();
 	
-		gameObject.GetComponent<OTSprite>().rotation = rotation;
+			gameObject.GetComponent<OTSprite>().rotation = rotation;
+		}
 	}
 	
 	void getRotation()

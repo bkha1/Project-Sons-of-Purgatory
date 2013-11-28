@@ -17,6 +17,8 @@ public class PlayerAnims : MonoBehaviour {
 	
 	void Update() 
 	{
+		if(!xa.gamepaused)
+		{
 		//go left
 		if(xa.isLeft && currentAnim != xa.anim.WalkLeft && !xa.isUpLeft && !xa.isDownLeft)
 		{	
@@ -120,7 +122,7 @@ public class PlayerAnims : MonoBehaviour {
 			currentAnim = xa.anim.StandDownRight;
 			mySprite.ShowFrame(1);
 		}
-		
+	}
 		/*
 		// run left
 		if(xa.isLeft && !xa.onRope && !xa.onLadder && !xa.falling && currentAnim != xa.anim.WalkLeft)

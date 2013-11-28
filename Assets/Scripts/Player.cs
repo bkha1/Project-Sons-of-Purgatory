@@ -219,26 +219,6 @@ public class Player : MonoBehaviour {
 		movement = new Vector3(moveDirX, moveDirY,0f);
 		movement *= Time.deltaTime*moveSpeed;
 		GetComponent<OTSprite>().position+=(Vector2)movement;
-		
-		/*
-		// player is not falling so move normally
-		//if(!xa.falling || xa.onLadder) 
-		//{
-			movement = new Vector3(moveDirX, moveDirY,0f);
-			movement *= Time.deltaTime*moveSpeed;
-			//thisTransform.Translate(movement.x,movement.y, 0f); //doesnt work
-		GetComponent<OTSprite>().position+=(Vector2)movement;
-		
-		//}*/
-		/*
-		// player is falling so apply gravity
-		else 
-		{
-			movement = new Vector3(0f,-1f,0f);
-			movement *= Time.deltaTime*moveSpeed;
-			thisTransform.Translate(0f,movement.y, 0f);
-		}
-		*/
 	}
 	
 	/* ============================== RAYCASTS ============================== */
@@ -253,27 +233,6 @@ public class Player : MonoBehaviour {
 		
 		shotBlockedLeft = false;
 		shotBlockedRight = false;
-		
-		// is the player is standing on the ground?
-		// cast 2 rays, one on each side of the character
-		/*if (Physics.Raycast(new Vector3(thisTransform.position.x-0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.7f, groundMask) || Physics.Raycast(new Vector3(thisTransform.position.x+0.3f,thisTransform.position.y,thisTransform.position.z+1f), -Vector3.up, out hit, 0.7f, groundMask))
-		{	
-			xa.falling = false;
-			
-			// snap the player to the top of a ground tile if she's not on a ladder
-			if(!xa.onLadder)
-			{
-				thisTransform.position = new Vector3(thisTransform.position.x, hit.point.y + xa.playerHitboxY, 0f);
-			}
-		}
-		
-		// then maybe she's falling
-		else
-		{
-			if(!xa.onRope && !xa.falling && !xa.onLadder) {
-				xa.falling = true;
-			}
-		}*/
 		
 		// player is blocked by something on the right
 		// cast out 2 rays, one from the head and one from the feet

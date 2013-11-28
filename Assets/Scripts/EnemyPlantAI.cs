@@ -30,7 +30,6 @@ public class EnemyPlantAI : MonoBehaviour {
 		{	
 			waiting ();
 			
-			
 			if(gameObject.GetComponent<EnemyProperties>().hurt)
 			{
 				StartCoroutine(hitFlash());
