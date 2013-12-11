@@ -235,6 +235,7 @@
     <Compile Include="Assets\Scripts\PlayerHitbox.cs" />
     <Compile Include="Assets\Scripts\PlayerRoomSideDecider.cs" />
     <Compile Include="Assets\Scripts\PlayerWeapon.cs" />
+    <Compile Include="Assets\Scripts\PowerUpManager.cs" />
     <Compile Include="Assets\Scripts\RoomName.cs" />
     <Compile Include="Assets\Scripts\RoomState.cs" />
     <Compile Include="Assets\Scripts\RotationBullet.cs" />
