@@ -227,6 +227,7 @@
     <Compile Include="Assets\Scripts\EnemyRand.cs" />
     <Compile Include="Assets\Scripts\EnemySkullAI.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\EnergyBlock.cs" />
     <Compile Include="Assets\Scripts\KillCount.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerAnims.cs" />

@@ -7,7 +7,7 @@ public class EnemyPlantAI : MonoBehaviour {
 	private bool dead = false;
 	// Use this for initialization
 	void Start () {
-		
+		startaim = Random.Range(0,360);
 		if(gameObject.GetComponent<EnemyProperties>().frenzy==true)
 		{
 			gameObject.GetComponent<EnemyProperties>().health = 3000;
@@ -46,7 +46,7 @@ public class EnemyPlantAI : MonoBehaviour {
 	//float attackinterval = 0;
 	//int attackingduration = 6;
 	//int attackingtimer = 0;
-	int startaim = Random.Range(0,360);
+	//int startaim = Random.Range(0,360);
 	/*
 	void attacking()
 	{
@@ -73,7 +73,7 @@ public class EnemyPlantAI : MonoBehaviour {
 
 	}//end attacking
 	*/
-	
+	int startaim = 0; //= Random.Range(0,360);
 	float attackintervals = .4f;
 	bool isattacking = false;
 	IEnumerator attack()
