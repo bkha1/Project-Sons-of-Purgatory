@@ -27,19 +27,19 @@ public class PlayerWeapon : MonoBehaviour {
 		//shooting
 		//if(xa.isShoot && !shooting)
 		//{	
-			if(xa.experiencepoints>=2000)
+			if(PowerUpManager.blocksfilled>=4)//xa.experiencepoints>=2000)
 			{
 				numofguns=5;
 			}
-			else if(xa.experiencepoints>=1500)
+			else if(PowerUpManager.blocksfilled>=3)//xa.experiencepoints>=1500)
 			{
 				numofguns=4;
 			}
-			else if(xa.experiencepoints>=1000)
+			else if(PowerUpManager.blocksfilled>=2)//xa.experiencepoints>=1000)
 			{
 				numofguns=3;
 			}
-			else if(xa.experiencepoints>=500)
+			else if(PowerUpManager.blocksfilled>=1)//xa.experiencepoints>=500)
 			{
 				numofguns=2;
 			}

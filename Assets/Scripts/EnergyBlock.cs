@@ -11,21 +11,28 @@ public class EnergyBlock : MonoBehaviour {
 	}
 
 	Color texturecolor;
-	int blocklevel;
+	//int blocklevel;
 
 	// Update is called once per frame
 	void Update () {
 
-		blocklevel = xa.experiencepoints/500;
+		//blocklevel = xa.experiencepoints/500;
 
 		texturecolor = guiTexture.color;
-		if(blocklevel>=blockid)
+		if(PowerUpManager.numofblocks>=blockid)
 		{
-			texturecolor.a = .5f;//.5 is the max alpha
-		}
-		else if(blocklevel+1==blockid)
-		{
-			texturecolor.a = (xa.experiencepoints - blocklevel*500)*.001f;
+			if(PowerUpManager.blocksfilled>=blockid)
+			{
+				texturecolor.a = .5f;//.5 is the max alpha
+			}
+			else if(PowerUpManager.blocksfilled+1==blockid)
+			{
+				texturecolor.a = (PowerUpManager.meterfilled - PowerUpManager.blocksfilled*500)*.001f;
+			}
+			else
+			{
+				texturecolor.a = 0f;
+			}
 		}
 		else
 		{
