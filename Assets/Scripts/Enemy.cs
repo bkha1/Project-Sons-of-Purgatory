@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour {
 	public void killEnemy()
 	{
 		//KillCount.killIncrease();
-		xa.sc.killIncrease();
+		//xa.sc.killIncrease();
 		
 		gameObject.GetComponent<OTAnimatingSprite>().tintColor = Color.red;
 		//gameObject.GetComponent<OTAnimatingSprite>().looping = false;

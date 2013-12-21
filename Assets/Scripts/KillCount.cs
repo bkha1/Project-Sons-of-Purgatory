@@ -3,18 +3,19 @@ using System.Collections;
 
 public class KillCount : MonoBehaviour {
 	
-	public TextMesh killValueText;
+	public TextMesh xpValueText;//killValueText;
 	public TextMesh bulletValueText;
 	public TextMesh timeValueText;
 	
-	private static int killValue = 0;
+	private static int xpValue = 0;
 	private static int bulletValue = 0;
 	private static float timeValue = 0;
+	private static int killValue = 0;
 
 	// Use this for initialization
 	void Start () {
 		
-		killValueText.text = killValue.ToString("D7");
+		xpValueText.text = xpValue.ToString("D7");
 		bulletValueText.text = bulletValue.ToString("D7");
 		//timeValueText.text = timeValue.ToString("D7");
 	
@@ -25,15 +26,15 @@ public class KillCount : MonoBehaviour {
 		//if(!xa.playerdead)
 		//{
 		timeIncrease();
-		killIncrease();
+		xpIncrease();
 		//}
 	
 	}
 	
-	public void killIncrease()
+	public void xpIncrease()
 	{
-		
-		killValueText.text = xa.experiencepoints.ToString ("D7");
+		//xpValue += xa.experiencepoints;
+		xpValueText.text = xa.experiencepoints.ToString ("D7");
 	}
 	
 	public void bulletIncrease()

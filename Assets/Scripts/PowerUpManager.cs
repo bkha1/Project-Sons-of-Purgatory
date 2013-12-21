@@ -6,13 +6,31 @@ public class PowerUpManager : MonoBehaviour {
 	public class PowerUp
 	{
 		public int size;
-		public int powerid;
+		//public int powerid;
+		public powers pow;
 
-		public PowerUp(int s, int p)
+		//enums? to see which powerup it is?
+		public enum powers
+		{
+			None,
+			ExtraGun,
+			SpreadShot
+		}
+
+		public PowerUp(int s, powers p)
 		{
 			size = s;
-			powerid = p;
+			//powerid = p;
+			pow = p;
 		}//end constructor powerup
+
+		//constructor for just specifying the power, size autodecided
+		public PowerUp(powers p)
+		{
+			pow = p;
+			size = 1;
+		}
+
 	}//end class PowerUp
 
 	public static int numofblocks = 4;//number of energy blocks in the meter
@@ -34,15 +52,32 @@ public class PowerUpManager : MonoBehaviour {
 		updateBlocksFilled();
 	}
 
-	public void addPowerUp(int size, int powerid)
+	public void addPowerUp(int size, PowerUp.powers power)//int powerid)
 	{
-		PowerUp newpower = new PowerUp(size, powerid);
+		PowerUp newpower = new PowerUp(size, power);//powerid);
 		int spaceleft = numofblocks - blocksused;
 
 		if(spaceleft >= size)
 		{
 			powermeter.Add(newpower);
 			blocksused +=size;
+		}
+		else
+		{
+			Debug.Log("NOT ENOUGH METER SPACE!");
+		}
+	}//end addPowerUp
+
+	//for second PowerUp constructor
+	public void addPowerUp(PowerUp.powers power)
+	{
+		PowerUp newpower = new PowerUp(power);
+		int spaceleft = numofblocks - blocksused;
+		
+		if(spaceleft >= 1)
+		{
+			powermeter.Add(newpower);
+			blocksused +=1;
 		}
 		else
 		{
@@ -58,14 +93,18 @@ public class PowerUpManager : MonoBehaviour {
 	int spillover = 0;
 	void updateMeterfilled()
 	{
-		meterfilled += xa.experiencepoints;
-		xa.experiencepoints = 0;
+		meterfilled = xa.experiencepoints;
+		//xa.experiencepoints = 0;
 
 		//meterceiling check
 		if(meterfilled/500>=numofblocks)
 		{
 			spillover = meterfilled - numofblocks*500;//calculates xp spillover
 			meterfilled=numofblocks*500;//makes it so that meterfilled doesnt go over
+
+			xa.experiencepoints = meterfilled;//cap xp
+			//Debug.Log("spillover: " + spillover);
+			spillover = 0;//just in case
 		}
 		//Debug.Log(meterfilled);
 	}//end updateMeterfilled

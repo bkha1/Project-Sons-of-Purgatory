@@ -23,10 +23,7 @@ public class PlayerWeapon : MonoBehaviour {
 		
 		//playerpos = new Vector2(GetComponent<OTSprite>().position.x,GetComponent<OTSprite>().position.y);
 		getAim();
-		
-		//shooting
-		//if(xa.isShoot && !shooting)
-		//{	
+
 			if(PowerUpManager.blocksfilled>=4)//xa.experiencepoints>=2000)
 			{
 				numofguns=5;
@@ -55,7 +52,6 @@ public class PlayerWeapon : MonoBehaviour {
 					//StartCoroutine (Shoot (bullet));
 				}
 			}
-		//}
 	
 	}//end update
 	
